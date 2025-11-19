@@ -1,26 +1,42 @@
 import logging
+from collections.abc import Sequence
 from dataclasses import dataclass, field
-from typing import Any, ClassVar, Dict, List, Optional, Sequence
+from numbers import Real
+from typing import Any, ClassVar, Dict, List, Optional
 
 import numpy as np
 
 logger = logging.getLogger(__name__)
 
 
+# =============================================================
+# QASM Emitter Options
+# =============================================================
+
+
 @dataclass(frozen=True)
 class QasmEmitterOptions:
     """
-    Configuration options for building a QASM circuit emitter.
+    Configuration options that control how a :class:`QasmEmitter` translates
+    a :class:`QuantumCircuit` into OpenQASM source.
 
     Attributes:
-        format (str): QASM version to use. Expected values: "qasm2" or "qasm3".
-        target_sdk (Optional[str]): Target quantum SDK to match gate names for.
-            Valid values include "qiskit", "braket", "tket", or "custom". If None,
-            the emitter uses "default" mappings for the selected format.
-        includes (Optional[Sequence[str]]): Optional list of external include‐file paths.
-        float_precision (int): Number of decimal places used when formatting floats.
-        custom_template (Optional[Dict[str, Any]]): Optional user-defined gate alias overrides.
-        map (Dict[str, str]): Effective gate-name → alias mapping resolved at init-time.
+        format: OpenQASM version to target. Supported values are
+            ``"qasm2"`` and ``"qasm3"``.
+        target_sdk: Optional SDK dialect for gate aliases. If provided,
+            it adjusts emitted gate names to match that SDK. Supported
+            values: ``"qiskit"``, ``"braket"``, ``"tket"``, or ``"custom"``.
+            ``None`` means use the format's default aliasing.
+        includes: Optional include file(s). May be a single string path or a
+            sequence of paths. If ``target_sdk`` is one of the known SDKs,
+            this is automatically populated with sensible defaults for the
+            selected ``format``.
+        float_precision: Number of decimal places when formatting floating
+            parameters in QASM output.
+        custom_template: Optional mapping of *internal gate names* to the
+            desired *QASM names* that overrides the selected format/SDK
+            template.
+        map: (Computed) Effective internal-gate → QASM-gate alias mapping.
     """
 
     format: str = "qasm2"
@@ -41,6 +57,7 @@ class QasmEmitterOptions:
                 "z": "z",
                 "h": "h",
                 "s": "s",
+                "sdg": "sdg",
                 "t": "t",
                 "u": "u3",
                 "cx": "cx",
@@ -58,6 +75,7 @@ class QasmEmitterOptions:
                 "z": "z",
                 "h": "h",
                 "s": "s",
+                "sdg": "sdg",
                 "t": "t",
                 "u": "u3",
                 "cx": "cx",
@@ -75,6 +93,7 @@ class QasmEmitterOptions:
                 "z": "z",
                 "h": "h",
                 "s": "s",
+                "sdg": "sdg",
                 "t": "t",
                 "p": "p",
                 "u": "u3",
@@ -95,6 +114,7 @@ class QasmEmitterOptions:
                 "z": "z",
                 "h": "h",
                 "s": "s",
+                "sdg": "sdg",
                 "t": "t",
                 "p": "p",
                 "u": "u",
@@ -114,6 +134,7 @@ class QasmEmitterOptions:
                 "z": "z",
                 "h": "h",
                 "s": "s",
+                "sdg": "sdg",
                 "t": "t",
                 "p": "p",
                 "u": "u3",
@@ -133,6 +154,7 @@ class QasmEmitterOptions:
                 "z": "z",
                 "h": "h",
                 "s": "s",
+                "sdg": "si",
                 "t": "t",
                 "u": "U",
                 "cx": "cnot",
@@ -156,13 +178,13 @@ class QasmEmitterOptions:
         },
         "qasm3": {
             "default": ["stdgates.inc"],
-            "qiskit": ["stdgates.inc"],  # if Qiskit uses different include for qasm3
+            "qiskit": ["stdgates.inc"],
             "braket": [],
         },
     }
 
-    def __post_init__(self):
-        """Perform validation and resolve effective mapping and includes."""
+    def __post_init__(self) -> None:
+        """Validate inputs and resolve effective alias mapping and includes."""
         if self.float_precision < 0:
             raise ValueError("float_precision must be non-negative")
 
@@ -183,12 +205,14 @@ class QasmEmitterOptions:
             format_lower, sdk_input if sdk_input != "custom" else "default"
         )
 
+        # Auto-fill includes for known SDKs
         if sdk_input in self._TARGET_SDK:
             default_includes = self._DEFAULT_INCLUDES[format_lower].get(
                 sdk_input, self._DEFAULT_INCLUDES[format_lower]["default"]
             )
             object.__setattr__(self, "includes", tuple(default_includes))
 
+        # Normalize includes type/values
         includes_input = self.includes
         if includes_input is None:
             normalized_includes = None
@@ -199,9 +223,7 @@ class QasmEmitterOptions:
                 try:
                     normalized_includes = list(includes_input)
                 except TypeError:
-                    raise ValueError(
-                        f"includes must be a string or sequence of strings, got {type(includes_input).__name__}"
-                    )
+                    raise ValueError("includes must be a string or sequence of strings")
                 for idx, inc in enumerate(normalized_includes):
                     if not isinstance(inc, str):
                         raise ValueError(
@@ -219,14 +241,16 @@ class QasmEmitterOptions:
         self, format_lower: str, sdk_choice: str
     ) -> Dict[str, str]:
         """
-        Resolve default → sdk → custom_template into a single alias map.
+        Merge the default alias map for ``format_lower``, the SDK-specific map,
+        and any user-provided ``custom_template`` into a single mapping.
 
         Args:
-            format_lower (str): Lower-case QASM format (e.g., "qasm2" or "qasm3").
-            sdk_choice (str): Selected SDK key after normalization ("default", "qiskit", etc).
+            format_lower: Lower-case QASM format (``"qasm2"`` or ``"qasm3"``).
+            sdk_choice: Selected SDK key after normalization (e.g., ``"default"``,
+                ``"qiskit"``).
 
         Returns:
-            Dict[str, str]: Mapping from internal gate names to QASM names.
+            A mapping from internal gate names to QASM gate names.
         """
         all_for_format = self._GATE_NAME_MAP_TEMPLATES.get(format_lower, {})
         default_map = all_for_format.get("default", {})
@@ -239,7 +263,9 @@ class QasmEmitterOptions:
             for name in self.custom_template:
                 if name not in default_map:
                     logger.warning(
-                        f"Custom gate '{name}' is new (not in the default list) for format '{format_lower}'."
+                        "Custom gate '%s' is new (not in the default list) for format '%s'.",
+                        name,
+                        format_lower,
                     )
             merged_map.update(self.custom_template)  # type: ignore[arg-type]
 
@@ -247,27 +273,29 @@ class QasmEmitterOptions:
 
     def get_qasm_name(self, internal_name: str) -> str:
         """
-        Retrieve the effective QASM gate name for a given internal gate name.
+        Translate an internal gate name to its QASM alias.
 
-        Args:
-            internal_name (str): The internal gate name.
-
-        Returns:
-            str: The corresponding QASM gate name. If the gate is not mapped,
-                 the internal name is returned unchanged.
+        If the gate is not present in the mapping, the original name is
+        returned unchanged.
         """
         return self.map.get(internal_name, internal_name)
+
+
+# =============================================================
+# Gate Data Structures
+# =============================================================
 
 
 @dataclass(slots=True)
 class QuantumGate:
     """
-    Basic quantum gate (data only).
+    Data container for a (possibly parameterized) quantum gate.
 
     Attributes:
-        name (str): The internal name of the gate.
-        target_qubits (Sequence[int]): The qubit(s) on which this gate acts.
-        parameters (List[float]): Optional list of parameter values.
+        name: Internal gate name (e.g., ``"x"``, ``"rz"``, ``"cx"``).
+        target_qubits: Index/indices of the qubits this gate acts on.
+        parameters: Optional numeric parameter or sequence of parameters.
+            Values are normalized to a list of ``float``.
     """
 
     name: str
@@ -275,11 +303,37 @@ class QuantumGate:
     parameters: float | Sequence[float] | None = None
 
     def __post_init__(self) -> None:
-        """Normalize target_qubits and parameters into canonical forms."""
-        if isinstance(self.target_qubits, int):
-            self.target_qubits = [self.target_qubits]
+        """Normalize ``target_qubits`` and ``parameters`` to canonical forms."""
+
+        # Normalize target_qubits to list[int]
+        val = self.target_qubits
+
+        # Check if it's a *sequence* (list-like) but **not** a string or bytes
+        if isinstance(val, Sequence) and not isinstance(val, (str, bytes)):
+            normalized = []
+            for q in val:
+                if (
+                    isinstance(q, Real)
+                    and not isinstance(q, bool)
+                    and float(q).is_integer()
+                ):
+                    normalized.append(int(q))
+                else:
+                    raise ValueError(
+                        f"Each target_qubit must be integer-valued, got {q} in {val}"
+                    )
+            self.target_qubits = normalized
+
+        # Otherwise: treat as scalar
         else:
-            self.target_qubits = [int(q) for q in self.target_qubits]
+            if (
+                isinstance(val, Real)
+                and not isinstance(val, bool)
+                and float(val).is_integer()
+            ):
+                self.target_qubits = [int(val)]
+            else:
+                raise ValueError(f"target_qubits must be integer-valued, got {val}")
 
         param = self.parameters
         if param is None:
@@ -291,8 +345,7 @@ class QuantumGate:
                 param_list = list(param)
             except TypeError as exc:
                 raise TypeError(
-                    f"Gate parameters must be None, a number, or an iterable of numbers "
-                    f"(got {type(param).__name__})."
+                    "Gate parameters must be None, a number, or an iterable of numbers."
                 ) from exc
 
         try:
@@ -302,29 +355,23 @@ class QuantumGate:
 
     @property
     def is_two_qubit_gate(self) -> bool:
-        """
-        Whether this is a two-qubit (controlled) gate.
-
-        Returns:
-            bool: False for base class (single-qubit) gates.
-        """
+        """Return ``True`` if this gate is multi-qubit/controlled. Base: ``False``."""
         return False
 
 
 @dataclass(slots=True)
 class TwoQubitQuantumGate(QuantumGate):
-    """
-    Controlled quantum gate.
+    """A controlled or otherwise two‑qubit gate.
 
     Attributes:
-        control_qubits (Sequence[int]): The control qubit(s) for the gate.
+        control_qubits: Index/indices of control qubits. At least one is required.
     """
 
     control_qubits: int | Sequence[int] = field(default_factory=list)
 
     def __post_init__(self) -> None:
-        """Normalize control_qubits and enforce at least one control."""
-
+        """Normalize ``control_qubits`` and enforce at least one control qubit."""
+        # super().__post_init__()  # run parent normalization
         super(TwoQubitQuantumGate, self).__post_init__()  # run parent normalization
 
         if isinstance(self.control_qubits, int):
@@ -337,35 +384,34 @@ class TwoQubitQuantumGate(QuantumGate):
 
     @property
     def is_two_qubit_gate(self) -> bool:
-        """
-        Whether this is a two-qubit (controlled) gate.
-
-        Returns:
-            bool: True for this subclass.
-        """
+        """Return ``True`` for this subclass."""
         return True
+
+
+# =============================================================
+# Circuit API
+# =============================================================
 
 
 class QuantumCircuit:
     """
-    Class representing a quantum circuit.
+    In-memory representation of a quantum circuit.
+
+    The circuit stores qubit/bit registers plus an ordered list of gate
+    operations, measurements, and resets. Convenience helpers are provided to
+    append common gates and to export the circuit to OpenQASM.
 
     Attributes:
-        number_of_qubits (int): Total number of qubits in the circuit.
-        number_of_classical_bits (int): Total number of classical bits in the circuit.
-        gate_list (List[QuantumGate]): List of gate objects in the circuit.
-        measurements (List[Tuple[int, int]]): List of measurements as (qubit, classical_bit).
-        reset_operations (List[int]): List of qubits that have been reset.
+        number_of_qubits: Total number of qubits in the circuit.
+        number_of_classical_bits: Total number of classical bits in the circuit.
+        gate_list: Ordered list of gate objects.
+        measurements: ``(qubit, cbit)`` pairs describing where measurement
+            outcomes are stored.
+        reset_operations: Indices of qubits that are reset.
     """
 
     def __init__(self, number_of_qubits: int = 0, number_of_classical_bits: int = 0):
-        """
-        Initialize the quantum circuit.
-
-        Args:
-            number_of_qubits (int, optional): Number of qubits. Default is 0.
-            number_of_classical_bits (int, optional): Number of classical bits. Default is 0.
-        """
+        """Create an empty circuit with ``number_of_qubits`` and classical bits."""
         self.number_of_qubits = number_of_qubits
         self.number_of_classical_bits = number_of_classical_bits
         self.gate_list: List[QuantumGate] = []
@@ -373,12 +419,7 @@ class QuantumCircuit:
         self.reset_operations: List[int] = []
 
     def __repr__(self) -> str:
-        """
-        Return a string representation of the quantum circuit.
-
-        Returns:
-            str: A multi-line string summarizing the circuit's characteristics.
-        """
+        """Return a human-readable summary of the circuit contents."""
         single_qubit_gate_count = sum(
             len(gate.target_qubits)
             for gate in self.gate_list
@@ -397,12 +438,11 @@ class QuantumCircuit:
             f"Measurements: {measurement_count}"
         )
 
+    # -----------------------------
+    # Discovery & reference helpers
+    # -----------------------------
     def display_gate_descriptions(self) -> None:
-        """
-        Display descriptions of each gate supported by the circuit.
-
-        Prints each gate's internal name along with its description.
-        """
+        """Print a short description for each supported internal gate name."""
         gate_descriptions = {
             "x": "Pauli X gate",
             "y": "Pauli Y gate",
@@ -419,29 +459,25 @@ class QuantumCircuit:
             "rx": "Rotation about the X-axis",
             "ry": "Rotation about the Y-axis",
             "rz": "Rotation about the Z-axis",
-            "measurement": "Measurement operation",
+            "measure": "Measurement operation",
         }
         for gate_name, description in gate_descriptions.items():
             print(f"{gate_name} – {description}")
 
+    # -----------------------------
+    # Register sizing
+    # -----------------------------
     def add_qubits(self, additional_qubits: int) -> None:
-        """
-        Increase the number of qubits in the circuit.
-
-        Args:
-            additional_qubits (int): Number of qubits to add.
-        """
+        """Increase the number of qubits by ``additional_qubits``."""
         self.number_of_qubits += additional_qubits
 
     def add_classical_bits(self, additional_classical_bits: int) -> None:
-        """
-        Increase the number of classical bits in the circuit.
-
-        Args:
-            additional_classical_bits (int): Number of classical bits to add.
-        """
+        """Increase the number of classical bits by ``additional_classical_bits``."""
         self.number_of_classical_bits += additional_classical_bits
 
+    # -----------------------------
+    # Internal gate append helper
+    # -----------------------------
     def _add_gate(
         self,
         gate_name: str,
@@ -450,129 +486,130 @@ class QuantumCircuit:
         control_qubits: Optional[int | Sequence[int]] = None,
     ) -> None:
         """
-        Private method to add a gate to the circuit.
+        Append a gate to the circuit.
 
         Args:
-            gate_name (str): The internal name of the gate.
-            target_qubits (int or list[int]): The target qubit(s) for the gate.
-            parameters (Sequence[float], optional): Parameters for the gate.
-            control_qubits (int or list[int], optional): Control qubit(s) if the gate is controlled.
+            gate_name: Internal gate name, as used by :class:`QasmEmitterOptions`.
+            target_qubits: Target qubit index (or indices) for the gate.
+            parameters: Optional parameter list for parameterized gates.
+            control_qubits: Optional control qubit index (or indices). If
+                provided, a :class:`TwoQubitQuantumGate` is created.
         """
         if control_qubits is None:
-            # single-qubit gate
-            new_quantum_gate = QuantumGate(
+            gate_obj = QuantumGate(
                 name=gate_name, target_qubits=target_qubits, parameters=parameters
             )
         else:
-            # controlled / multi-qubit gate
-            new_quantum_gate = TwoQubitQuantumGate(
+            gate_obj = TwoQubitQuantumGate(
                 name=gate_name,
                 target_qubits=target_qubits,
                 parameters=parameters,
                 control_qubits=control_qubits,
             )
+        self.gate_list.append(gate_obj)
 
-        self.gate_list.append(new_quantum_gate)
-
-    # Single-qubit gate methods
+    # -----------------------------
+    # Single-qubit gates
+    # -----------------------------
     def add_x_gate(self, qubit: int) -> None:
-        """Add an X gate to the circuit."""
+        """Append an X gate on ``qubit``."""
         self._add_gate("x", qubit)
 
     def add_y_gate(self, qubit: int) -> None:
-        """Add a Y gate to the circuit."""
+        """Append a Y gate on ``qubit``."""
         self._add_gate("y", qubit)
 
     def add_z_gate(self, qubit: int) -> None:
-        """Add a Z gate to the circuit."""
+        """Append a Z gate on ``qubit``."""
         self._add_gate("z", qubit)
 
     def add_h_gate(self, qubit: int) -> None:
-        """Add a Hadamard gate to the circuit."""
+        """Append a Hadamard gate on ``qubit``."""
         self._add_gate("h", qubit)
 
     def add_s_gate(self, qubit: int) -> None:
-        """Add an S gate to the circuit."""
+        """Append an S gate on ``qubit``."""
         self._add_gate("s", qubit)
 
+    def add_sdg_gate(self, qubit: int) -> None:
+        """Append an S gate on ``qubit``."""
+        self._add_gate("sdg", qubit)
+
     def add_t_gate(self, qubit: int) -> None:
-        """Add a T gate to the circuit."""
+        """Append a T gate on ``qubit``."""
         self._add_gate("t", qubit)
 
     def add_u_gate(
         self, qubit: int, theta: float, phi: float, lambda_parameter: float
     ) -> None:
         """
-        Add a general single-qubit unitary gate to the circuit.
+        Append a general single-qubit unitary gate ``u(theta, phi, lambda)``.
 
         Args:
-            qubit (int): The target qubit.
-            theta (float): The theta rotation parameter.
-            phi (float): The phi rotation parameter.
-            lambda_parameter (float): The lambda rotation parameter.
+            qubit: Target qubit.
+            theta: First Euler angle.
+            phi: Second Euler angle.
+            lambda_parameter: Third Euler angle.
         """
         self._add_gate("u", qubit, [theta, phi, lambda_parameter])
 
-    # Two-qubit gate methods
+    # -----------------------------
+    # Two-qubit gates
+    # -----------------------------
     def add_cx_gate(self, control_qubit: int, target_qubit: int) -> None:
-        """Add a controlled-X (CNOT) gate to the circuit."""
+        """Append a controlled-X (CNOT) with ``control_qubit → target_qubit``."""
         self._add_gate("cx", target_qubit, control_qubits=control_qubit)
 
     def add_cy_gate(self, control_qubit: int, target_qubit: int) -> None:
-        """Add a controlled-Y gate to the circuit."""
+        """Append a controlled-Y with ``control_qubit → target_qubit``."""
         self._add_gate("cy", target_qubit, control_qubits=control_qubit)
 
     def add_cz_gate(self, control_qubit: int, target_qubit: int) -> None:
-        """Add a controlled-Z gate to the circuit."""
+        """Append a controlled-Z with ``control_qubit → target_qubit``."""
         self._add_gate("cz", target_qubit, control_qubits=control_qubit)
 
     def add_swap_gate(self, qubit_one: int, qubit_two: int) -> None:
-        """Add a SWAP gate to the circuit."""
-        self._add_gate("swap", target_qubits=qubit_one, control_qubits=qubit_two)
+        """
+        Append a SWAP gate between ``qubit_one`` and ``qubit_two``.
 
-    # Rotation gate methods
+        Notes:
+            Internally this is modeled as a two-qubit gate and emitted as
+            ``swap q[qubit_one], q[qubit_two];`` in QASM.
+        """
+        # For emission order (q[ctrl], q[tgt]) → (q1, q2), place q1 in control, q2 in target.
+        self._add_gate("swap", target_qubits=qubit_two, control_qubits=qubit_one)
+
+    # -----------------------------
+    # Rotation gates
+    # -----------------------------
     def add_rx_gate(self, qubit: int, theta: float) -> None:
-        """
-        Add a rotation about the X-axis gate to the circuit.
-
-        Args:
-            qubit (int): The target qubit.
-            theta (float): The rotation angle.
-        """
+        """Append an RX rotation of angle ``theta`` on ``qubit``."""
         self._add_gate("rx", qubit, [theta])
 
     def add_ry_gate(self, qubit: int, theta: float) -> None:
-        """
-        Add a rotation about the Y-axis gate to the circuit.
-
-        Args:
-            qubit (int): The target qubit.
-            theta (float): The rotation angle.
-        """
+        """Append an RY rotation of angle ``theta`` on ``qubit``."""
         self._add_gate("ry", qubit, [theta])
 
     def add_rz_gate(self, qubit: int, theta: float) -> None:
-        """
-        Add a rotation about the Z-axis gate to the circuit.
-
-        Args:
-            qubit (int): The target qubit.
-            theta (float): The rotation angle.
-        """
+        """Append an RZ rotation of angle ``theta`` on ``qubit``."""
         self._add_gate("rz", qubit, [theta])
 
+    # -----------------------------
+    # Measurement & reset
+    # -----------------------------
     def add_measurement(
         self, qubit: int | Sequence[int], classical_bit: int | Sequence[int]
     ) -> None:
         """
-        Add measurement(s) to the circuit.
+        Append measurement(s).
 
         Args:
-            qubit (int or list[int]): The qubit(s) to measure.
-            classical_bit (int or list[int]): The classical bit(s) where the measurement is stored.
-
+            qubit: Single qubit index or sequence of indices.
+            classical_bit: Single classical bit index or sequence. If both are
+                sequences, their lengths must match; otherwise a single
+                classical bit is reused for each qubit.
         Raises:
-            ValueError: If qubit and classical_bit are lists of different lengths.
+            ValueError: If both arguments are sequences of different lengths.
         """
         if isinstance(qubit, (list, tuple, np.ndarray)):
             if isinstance(classical_bit, (list, tuple, np.ndarray)):
@@ -581,44 +618,33 @@ class QuantumCircuit:
                         "Length of qubit list must match length of classical_bit list."
                     )
                 for q, c in zip(qubit, classical_bit):
-                    self.measurements.append((q, c))
+                    self.measurements.append((int(q), int(c)))
             else:
                 for q in qubit:
-                    self.measurements.append((q, classical_bit))
+                    self.measurements.append((int(q), int(classical_bit)))
         else:
-            self.measurements.append((qubit, classical_bit))
+            self.measurements.append((int(qubit), int(classical_bit)))
 
     def add_reset_operation(self, qubit: int) -> None:
-        """
-        Add a reset operation for a specified qubit.
+        """Append a reset operation for the specified ``qubit``."""
+        self.reset_operations.append(int(qubit))
 
-        Args:
-            qubit (int): The qubit to reset.
-        """
-        self.reset_operations.append(qubit)
-
-    def single_qubit_gate_count(self):
-        """
-        Return the number of gates
-        """
-        c = sum(
-            len(gate.target_qubits)
-            for gate in self.gate_list
-            if not gate.is_two_qubit_gate
+    # -----------------------------
+    # Summary helpers
+    # -----------------------------
+    def single_qubit_gate_count(self) -> int:
+        """Return the number of single-qubit gate applications in the circuit."""
+        return sum(
+            len(g.target_qubits) for g in self.gate_list if not g.is_two_qubit_gate
         )
 
-        return c
+    def two_qubit_gate_count(self) -> int:
+        """Return the number of two-qubit gate applications in the circuit."""
+        return sum(len(g.target_qubits) for g in self.gate_list if g.is_two_qubit_gate)
 
-    def two_qubit_gate_count(self):
-        """
-        Return the number of two qubit gates
-        """
-        c = sum(
-            len(gate.target_qubits) for gate in self.gate_list if gate.is_two_qubit_gate
-        )
-
-        return c
-
+    # -----------------------------
+    # Rendering / export
+    # -----------------------------
     def to_qasm(
         self,
         emitter_options: Optional[QasmEmitterOptions] = None,
@@ -628,17 +654,17 @@ class QuantumCircuit:
         **kwargs: Any,
     ) -> str:
         """
-        Generate QASM code for the circuit.
+        Generate OpenQASM code for the circuit.
 
         Args:
-            emitter_options (Optional[QasmEmitterOptions]): Pre-configured emitter options. If None,
-                a new QasmEmitterOptions object is created based on format and target_sdk.
-            format (str, optional): QASM format to use if emitter_options is None. Default is "qasm2".
-            target_sdk (Optional[str], optional): Target SDK name if emitter_options is None. Default is None.
-            **kwargs: Additional keyword arguments forwarded to QasmEmitterOptions.
-
+            emitter_options: Pre-configured options. If omitted, a new
+                :class:`QasmEmitterOptions` is created from ``format``,
+                ``target_sdk`` and any extra ``kwargs``.
+            format: QASM format used when building the default options.
+            target_sdk: Optional SDK aliasing used when building default options.
+            **kwargs: Passed to :class:`QasmEmitterOptions`.
         Returns:
-            str: The QASM source code as a multi-line string.
+            The QASM program as a multi-line ``str``.
         """
         if emitter_options is None:
             emitter_options = QasmEmitterOptions(
@@ -647,27 +673,27 @@ class QuantumCircuit:
         emitter = QasmEmitter(emitter_options)
         return emitter.emit(self)
 
-    def draw_circuit_diagram(self, max_length=20):
+    def draw_circuit_diagram(self, max_length: int = 20) -> None:
         """
-        Print a textual representation of the quantum circuit.
+        Print a simple ASCII diagram of the circuit.
 
-        If any line exceeds the maximum line length, the diagram is split into vertical blocks.
+        The diagram is split into vertical blocks if any line exceeds
+        ``max_length`` gate-units.
 
-        Arguments:
-            max_length (int): Maximum number of gate-length units per block.
-
-        Returns:
-            None
+        Args:
+            max_length: Maximum number of gate-units per block.
         """
-        gate_length = 7
-        max_line_length = gate_length * max_length
+        UNIT_WIDTH = 7  # characters per gate "cell"
+        max_line_length = UNIT_WIDTH * max_length
         diagram_lines = ["" for _ in range(2 * self.number_of_qubits)]
 
+        # Initialize qubit labels/rails
         for i in range(self.number_of_qubits):
             qubit_label = f"q{i}"
             diagram_lines[2 * i] = qubit_label + " --"
             diagram_lines[2 * i + 1] = " " * (len(qubit_label) + 3)
 
+        # Gates
         for gate in self.gate_list:
             if gate.is_two_qubit_gate:
                 for index in range(len(gate.target_qubits)):
@@ -682,9 +708,9 @@ class QuantumCircuit:
                     )
                     for j in range(min_qubit, max_qubit + 1):
                         if len(diagram_lines[2 * j]) < current_max_length:
-                            padding = current_max_length - len(diagram_lines[2 * j])
-                            diagram_lines[2 * j] += "-" * padding
-                            diagram_lines[2 * j + 1] += " " * padding
+                            pad = current_max_length - len(diagram_lines[2 * j])
+                            diagram_lines[2 * j] += "-" * pad
+                            diagram_lines[2 * j + 1] += " " * pad
 
                     control_str = "--" + f"[{gate.name[0]}]" + "--"
                     diagram_lines[2 * control_qubit] += control_str
@@ -722,61 +748,53 @@ class QuantumCircuit:
                     diagram_lines[2 * target] += gate_str
                     diagram_lines[2 * target + 1] += " " * len(gate_str)
 
+        # Measurements
         for measurement in self.measurements:
             if isinstance(measurement[0], int):
                 qubit_index = measurement[0]
-                measurement_str = "--" + "[M]" + "=="
-                diagram_lines[2 * qubit_index] += measurement_str
-                diagram_lines[2 * qubit_index + 1] += " " * len(measurement_str)
+                m_str = "--" + "[M]" + "=="
+                diagram_lines[2 * qubit_index] += m_str
+                diagram_lines[2 * qubit_index + 1] += " " * len(m_str)
             else:
                 for qubit_index in measurement[0]:
-                    measurement_str = "--" + "[M]" + "=="
-                    diagram_lines[2 * qubit_index] += measurement_str
-                    diagram_lines[2 * qubit_index + 1] += " " * len(measurement_str)
+                    m_str = "--" + "[M]" + "=="
+                    diagram_lines[2 * qubit_index] += m_str
+                    diagram_lines[2 * qubit_index + 1] += " " * len(m_str)
 
-        max_width = max(len(line) for line in diagram_lines)
-        output_lines = []
+        # Chunked printing
+        max_width = max(len(line) for line in diagram_lines) if diagram_lines else 0
         for start in range(0, max_width, max_line_length):
             for line in diagram_lines:
-                output_lines.append(line[start : start + max_line_length])
-            output_lines.append("")
+                print(line[start : start + max_line_length])
+            print()
 
-        print("\n".join(output_lines))
+
+# =============================================================
+# QASM Emitter
+# =============================================================
 
 
 class QasmEmitter:
     """
-    Translates a QuantumCircuit into OpenQASM source code.
+    Translate a :class:`QuantumCircuit` into OpenQASM source code.
 
-    This class converts the internal circuit representation into textual
-    QASM output according to the configuration in QasmEmitterOptions.
-
-    It handles:
-      • Header emission (OPENQASM, includes)
+    Responsibilities:
+      • Header emission (version + includes)
       • Register declarations
-      • Gate translation and parameter formatting
-      • Measurements and reset operations
+      • Gate translation & parameter formatting
+      • Measurements and resets
     """
 
     def __init__(self, options: QasmEmitterOptions):
-        """
-        Initialize the emitter with a given configuration.
-
-        Args:
-            options (QasmEmitterOptions): Options object specifying translation format,
-                includes, float precision, and SDK gate mappings.
-        """
+        """Initialise the emitter with the given :class:`QasmEmitterOptions`."""
         self.options = options
 
     def emit(self, circuit: QuantumCircuit) -> str:
         """
-        Generate a full QASM program for the given circuit.
-
-        Args:
-            circuit (QuantumCircuit): The circuit instance to translate.
+        Generate a full QASM program for ``circuit``.
 
         Returns:
-            str: The QASM source code as a multi-line string.
+            The QASM source code as a single string.
         """
         lines: List[str] = []
 
@@ -785,24 +803,23 @@ class QasmEmitter:
 
         if format_lower == "qasm2":
             lines.append("OPENQASM 2.0;")
-            qubit_declaration = f"qreg q[{circuit.number_of_qubits}];"
-            classical_declaration = f"creg c[{circuit.number_of_classical_bits}];"
+            qubit_decl = f"qreg q[{circuit.number_of_qubits}];"
+            classical_decl = f"creg c[{circuit.number_of_classical_bits}];"
         elif format_lower == "qasm3":
             lines.append("OPENQASM 3.0;")
-            qubit_declaration = f"qubit[{circuit.number_of_qubits}] q;"
-            classical_declaration = f"bit[{circuit.number_of_classical_bits}] c;"
+            qubit_decl = f"qubit[{circuit.number_of_qubits}] q;"
+            classical_decl = f"bit[{circuit.number_of_classical_bits}] c;"
         else:
             raise ValueError(f"Unsupported QASM format: {self.options.format!r}")
 
-        lines.append("")  # add empty line to make the QASM code clearer
+        lines.append("")  # readability
 
         if includes_list:
             for inc in includes_list:
                 lines.append(f'include "{inc}";')
-        lines.append("")  # add empty line to make the QASM code clearer
+        lines.append("")
 
-        lines.extend([qubit_declaration, classical_declaration])
-        lines.append("")  # add empty line to make the QASM code clearer
+        lines.extend([qubit_decl, classical_decl, ""])  # declarations + spacer
 
         for gate in circuit.gate_list:
             lines.extend(self._emit_gate(gate))
@@ -810,27 +827,19 @@ class QasmEmitter:
         for qubit in circuit.reset_operations:
             lines.append(f"reset q[{qubit}];")
 
-        lines.append("")  # add empty line to make the QASM code clearer
+        lines.append("")
 
         for qubit, classical_bit in circuit.measurements:
             measure_name = self.options.get_qasm_name("measure")
             if format_lower == "qasm2":
                 lines.append(f"measure q[{qubit}] -> c[{classical_bit}];")
-            elif format_lower == "qasm3":
+            else:  # qasm3
                 lines.append(f"c[{classical_bit}] = {measure_name} q[{qubit}];")
 
         return "\n".join(lines)
 
     def _emit_gate(self, gate: QuantumGate) -> List[str]:
-        """
-        Emit one or more QASM instructions for a single quantum gate.
-
-        Args:
-            gate (QuantumGate): A QuantumGate or TwoQubitQuantumGate instance.
-
-        Returns:
-            List[str]: Lines of QASM code representing this gate.
-        """
+        """Emit QASM instruction(s) for a single ``gate``."""
         qasm_name = self.options.get_qasm_name(gate.name)
         lines: List[str] = []
 
@@ -847,9 +856,9 @@ class QasmEmitter:
 
         ctrl_qubits = getattr(gate, "control_qubits", [])
         tgt_qubits = gate.target_qubits
-        number_of_target_qubits = len(tgt_qubits)
+        n_targets = len(tgt_qubits)
 
-        for i in range(number_of_target_qubits):
+        for i in range(n_targets):
             lines.append(
                 f"{qasm_name}{params_str} q[{ctrl_qubits[i]}], q[{tgt_qubits[i]}];"
             )
