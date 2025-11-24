@@ -10,7 +10,7 @@ import matplotlib.pyplot as plt
 
 
 from ..utils.quantumbenchmark import Benchmark
-from .quantumcircuit import QuantumCircuit
+from ..utils.quantumcircuit import QuantumCircuit
 
 class CliffordVolumeBenchmark(Benchmark):
     """Random Clifford benchmark based on :class:`stim.Tableau`.
