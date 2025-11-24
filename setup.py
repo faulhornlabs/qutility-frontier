@@ -4,7 +4,7 @@ setup(
     name="scalable_volumetric_benchmark",
     version="0.1.0",
     description="Quantum circuit utilities for volumetric benchmarking.",
-    packages=find_packages(include=["benchmarks", "benchmarks.*"]),
+    packages=find_packages(include=["ScalableVolumetricBenchmark", "ScalableVolumetricBenchmark.*"]),
     python_requires=">=3.10",
     install_requires=[
         "numpy>=1.21",

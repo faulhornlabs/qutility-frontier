@@ -10,10 +10,22 @@ from .quantumcircuit import (
     TwoQubitQuantumGate,
 )
 
+from .quantumbenchmark import (
+    Benchmark,
+)
+
+from .benchmarkschema import (
+    SCHEMA_VERSION,
+    BENCHMARK_JSON_SCHEMA, 
+)
+
 __all__ = [
-    "QuantumCircuit",
+    "QuantumCircuit", 
     "QuantumGate",
     "TwoQubitQuantumGate",
     "QasmEmitter",
     "QasmEmitterOptions",
+    "Benchmark",
+    "SCHEMA_VERSION",
+    "BENCHMARK_JSON_SCHEMA"
 ]

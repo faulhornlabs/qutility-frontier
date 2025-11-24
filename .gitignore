@@ -19,3 +19,7 @@ venv/
 *.egg-info/
 dist/
 build/
+
+# .benchmark folders and files
+.benchmark/
+*.json
