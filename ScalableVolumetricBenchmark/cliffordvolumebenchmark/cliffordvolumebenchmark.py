@@ -13,13 +13,13 @@ from ..utils.quantumbenchmark import Benchmark
 from ..utils.quantumcircuit import QuantumCircuit
 
 class CliffordVolumeBenchmark(Benchmark):
-    """Random Clifford benchmark based on :class:`stim.Tableau`.
+    """Volumetric benchmark based on random Clifford operator.
 
     For each sample, this benchmark:
 
     * Draws a random Clifford tableau on ``number_of_qubits`` qubits.
     * Converts the tableau into a base :class:`QuantumCircuit`.
-    * Randomly selects Z-stabilizers and X-destabilizers.
+    * Randomly selects stabilizers and destabilizers.
     * Builds measurement circuits for each selected stabilizer/destabilizer.
     * Exports each measurement circuit as QASM plus an observable string.
 
