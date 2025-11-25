@@ -167,69 +167,72 @@ class CliffordVolumeBenchmark(Benchmark):
     def _create_random_clifford_circuit(
         self,
     ) -> Tuple[
-        List[str],
-        List[QuantumCircuit],
-        List[str],
-        List[QuantumCircuit],
+        List[str],              # all_stabilizers
+        List[str],              # selected_stabilizers
+        List[QuantumCircuit],   # stabilizer_circuits
+        List[str],              # all_destabilizers
+        List[str],              # selected_destabilizers
+        List[QuantumCircuit],   # destabilizer_circuits
     ]:
         """Generate a random Clifford instance and its measurement circuits.
-
-        The process is:
-
-        1. Draw a random :class:`stim.Tableau` on ``number_of_qubits``.
-        2. Convert it into a base :class:`QuantumCircuit`.
-        3. Randomly select a subset of Z-stabilizers.
-        4. Randomly select a subset of X-destabilizers.
-        5. For each selected Pauli string, build a measurement circuit that
-           rotates into the computational basis and measures all qubits.
-
-        The Pauli strings returned by stim have the form ``'+XZI...'``,
-        where the first character is the sign and the rest are single-qubit
-        Paulis.
-
+    
         Returns:
-          Tuple[List[str], List[QuantumCircuit], List[str], List[QuantumCircuit]]:
-            A 4-tuple:
-
-              * List of stabilizer Pauli strings with sign.
-              * List of circuits measuring those stabilizers.
-              * List of destabilizer Pauli strings with sign.
-              * List of circuits measuring those destabilizers.
+          A 6-tuple:
+    
+            * all_stabilizers:     all Z-output stabilizers (one per qubit).
+            * stabilizers:         randomly selected subset of stabilizers.
+            * stab_circs:          measurement circuits for the selected stabilizers.
+            * all_destabilizers:   all X-output destabilizers (one per qubit).
+            * destabilizers:       randomly selected subset of destabilizers.
+            * destab_circs:        measurement circuits for the selected destabilizers.
         """
         tableau = stim.Tableau.random(self.number_of_qubits)
         n_meas = self.number_of_measurements
-
+    
         # Base circuit from tableau
         stim_circ = tableau.to_circuit(method="elimination")
         base_qc = self._convert_stim_circuit_to_quantum_circuit(stim_circ)
-
-        # Randomly select stabilizers (Z outputs)
+    
+        # --- FULL sets of stabilizers / destabilizers ---
+        all_stabilizers = [
+            str(tableau.z_output(i)).replace("_", "I")
+            for i in range(self.number_of_qubits)
+        ]
+        all_destabilizers = [
+            str(tableau.x_output(i)).replace("_", "I")
+            for i in range(self.number_of_qubits)
+        ]
+    
+        # --- RANDOMLY SELECTED subsets (for measurement) ---
         indices_z = np.random.choice(
             self.number_of_qubits,
             size=n_meas,
             replace=False,
         )
-        stabilizers = [
-            str(tableau.z_output(i)).replace("_", "I") for i in indices_z
-        ]
-
-        # Randomly select destabilizers (X outputs)
+        stabilizers = [all_stabilizers[i] for i in indices_z]
+    
         indices_x = np.random.choice(
             self.number_of_qubits,
             size=n_meas,
             replace=False,
         )
-        destabilizers = [
-            str(tableau.x_output(i)).replace("_", "I") for i in indices_x
-        ]
-
+        destabilizers = [all_destabilizers[i] for i in indices_x]
+    
         stab_circs, destab_circs = self._add_measurements_to_circuits(
             base_qc,
             stabilizers,
             destabilizers,
         )
+    
+        return (
+            all_stabilizers,
+            stabilizers,
+            stab_circs,
+            all_destabilizers,
+            destabilizers,
+            destab_circs,
+        )
 
-        return stabilizers, stab_circs, destabilizers, destab_circs
 
     def _add_measurements_to_circuits(
         self,
@@ -333,8 +336,10 @@ class CliffordVolumeBenchmark(Benchmark):
               }
         """
         (
+            all_stabilizers,
             stabilizers,
             stab_circs,
+            all_destabilizers,
             destabilizers,
             destab_circs,
         ) = self._create_random_clifford_circuit()
@@ -371,9 +376,14 @@ class CliffordVolumeBenchmark(Benchmark):
                 }
             )
 
+        
         sample_metadata: Dict[str, Any] = {
             "type": "clifford",
             "number_of_measurements": self.number_of_measurements,
+            "clifford_operator": {
+                "stabilizers": all_stabilizers,
+                "destabilizers": all_destabilizers,
+            },
         }
 
         return {
