@@ -1,12 +1,10 @@
 # test_so_decomposition.py
 import numpy as np
-import pytest
 
 from ScalableVolumetricBenchmark import (
     so_decomposition,
     reconstruct,
     check_decomposition,
-    GivensRotation,
 )
 
 

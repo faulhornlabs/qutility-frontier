@@ -1,8 +1,6 @@
 # test_freefermion_benchmark.py
 from __future__ import annotations
 
-from pathlib import Path
-from typing import Any, Dict, List
 
 import numpy as np
 import pytest
@@ -48,7 +46,7 @@ def _make_simple_freefermion_with_results(
     )
 
     # Simple orthogonal matrix: identity on 2n modes
-    O = np.eye(2 * n_qubits, dtype=float)
+    orthogonal_matrix = np.eye(2 * n_qubits, dtype=float)
     state_index = 0  # so _compute_measurement_indices returns [0, 1] for n_qubits=1
 
     # One "majorana" circuit per measured mode (2 for n_qubits=1)
@@ -56,7 +54,7 @@ def _make_simple_freefermion_with_results(
         {
             "sample_id": 0,
             "sample_metadata": {
-                "orthogonal_matrix": O,
+                "orthogonal_matrix": orthogonal_matrix,
                 "initial_state_index": state_index,
             },
             "circuits": [

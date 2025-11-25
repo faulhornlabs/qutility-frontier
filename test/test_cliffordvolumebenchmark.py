@@ -1,16 +1,12 @@
 # test_benchmarks.py
 from __future__ import annotations
 
-import json
-from pathlib import Path
-from typing import Any, Dict, List
 
 import numpy as np
 import pytest
-import jsonschema
 
 # Adjust these imports to match your package layout
-from ScalableVolumetricBenchmark import CliffordVolumeBenchmark, BENCHMARK_JSON_SCHEMA, SCHEMA_VERSION
+from ScalableVolumetricBenchmark import CliffordVolumeBenchmark
 
 
 def test_clifford_compute_number_of_measurements_rule():
