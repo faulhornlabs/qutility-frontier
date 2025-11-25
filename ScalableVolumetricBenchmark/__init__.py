@@ -13,10 +13,16 @@ from .utils import (
     TwoQubitQuantumGate,
     QasmEmitter,
     QasmEmitterOptions,
+    GivensRotation,
+    so_decomposition,
+    reconstruct,
+    check_decomposition,
+    plot_decomposition,
 )
 
 # Export available benchmark implementations
 from .cliffordvolumebenchmark import CliffordVolumeBenchmark
+from .freefermionvolumebenchmark import FreeFermionVolumeBenchmark
 
 __all__ = [
     "Benchmark",
@@ -31,7 +37,13 @@ __all__ = [
     "TwoQubitQuantumGate",
     "QasmEmitter",
     "QasmEmitterOptions",
+    "GivensRotation",
+    "so_decomposition",
+    "reconstruct",
+    "check_decomposition",
+    "plot_decomposition",
 
     # Implementations
     "CliffordVolumeBenchmark",
+    "FreeFermionVolumeBenchmark",
 ]
