@@ -11,7 +11,6 @@ import jsonschema
 from ScalableVolumetricBenchmark import Benchmark, BENCHMARK_JSON_SCHEMA, SCHEMA_VERSION
 
 
-
 class DummyBenchmark(Benchmark):
     """Minimal concrete implementation for testing the abstract Benchmark API."""
 
@@ -40,7 +39,6 @@ class DummyBenchmark(Benchmark):
 
     def evaluate_benchmark(self) -> Any:  # pragma: no cover - trivial for tests
         return {"status": "ok"}
-
 
 
 def test_json_schema_accepts_minimal_valid_payload():
@@ -254,6 +252,7 @@ def test_add_experimental_results_validation_errors(tmp_path: Path):
     with pytest.raises(ValueError):
         b.add_experimental_results({cid: {"0": -1}}, auto_save=False)
 
+
 def test_get_all_circuit_ids_and_circuits_and_error_if_not_generated():
     b = DummyBenchmark(number_of_qubits=1, sample_size=1, auto_save=False)
 
@@ -297,5 +296,3 @@ def test_expected_value_basic_and_errors():
     # Zero total shots
     with pytest.raises(ValueError):
         _ = b.expected_value({"0": 0, "1": 0}, "Z")
-
-

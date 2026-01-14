@@ -72,7 +72,6 @@ class FreeFermionVolumeBenchmark(Benchmark):
             return 2 * n
         return int(20 + np.floor(n / 5))
 
-
     # Benchmark hook: one sample
     def _create_single_sample(self, sample_id: int) -> Dict[str, Any]:
         n_qubits = self.number_of_qubits
@@ -86,8 +85,8 @@ class FreeFermionVolumeBenchmark(Benchmark):
         S = np.diag(np.round(D, 2))  # ±1 entries
 
         # 3) Build the free-fermion circuit:
-        #    state preparation + Gaussian unitary 
-        base_qc = self._build_free_fermion_circuit(givens_rotations,state_index)
+        #    state preparation + Gaussian unitary
+        base_qc = self._build_free_fermion_circuit(givens_rotations, state_index)
 
         # 4) Compute Pauli correction M from diagonal entries
         pauli_M = self._compute_pauli_from_diagonal(S)
@@ -96,7 +95,9 @@ class FreeFermionVolumeBenchmark(Benchmark):
         corrected_qc = self._apply_pauli_corrections(base_qc, pauli_M)
 
         # 6) Measurement circuits for each chosen Majorana operator
-        observables, circuits = self._generate_majorana_measurement_circuits(corrected_qc, orthogonal_matrix, state_index)
+        observables, circuits = self._generate_majorana_measurement_circuits(
+            corrected_qc, orthogonal_matrix, state_index
+        )
 
         # 7) Serialize circuits to schema-compatible objects
         circuit_payloads: List[Dict[str, Any]] = []
@@ -126,33 +127,36 @@ class FreeFermionVolumeBenchmark(Benchmark):
             "circuits": circuit_payloads,
         }
 
-    # Internal helpers 
-    def _compute_measurement_indices(self,
-                                     orthogonal_matrix: np.ndarray,
-                                     state_index: int = 0,
-                                     ) -> List[int]:
+    # Internal helpers
+    def _compute_measurement_indices(
+        self,
+        orthogonal_matrix: np.ndarray,
+        state_index: int = 0,
+    ) -> List[int]:
         """
         Return the indices of the Majorana modes most strongly contributing
         to column `state_index` of the orthogonal matrix O.
-    
+
         The returned list contains `number_of_measurements` indices,
         sorted from largest to smallest absolute coefficient.
         """
         column = np.abs(orthogonal_matrix[:, state_index])
         sorted_indices = np.argsort(column)[::-1]  # descending order
-    
+
         return sorted_indices[: self.number_of_measurements].tolist()
-        
-    def _build_free_fermion_circuit(self, givens_rotations, state_index) -> QuantumCircuit:
+
+    def _build_free_fermion_circuit(
+        self, givens_rotations, state_index
+    ) -> QuantumCircuit:
         """
         State preparation + Gaussian unitary from Givens rotations.
         """
-        
+
         qc = QuantumCircuit(
             number_of_qubits=self.number_of_qubits,
             number_of_classical_bits=self.number_of_qubits,
         )
-        
+
         if state_index % 2 == 0:
             # corresponds to old *odd* i → X-type preparation
             q = state_index // 2
@@ -162,7 +166,6 @@ class FreeFermionVolumeBenchmark(Benchmark):
             q = (state_index - 1) // 2
             qc.add_h_gate(q)
             qc.add_s_gate(q)
-            
 
         #  apply fermionic Gaussian unitary from Givens rotations
         for gr in givens_rotations:
@@ -226,43 +229,43 @@ class FreeFermionVolumeBenchmark(Benchmark):
                 qc.add_z_gate(idx)
         return qc
 
-    def _generate_majorana_measurement_circuits(self,
-                                                base_qc: QuantumCircuit,
-                                                orthogonal_matrix: np.ndarray,
-                                                state_index: int,
-                                                ) -> Tuple[List[str], List[QuantumCircuit]]:
-        """ 
+    def _generate_majorana_measurement_circuits(
+        self,
+        base_qc: QuantumCircuit,
+        orthogonal_matrix: np.ndarray,
+        state_index: int,
+    ) -> Tuple[List[str], List[QuantumCircuit]]:
+        """
         Generate one measurement circuit per Majorana operator.
         """
-    
+
         n_qubits = self.number_of_qubits
         circuits = []
         observables = []
-        
+
         indices = self._compute_measurement_indices(orthogonal_matrix, state_index)
-        
+
         for j in indices:
             qc_m = deepcopy(base_qc)
-        
+
             if j % 2 == 0:
                 qj = j // 2
                 qc_m.add_h_gate(qj)
                 m = "Z" * qj + "X" + "I" * (n_qubits - qj - 1)
-        
+
             else:
                 qj = (j - 1) // 2
                 qc_m.add_sdg_gate(qj)
                 qc_m.add_h_gate(qj)
                 m = "Z" * qj + "Y" + "I" * (n_qubits - qj - 1)
-        
+
             for q in range(n_qubits):
                 qc_m.add_measurement(q, q)
-        
+
             circuits.append(qc_m)
             observables.append(m)
-    
-        return observables, circuits
 
+        return observables, circuits
 
     def _pauli_product(self, pauli1: str, pauli2: str) -> Tuple[str, complex]:
         """
@@ -270,7 +273,7 @@ class FreeFermionVolumeBenchmark(Benchmark):
         Returns the resulting Pauli string and the phase factor.
         """
         assert len(pauli1) == len(pauli2), "Pauli strings must be of the same length"
-    
+
         # Multiplication rules for Pauli matrices
         pauli_mult = {
             ("I", "I"): ("I", 1),
@@ -290,17 +293,16 @@ class FreeFermionVolumeBenchmark(Benchmark):
             ("Z", "Y"): ("X", -1j),
             ("Z", "Z"): ("I", 1),
         }
-    
+
         result = []
         phase: complex = 1
-    
+
         for p1, p2 in zip(pauli1, pauli2):
             res, factor = pauli_mult[(p1, p2)]
             result.append(res)
             phase *= factor
-    
-        return "".join(result), phase
 
+        return "".join(result), phase
 
     def evaluate_benchmark(
         self,
@@ -310,33 +312,33 @@ class FreeFermionVolumeBenchmark(Benchmark):
     ) -> Dict[str, List[float]]:
         """
         Evaluate the Free-Fermion benchmark using experimental results.
-    
+
         For each sample, the expectation values from its measurement circuits
         are combined into two benchmark metrics:
-    
+
           * parallel_value   = dot( O[state_index, indices], EVs )
           * orthogonal_value = dot( O[random_row, indices], EVs )
-    
+
         where:
             - O is the SO(2N) orthogonal matrix for the sample,
             - state_index is the prepared Majorana index,
             - indices = self._compute_measurement_indices(O, state_index),
             - EVs is the vector of expectation values (one per circuit),
             - random_row is any j ≠ state_index.
-    
+
         The first quantity should be close to 1 for well-performing hardware
         (or an ideal simulator), while the second should be close to 0.
-    
+
         Each circuit’s expectation value and standard error are stored in-place
         inside `self.experimental_results["results"][circuit_id]`.
-    
+
         Returns:
           {
             "parallel_values":   List[float],
             "orthogonal_values": List[float],
           }
         """
-    
+
         # Validation — identical structure to Clifford benchmark
 
         if self.experimental_results is None:
@@ -344,68 +346,68 @@ class FreeFermionVolumeBenchmark(Benchmark):
                 "No experimental_results attached. "
                 "Call add_experimental_results(...) first."
             )
-    
+
         results = self.experimental_results.get("results")
         if results is None:
             raise ValueError("experimental_results has no 'results' entry.")
-    
+
         if self.samples is None:
             raise ValueError(
                 "Benchmark has no samples. Generate or load the benchmark first."
             )
-    
+
         if not self.shots:
             raise ValueError("self.shots must be a positive integer.")
-    
+
         if auto_save is not None:
             self.auto_save = bool(auto_save)
-    
+
         # Aggregated benchmark output
-    
+
         parallel_values: List[float] = []
         orthogonal_values: List[float] = []
-    
+
         # Walk samples in canonical order — consistent with Clifford
-    
+
         for sample in self.samples:
             meta = sample.get("sample_metadata", {})
-    
+
             # Recover O and the prepared Majorana state index
             orthogonal_matrix = np.array(meta["orthogonal_matrix"], dtype=float)
             state_index = int(meta["initial_state_index"])
-    
+
             # Determine which Majorana indices were actually measured
             indices = self._compute_measurement_indices(orthogonal_matrix, state_index)
-    
+
             # Collect expectation values (one per circuit)
             evs: List[float] = []
             vars_: List[float] = []  # for optional uncertainty propagation later
-    
+
             # Iterate through measurement circuits
-    
+
             for circuit in sample.get("circuits", []):
                 cid = circuit["circuit_id"]
                 pauli = circuit.get("observable")
-    
+
                 if pauli is None:
                     continue  # purely structural circuit — ignore
-    
+
                 if cid not in results:
                     raise ValueError(
                         f"Missing result for circuit_id {cid!r} "
                         "in experimental_results['results']."
                     )
-    
+
                 entry = results[cid]
                 counts = entry["counts"]
-    
+
                 # --- Expectation value (compute or reuse cached) ---
                 if "expectation_value" in entry:
                     ev = float(entry["expectation_value"])
                 else:
                     ev = float(self.expected_value(counts, pauli, little_endian=True))
                     entry["expectation_value"] = ev
-    
+
                 # --- Standard error for ±1-valued estimator ---
                 if "std_error" in entry:
                     std = float(entry["std_error"])
@@ -413,44 +415,43 @@ class FreeFermionVolumeBenchmark(Benchmark):
                     var = max(0.0, 1.0 - ev * ev) / self.shots
                     std = float(np.sqrt(var))
                     entry["std_error"] = std
-    
+
                 evs.append(ev)
                 vars_.append(std * std)
-    
+
             evs = np.array(evs, dtype=float)
             vars_ = np.array(vars_, dtype=float)
-    
-    
+
             # Form reduced rows of O corresponding to measured modes
-            
+
             signal_row = orthogonal_matrix[indices, state_index]
-    
+
             # Choose a different orthogonal row for null test
             all_rows = list(range(orthogonal_matrix.shape[0]))
             all_rows.remove(state_index)
             random_row_index = np.random.choice(all_rows)
             null_row = orthogonal_matrix[indices, random_row_index]
-    
+
             # Compute benchmark metrics
-            
+
             parallel_value = float(np.dot(signal_row, evs))
             orthogonal_value = float(np.dot(null_row, evs))
-    
+
             parallel_values.append(parallel_value)
             orthogonal_values.append(orthogonal_value)
-    
+
         # Store grouped outputs — exactly like Clifford style
-      
+
         self.experimental_results.setdefault("evaluation", {})
         self.experimental_results["evaluation"]["parallel_values"] = parallel_values
         self.experimental_results["evaluation"]["orthogonal_values"] = orthogonal_values
-    
+
         # Pretty-print summary — analogous to Clifford report
-        
+
         print("\n==============================================================")
         print(f" Free-Fermion Benchmark Evaluation ({self.number_of_qubits} qubits)")
         print("==============================================================\n")
-    
+
         if len(parallel_values) > 0:
             mean_p, std_p = np.mean(parallel_values), np.std(parallel_values)
             print("Parallel projected values (should be near 1):")
@@ -458,30 +459,32 @@ class FreeFermionVolumeBenchmark(Benchmark):
             print(f"  • lowest measured value: {np.min(parallel_values):.6f}\n")
         else:
             print("No parallel values.\n")
-    
+
         if len(orthogonal_values) > 0:
             mean_o, std_o = np.mean(orthogonal_values), np.std(orthogonal_values)
             print("Orthogonal projected values (should be near 0):")
             print(f"  • average: {mean_o:.6f} ± {std_o:.6f}")
-            print(f"  • highest absolute value: {np.max(np.abs(orthogonal_values)):.6f}\n")
+            print(
+                f"  • highest absolute value: {np.max(np.abs(orthogonal_values)):.6f}\n"
+            )
         else:
             print("No orthogonal values.\n")
-    
+
         # No binary pass/fail rule yet — user may define one later
-    
+
         print("==============================================================\n")
 
         passed = (
-                len(parallel_values) > 0
-                and len(orthogonal_values) > 0
-                and np.min(parallel_values) > 1 / np.e
-                and np.max(np.abs(orthogonal_values)) < 0.25 / np.e
-            )
-            
+            len(parallel_values) > 0
+            and len(orthogonal_values) > 0
+            and np.min(parallel_values) > 1 / np.e
+            and np.max(np.abs(orthogonal_values)) < 0.25 / np.e
+        )
+
         print(f"Benchmark passed: {passed}")
         print("==============================================================\n")
         # Optional JSON autosave — identical behavior to Clifford
-        
+
         if self.auto_save:
             if save_to is not None:
                 saved_path = self.save_json(filepath=save_to)
@@ -490,7 +493,7 @@ class FreeFermionVolumeBenchmark(Benchmark):
             else:
                 saved_path = self.save_json()
             print(f"[Benchmark] Saved updated JSON to: {saved_path}")
-    
+
         return {
             "parallel_values": parallel_values,
             "orthogonal_values": orthogonal_values,
@@ -498,16 +501,16 @@ class FreeFermionVolumeBenchmark(Benchmark):
 
     def plot_all_expectation_values(self) -> None:
         """Plot parallel and orthogonal projection values across all samples.
-    
+
         Plots projection values (with approximate standard error bars) across
         the entire benchmark, with separate markers for:
-    
+
           * Parallel values      (stabilizer-like).
           * Orthogonal values    (destabilizer-like).
-    
+
         Requires :meth:`evaluate_benchmark` to have been run so that
         ``self.experimental_results["evaluation"]`` is populated.
-    
+
         Raises:
           ValueError: If experimental results or evaluation entries are
             missing, or if :attr:`shots` is not a positive integer.
@@ -516,36 +519,34 @@ class FreeFermionVolumeBenchmark(Benchmark):
             raise ValueError(
                 "No experimental_results found. Run evaluate_benchmark() first."
             )
-    
+
         if not self.shots:
             raise ValueError("self.shots must be a positive integer.")
-    
+
         evaluation = self.experimental_results.get("evaluation", {})
-        if (
-            "parallel_values" not in evaluation
-            or "orthogonal_values" not in evaluation
-        ):
+        if "parallel_values" not in evaluation or "orthogonal_values" not in evaluation:
             raise ValueError(
                 "Expected values missing — run evaluate_benchmark() first."
             )
-    
+
         parallel_values = np.asarray(evaluation["parallel_values"], dtype=float)
         orthogonal_values = np.asarray(evaluation["orthogonal_values"], dtype=float)
-    
+
         # Approximate std errors (using ±1 outcome formula)
         parallel_errors = [
-            float(np.sqrt(max(0.0, 1.0 - ev * ev) / self.shots)) for ev in parallel_values
+            float(np.sqrt(max(0.0, 1.0 - ev * ev) / self.shots))
+            for ev in parallel_values
         ]
         orthogonal_errors = [
             float(np.sqrt(max(0.0, 1.0 - ev * ev) / self.shots))
             for ev in orthogonal_values
         ]
-    
+
         # x-axis over samples
         x = 1 + np.arange(len(parallel_values))
-    
+
         plt.figure(figsize=(12, 6))
-    
+
         # Parallel (blue)
         plt.errorbar(
             x,
@@ -558,7 +559,7 @@ class FreeFermionVolumeBenchmark(Benchmark):
             ecolor="tab:blue",
             label="Parallel values",
         )
-    
+
         # Orthogonal (red, plot absolute value like destabilizers)
         plt.errorbar(
             x,
@@ -571,11 +572,11 @@ class FreeFermionVolumeBenchmark(Benchmark):
             ecolor="tab:red",
             label="Orthogonal values (|·|)",
         )
-    
+
         # Optional thresholds, analogous to Clifford
         stab_thresh = 1 / np.e
         dest_thresh = 0.25 / np.e
-    
+
         plt.axhline(
             stab_thresh,
             linestyle="--",
@@ -590,14 +591,14 @@ class FreeFermionVolumeBenchmark(Benchmark):
             color="tab:red",
             label="Orthogonal threshold = 1/(4e)",
         )
-    
+
         plt.xlabel("Sample index", fontsize=14)
         plt.ylabel("Expectation value", fontsize=14)
         plt.title(
             f"Free-Fermion Expectation Values Across Benchmark (N={self.number_of_qubits})",
             fontsize=16,
         )
-    
+
         plt.grid(alpha=0.4)
         plt.legend()
         plt.tight_layout()
@@ -605,16 +606,16 @@ class FreeFermionVolumeBenchmark(Benchmark):
 
     def plot_expectation_histograms(self, bins: int = 20) -> None:
         """Plot histograms of parallel and orthogonal projection values.
-    
+
         This is useful for understanding the distribution / quality of the
         projection values across the entire benchmark.
-    
+
         Requires :meth:`evaluate_benchmark` to have been run so that
         ``self.experimental_results["evaluation"]`` is populated.
-    
+
         Args:
           bins: Number of histogram bins to use.
-    
+
         Raises:
           ValueError: If experimental results or evaluation entries are
             missing.
@@ -623,19 +624,19 @@ class FreeFermionVolumeBenchmark(Benchmark):
             raise ValueError(
                 "No experimental_results found. Run evaluate_benchmark() first."
             )
-    
+
         evaluation = self.experimental_results.get("evaluation", {})
         parallel_values = evaluation.get("parallel_values")
         orthogonal_values = evaluation.get("orthogonal_values")
-    
+
         if parallel_values is None or orthogonal_values is None:
             raise ValueError(
                 "Expected values missing — run evaluate_benchmark() first."
             )
-    
+
         parallel_values = np.asarray(parallel_values, dtype=float)
         orthogonal_values = np.asarray(np.abs(orthogonal_values), dtype=float)
-    
+
         plt.figure(figsize=(10, 5))
         sc, _, _ = plt.hist(
             parallel_values,
@@ -651,14 +652,14 @@ class FreeFermionVolumeBenchmark(Benchmark):
             color="tab:red",
             label="Expectation values (|·|)",
         )
-    
+
         plt.xlabel("Projection value", fontsize=14)
         plt.ylabel("Count", fontsize=14)
         plt.title(
             f"Free-Fermion Projection Distributions — N={self.number_of_qubits}",
             fontsize=16,
         )
-    
+
         # Same visual thresholds as Clifford, just reinterpreted
         plt.vlines(
             1 / np.e,
@@ -676,7 +677,7 @@ class FreeFermionVolumeBenchmark(Benchmark):
             color="tab:red",
             label="Orthogonal threshold = 1/(4e)",
         )
-    
+
         plt.grid(alpha=0.3)
         plt.legend()
         plt.tight_layout()

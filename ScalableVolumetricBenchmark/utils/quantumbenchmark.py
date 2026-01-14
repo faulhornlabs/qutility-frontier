@@ -13,7 +13,6 @@ from .quantumcircuit import QasmEmitterOptions
 from .benchmarkschema import SCHEMA_VERSION, BENCHMARK_JSON_SCHEMA
 
 
-
 B = TypeVar("B", bound="Benchmark")
 
 
@@ -303,9 +302,7 @@ class Benchmark(ABC):
         """
         raise NotImplementedError
 
-
     # Filename / path helpers methods
-
 
     def _default_filename(self) -> str:
         """Return the default filename for this benchmark JSON file.
@@ -584,7 +581,7 @@ class Benchmark(ABC):
             benchmark_id=benchmark_id,
         )
 
-        #  Attach metadata and samples 
+        #  Attach metadata and samples
         inst.benchmark_metadata = data.get("global_metadata", {})
         inst.samples = data.get("samples", [])
         inst.experimental_results = data.get("experimental_results")
@@ -642,7 +639,7 @@ class Benchmark(ABC):
         self,
         counts_data: Union[
             Dict[str, Dict[str, int]],  # circuit_id -> counts dict
-            List[Dict[str, int]],       # list aligned with circuit order
+            List[Dict[str, int]],  # list aligned with circuit order
         ],
         *,
         experiment_id: Optional[str] = None,
@@ -702,7 +699,6 @@ class Benchmark(ABC):
 
         experiment_id = experiment_id or self.benchmark_id
 
-
         # Build mapping circuit_id -> counts dict
 
         if isinstance(counts_data, dict):
@@ -728,8 +724,7 @@ class Benchmark(ABC):
         if auto_save is not None:
             self.auto_save = bool(auto_save)
 
-
-        # Normalise and validate counts 
+        # Normalise and validate counts
 
         results_payload: Dict[str, Dict[str, Dict[str, int]]] = {}
 
@@ -762,7 +757,6 @@ class Benchmark(ABC):
 
             results_payload[circuit_id] = {"counts": norm_counts}
 
-
         self.experimental_results = {
             "experiment_id": experiment_id,
             "platform": platform,
@@ -770,7 +764,7 @@ class Benchmark(ABC):
             "results": results_payload,
         }
 
-        #  Auto-save 
+        #  Auto-save
 
         if self.auto_save:
             # If user specified a path, use that
@@ -839,7 +833,6 @@ class Benchmark(ABC):
 
         return qasm_list
 
-
     # Methods for benchmark evaluations
 
     def expected_value(
@@ -898,10 +891,7 @@ class Benchmark(ABC):
                 bitstring = bitstring[::-1]
 
             # Compute eigenvalue: product of ±1 from each qubit
-            parity = sum(
-                (op != "I" and bit == "1")
-                for op, bit in zip(ops, bitstring)
-            )
+            parity = sum((op != "I" and bit == "1") for op, bit in zip(ops, bitstring))
             eigen = -1 if parity % 2 else 1
             acc += eigen * count
 

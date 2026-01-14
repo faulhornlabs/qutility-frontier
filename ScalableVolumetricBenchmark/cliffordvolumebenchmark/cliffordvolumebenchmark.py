@@ -12,6 +12,7 @@ import matplotlib.pyplot as plt
 from ..utils.quantumbenchmark import Benchmark
 from ..utils.quantumcircuit import QuantumCircuit
 
+
 class CliffordVolumeBenchmark(Benchmark):
     """Volumetric benchmark based on random Clifford operator.
 
@@ -74,31 +75,16 @@ class CliffordVolumeBenchmark(Benchmark):
         # This is used by `_create_random_clifford_circuit`.
         self.number_of_measurements: int = self._compute_number_of_measurements()
 
-
     # Measurement count rule (override base method)
-
-
     def _compute_number_of_measurements(self) -> int:
-        """Compute the number of measurement circuits per sample.
+        """Return the fixed number of stabilizer/destabilizer measurements per sample.
 
-        * If ``n <= 10``: return ``n``.
-        * Otherwise: return ``int(10 + floor(n / 5) / 2)``.
-
-        This scales the number of measurements sub-linearly with the number
-        of qubits while keeping enough diversity for larger systems.
-
-        Returns:
-          int: The number of stabilizer/destabilizer measurement circuits to
-          generate per sample.
+        According to the Clifford Volume benchmark protocol, we measure
+        exactly 4 stabilizers and 4 destabilizers per Clifford instance.
         """
-        nq = self.number_of_qubits
-        if nq <= 10:
-            return nq
-        return int(10 + np.floor(nq / 5) / 2)
-
+        return np.min([self.number_of_qubits, 4])
 
     # Conversion from stim.Circuit → QuantumCircuit
-
 
     def _convert_stim_circuit_to_quantum_circuit(
         self,
@@ -160,25 +146,23 @@ class CliffordVolumeBenchmark(Benchmark):
 
         return qc
 
-
     # Random Clifford instance generator
-
 
     def _create_random_clifford_circuit(
         self,
     ) -> Tuple[
-        List[str],              # all_stabilizers
-        List[str],              # selected_stabilizers
-        List[QuantumCircuit],   # stabilizer_circuits
-        List[str],              # all_destabilizers
-        List[str],              # selected_destabilizers
-        List[QuantumCircuit],   # destabilizer_circuits
+        List[str],  # all_stabilizers
+        List[str],  # selected_stabilizers
+        List[QuantumCircuit],  # stabilizer_circuits
+        List[str],  # all_destabilizers
+        List[str],  # selected_destabilizers
+        List[QuantumCircuit],  # destabilizer_circuits
     ]:
         """Generate a random Clifford instance and its measurement circuits.
-    
+
         Returns:
           A 6-tuple:
-    
+
             * all_stabilizers:     all Z-output stabilizers (one per qubit).
             * stabilizers:         randomly selected subset of stabilizers.
             * stab_circs:          measurement circuits for the selected stabilizers.
@@ -188,11 +172,11 @@ class CliffordVolumeBenchmark(Benchmark):
         """
         tableau = stim.Tableau.random(self.number_of_qubits)
         n_meas = self.number_of_measurements
-    
+
         # Base circuit from tableau
         stim_circ = tableau.to_circuit(method="elimination")
         base_qc = self._convert_stim_circuit_to_quantum_circuit(stim_circ)
-    
+
         # --- FULL sets of stabilizers / destabilizers ---
         all_stabilizers = [
             str(tableau.z_output(i)).replace("_", "I")
@@ -202,7 +186,7 @@ class CliffordVolumeBenchmark(Benchmark):
             str(tableau.x_output(i)).replace("_", "I")
             for i in range(self.number_of_qubits)
         ]
-    
+
         # --- RANDOMLY SELECTED subsets (for measurement) ---
         indices_z = np.random.choice(
             self.number_of_qubits,
@@ -210,20 +194,20 @@ class CliffordVolumeBenchmark(Benchmark):
             replace=False,
         )
         stabilizers = [all_stabilizers[i] for i in indices_z]
-    
+
         indices_x = np.random.choice(
             self.number_of_qubits,
             size=n_meas,
             replace=False,
         )
         destabilizers = [all_destabilizers[i] for i in indices_x]
-    
+
         stab_circs, destab_circs = self._add_measurements_to_circuits(
             base_qc,
             stabilizers,
             destabilizers,
         )
-    
+
         return (
             all_stabilizers,
             stabilizers,
@@ -232,7 +216,6 @@ class CliffordVolumeBenchmark(Benchmark):
             destabilizers,
             destab_circs,
         )
-
 
     def _add_measurements_to_circuits(
         self,
@@ -306,7 +289,6 @@ class CliffordVolumeBenchmark(Benchmark):
 
     # Required by Benchmark: create one sample
 
-
     def _create_single_sample(self, sample_id: int) -> Dict[str, Any]:
         """Create one benchmark sample.
 
@@ -376,7 +358,6 @@ class CliffordVolumeBenchmark(Benchmark):
                 }
             )
 
-        
         sample_metadata: Dict[str, Any] = {
             "type": "clifford",
             "number_of_measurements": self.number_of_measurements,
@@ -392,9 +373,7 @@ class CliffordVolumeBenchmark(Benchmark):
             "circuits": circuits,
         }
 
-
     # Benchmark evaluation helpers
-
 
     def compute_expectation_values(self) -> Dict[str, float]:
         """Compute expectation values for all circuits using experimental results.
@@ -456,44 +435,18 @@ class CliffordVolumeBenchmark(Benchmark):
         *,
         auto_save: Optional[bool] = None,
         save_to: Optional[Union[str, Path]] = None,
-    ) -> Dict[str, List[float]]:
+    ) -> Dict[str, Any]:
         """Evaluate the Clifford benchmark using experimental results.
 
-        Computes expectation values for all circuits with a non-None
-        observable and returns them grouped into stabilizers and
-        destabilizers based on ``circuit['metadata']['kind']``.
+        Implements the manuscript criteria:
 
-        In addition, it:
+        (I)  Per-observable (worst-case):
+            <S> - 2σ >= τ_S  and  |<D>| + 2σ <= τ_D
 
-        * Stores per-circuit ``"expectation_value"`` and ``"std_error"`` in
-          ``self.experimental_results["results"][circuit_id]``.
-        * Stores grouped lists under
-          ``self.experimental_results["evaluation"]``.
-        * Checks simple pass/fail criteria:
+        (II) Per-Clifford-instance averages:
+            mean(<S>) - 5 σ̄ >= τ_S  and  |mean(<D>)| + 5 σ̄ <= τ_D
 
-            - Min stabilizer EV > 1 / e.
-            - Max |destabilizer EV| < 0.25 / e.
-
-        If ``auto_save`` is True (or the instance-level flag is True), the
-        updated benchmark (including evaluation data) is written to JSON
-        using the same path-resolution rules as :meth:`Benchmark.save_json`.
-
-        Args:
-          auto_save: Optional override for the instance-level ``auto_save``
-            flag. If provided, it is applied before any saving logic.
-          save_to: Optional file path or directory where the updated JSON file
-            should be stored. See :meth:`Benchmark.save_json` for details.
-
-        Returns:
-          Dict[str, List[float]]: A dictionary with two keys:
-
-            * ``"stabilizer_expectation_values"``: list of stabilizer EVs.
-            * ``"destabilizer_expectation_values"``: list of destabilizer EVs.
-
-        Raises:
-          ValueError: If experimental results or samples are missing, if
-            required result entries are missing for some circuits, or if
-            ``shots`` is not a positive integer.
+        Returns a structured dictionary including pass/fail flags.
         """
         if self.experimental_results is None:
             raise ValueError(
@@ -516,106 +469,200 @@ class CliffordVolumeBenchmark(Benchmark):
         if auto_save is not None:
             self.auto_save = bool(auto_save)
 
-        stabilizer_evs: List[float] = []
-        destabilizer_evs: List[float] = []
+        # Thresholds from the manuscript
+        tau_S = 1 / np.e
+        tau_D = 1 / (2 * np.e)
 
-        # Walk all circuits in canonical order
+        # Collect all EVs for global summaries/plots
+        stabilizer_evs: List[float] = []
+        stabilizer_errs: List[float] = []
+        destabilizer_evs: List[float] = []
+        destabilizer_errs: List[float] = []
+
+        # Per-sample evaluation
+        per_sample: Dict[int, Dict[str, Any]] = {}
+
+        # Helper for ±1 outcome EV estimator uncertainty
+        def _sigma_from_ev(ev: float) -> float:
+            return float(np.sqrt(max(0.0, 1.0 - ev * ev) / self.shots))
+
+        # Walk sample-by-sample (each sample corresponds to one random Clifford)
         for sample in self.samples:
+            sid = sample["sample_id"]
+
+            sample_stab: List[Tuple[str, float, float]] = []
+            sample_dest: List[Tuple[str, float, float]] = []
+
+            # Evaluate each circuit in this sample
             for circuit in sample.get("circuits", []):
                 cid = circuit["circuit_id"]
                 pauli = circuit.get("observable")
-
                 if pauli is None:
                     continue
 
                 if cid not in results:
                     raise ValueError(
-                        f"Missing result for circuit_id {cid!r} "
-                        "in experimental_results['results']."
+                        f"Missing result for circuit_id {cid!r} in experimental_results['results']."
                     )
 
                 counts = results[cid]["counts"]
+                ev = float(self.expected_value(counts, pauli))
+                sigma = _sigma_from_ev(ev)
 
-                # Expectation value
-                ev = self.expected_value(counts, pauli)
-
-                # Standard error of EV (for ±1 outcomes)
-                std_err = float(np.sqrt(max(0.0, 1.0 - ev ** 2) / self.shots))
-
-                # Store per-circuit EV and error
+                # cache per-circuit values
                 results[cid]["expectation_value"] = ev
-                results[cid]["std_error"] = std_err
+                results[cid]["std_error"] = sigma
 
                 kind = circuit.get("metadata", {}).get("kind")
                 if kind == "stabilizer":
+                    sample_stab.append((pauli, ev, sigma))
                     stabilizer_evs.append(ev)
+                    stabilizer_errs.append(sigma)
                 elif kind == "destabilizer":
+                    sample_dest.append((pauli, ev, sigma))
                     destabilizer_evs.append(ev)
+                    destabilizer_errs.append(sigma)
 
-        # Store grouped lists
+            if len(sample_stab) == 0 or len(sample_dest) == 0:
+                raise ValueError(
+                    f"Sample {sid} has missing stabilizer/destabilizer circuits "
+                    f"(stab={len(sample_stab)}, dest={len(sample_dest)})."
+                )
+
+            # --- Criterion (I): per-observable worst-case ---
+            stab_margins = [(ev - 2.0 * sig) for _, ev, sig in sample_stab]
+            dest_margins = [(abs(ev) + 2.0 * sig) for _, ev, sig in sample_dest]
+
+            crit_I_stab_pass = all(m >= tau_S for m in stab_margins)
+            crit_I_dest_pass = all(m <= tau_D for m in dest_margins)
+            crit_I_pass = crit_I_stab_pass and crit_I_dest_pass
+
+            # --- Criterion (II): per-sample averages ---
+            stab_vals = np.array([ev for _, ev, _ in sample_stab], dtype=float)
+            stab_sigs = np.array([sig for _, _, sig in sample_stab], dtype=float)
+            dest_vals = np.array([ev for _, ev, _ in sample_dest], dtype=float)
+            dest_sigs = np.array([sig for _, _, sig in sample_dest], dtype=float)
+
+            mean_stab = float(np.mean(stab_vals))
+            mean_dest = float(np.mean(dest_vals))
+
+            # Match manuscript definition:
+            #   σ̄ = sqrt((1/m) Σ σ_i^2)
+            mS = len(stab_sigs)
+            mD = len(dest_sigs)
+            sigma_bar_stab = float(np.sqrt((1.0 / mS) * np.sum(stab_sigs**2)))
+            sigma_bar_dest = float(np.sqrt((1.0 / mD) * np.sum(dest_sigs**2)))
+
+            crit_II_stab_pass = (mean_stab - 5.0 * sigma_bar_stab) >= tau_S
+            crit_II_dest_pass = (abs(mean_dest) + 5.0 * sigma_bar_dest) <= tau_D
+            crit_II_pass = crit_II_stab_pass and crit_II_dest_pass
+
+            passed = crit_I_pass and crit_II_pass
+
+            per_sample[sid] = {
+                "passed": bool(passed),
+                "criterion_I": {
+                    "passed": bool(crit_I_pass),
+                    "stabilizer_passed": bool(crit_I_stab_pass),
+                    "destabilizer_passed": bool(crit_I_dest_pass),
+                    "min_stab_margin": float(np.min(stab_margins)),
+                    "max_dest_margin": float(np.max(dest_margins)),
+                },
+                "criterion_II": {
+                    "passed": bool(crit_II_pass),
+                    "stabilizer_passed": bool(crit_II_stab_pass),
+                    "destabilizer_passed": bool(crit_II_dest_pass),
+                    "mean_stab": mean_stab,
+                    "mean_dest": mean_dest,
+                    "sigma_bar_stab": sigma_bar_stab,
+                    "sigma_bar_dest": sigma_bar_dest,
+                },
+                "thresholds": {"tau_S": float(tau_S), "tau_D": float(tau_D)},
+            }
+
+        # Store grouped lists for your plotting utilities
         self.experimental_results.setdefault("evaluation", {})
-        self.experimental_results["evaluation"][
-            "stabilizer_expectation_values"
-        ] = stabilizer_evs
+        self.experimental_results["evaluation"]["stabilizer_expectation_values"] = (
+            stabilizer_evs
+        )
+        self.experimental_results["evaluation"]["destabilizer_expectation_values"] = (
+            destabilizer_evs
+        )
+        self.experimental_results["evaluation"]["stabilizer_std_errors"] = (
+            stabilizer_errs
+        )
+        self.experimental_results["evaluation"]["destabilizer_std_errors"] = (
+            destabilizer_errs
+        )
+        self.experimental_results["evaluation"]["per_sample"] = per_sample
+        self.experimental_results["evaluation"]["thresholds"] = {
+            "tau_S": float(tau_S),
+            "tau_D": float(tau_D),
+        }
 
-        self.experimental_results["evaluation"][
-            "destabilizer_expectation_values"
-        ] = destabilizer_evs
-
-        # print summary
+        # --- Printing (updated, manuscript-aligned) ---
+        n_pass = sum(1 for v in per_sample.values() if v["passed"])
+        n_tot = len(per_sample)
 
         print("\n==============================================================")
         print(f" Clifford Benchmark Evaluation ({self.number_of_qubits} qubits)")
-        print("==============================================================\n")
+        print("==============================================================")
+        print(f"Thresholds: τ_S = 1/e = {tau_S:.6f}   τ_D = 1/(2e) = {tau_D:.6f}")
+        print(f"Shots per circuit: {self.shots}")
+        print("--------------------------------------------------------------")
 
         if len(stabilizer_evs) > 0:
-            mean_s, std_s = np.mean(stabilizer_evs), np.std(stabilizer_evs)
-            print("Stabilizer expectation values:")
-            print(f"  • average: {mean_s:.6f} ± {std_s:.6f}")
-            print(f"  • lowest measured value: {np.min(stabilizer_evs):.6f}")
-            print()
-        else:
-            print("No stabilizer expectation values.\n")
-
+            print("Stabilizers (all measured):")
+            print(
+                f"  • mean ± std: {np.mean(stabilizer_evs):.6f} ± {np.std(stabilizer_evs):.6f}"
+            )
+            print(f"  • min EV:     {np.min(stabilizer_evs):.6f}")
         if len(destabilizer_evs) > 0:
-            mean_d, std_d = np.mean(destabilizer_evs), np.std(destabilizer_evs)
-            print("Destabilizer expectation values:")
-            print(f"  • average: {mean_d:.6f} ± {std_d:.6f}")
-            print(f"  • highest absolute value: {np.max(np.abs(destabilizer_evs)):.6f}")
-            print()
-        else:
-            print("No destabilizer expectation values.\n")
+            print("Destabilizers (all measured):")
+            print(
+                f"  • mean ± std: {np.mean(destabilizer_evs):.6f} ± {np.std(destabilizer_evs):.6f}"
+            )
+            print(f"  • max |EV|:   {np.max(np.abs(destabilizer_evs)):.6f}")
 
-        passed = (
-            len(stabilizer_evs) > 0
-            and len(destabilizer_evs) > 0
-            and np.min(stabilizer_evs) > 1 / np.e
-            and np.max(np.abs(destabilizer_evs)) < 0.25 / np.e
+        print("--------------------------------------------------------------")
+        print(f"Per-sample pass count: {n_pass}/{n_tot}")
+
+        # Show the worst offending margins (useful for debugging)
+        worst_stab = min(
+            per_sample.items(), key=lambda kv: kv[1]["criterion_I"]["min_stab_margin"]
+        )
+        worst_dest = max(
+            per_sample.items(), key=lambda kv: kv[1]["criterion_I"]["max_dest_margin"]
+        )
+        print(
+            f"Worst stabilizer margin (min over samples of <S>-2σ): "
+            f"sample {worst_stab[0]} -> {worst_stab[1]['criterion_I']['min_stab_margin']:.6f}"
+        )
+        print(
+            f"Worst destabilizer margin (max over samples of |<D>|+2σ): "
+            f"sample {worst_dest[0]} -> {worst_dest[1]['criterion_I']['max_dest_margin']:.6f}"
         )
 
-        print(f"Benchmark passed: {passed}")
+        overall_passed = n_pass == n_tot
+        print(f"Benchmark passed (all samples): {overall_passed}")
         print("==============================================================\n")
 
-        
+        # Auto-save logic unchanged
         if self.auto_save:
-
-            # Case 1: explicit save path
             if save_to is not None:
                 saved_path = self.save_json(filepath=save_to)
-
-            # Case 2: already saved once → overwrite same path
             elif self.path is not None:
                 saved_path = self.save_json(filepath=self.path)
-
-            # Case 3: never saved → default path
             else:
                 saved_path = self.save_json()
-
             print(f"[Benchmark] Saved updated JSON to: {saved_path}")
 
         return {
             "stabilizer_expectation_values": stabilizer_evs,
             "destabilizer_expectation_values": destabilizer_evs,
+            "per_sample": per_sample,
+            "thresholds": {"tau_S": float(tau_S), "tau_D": float(tau_D)},
+            "passed": bool(overall_passed),
         }
 
     def get_all_expectation_value(
@@ -756,7 +803,7 @@ class CliffordVolumeBenchmark(Benchmark):
         plt.errorbar(
             x,
             stab_vals,
-            yerr=stab_errs,
+            yerr=[3 * e for e in stab_errs],
             fmt="s",
             capsize=6,
             markersize=7,
@@ -793,7 +840,7 @@ class CliffordVolumeBenchmark(Benchmark):
         plt.errorbar(
             x,
             dest_vals,
-            yerr=dest_errs,
+            yerr=[3 * e for e in dest_errs],
             fmt="s",
             capsize=6,
             markersize=7,
@@ -874,7 +921,7 @@ class CliffordVolumeBenchmark(Benchmark):
         plt.errorbar(
             x,
             stabilizer_expectation_value,
-            yerr=stabilizer_expectation_error,
+            yerr=[3 * e for e in stabilizer_expectation_error],
             fmt="o",
             markersize=6,
             capsize=4,
@@ -887,7 +934,7 @@ class CliffordVolumeBenchmark(Benchmark):
         plt.errorbar(
             x,
             destabilizer_expectation_value,
-            yerr=destabilizer_expectation_error,
+            yerr=[3 * e for e in destabilizer_expectation_error],
             fmt="o",
             markersize=6,
             capsize=4,
@@ -898,7 +945,7 @@ class CliffordVolumeBenchmark(Benchmark):
 
         # Thresholds
         stab_thresh = 1 / np.e
-        dest_thresh = 0.25 / np.e
+        dest_thresh = 1 / (2 * np.e)
 
         plt.axhline(
             stab_thresh,
@@ -992,7 +1039,7 @@ class CliffordVolumeBenchmark(Benchmark):
             label="Stabilizer threshold = 1/e",
         )
         plt.vlines(
-            0.25 / np.e,
+            1 / (2 * np.e),
             0,
             np.max(dc),
             ls="--",

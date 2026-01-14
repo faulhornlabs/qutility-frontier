@@ -4,7 +4,6 @@ BENCHMARK_JSON_SCHEMA = {
     "$schema": "https://json-schema.org/draft/2020-12/schema",
     "title": "Quantum Benchmark File",
     "type": "object",
-
     "required": [
         "schema_version",
         "benchmark_name",
@@ -14,11 +13,9 @@ BENCHMARK_JSON_SCHEMA = {
         "format",
         "target_sdk",
         "shots",
-        "samples"
+        "samples",
     ],
-
     "properties": {
-
         "schema_version": {"type": "string"},
         "benchmark_name": {"type": "string"},
         "benchmark_id": {"type": "string"},
@@ -47,50 +44,43 @@ BENCHMARK_JSON_SCHEMA = {
                                 "qasm": {"type": "string"},
                                 "metadata": {"type": "object"},
                             },
-                        }
-                    }
+                        },
+                    },
                 },
-            }
-        },            
+            },
+        },
         "experimental_results": {
             "type": ["object", "null"],
             "description": "Experimental results obtained after executing benchmark circuits.",
-
-            "required": [
-                "experiment_id",
-                "platform",
-                "results"
-            ],
-
+            "required": ["experiment_id", "platform", "results"],
             "properties": {
                 "experiment_id": {"type": "string"},
                 "platform": {"type": "string"},
-                "experiment_metadata": {"type": "object"},                
+                "experiment_metadata": {"type": "object"},
                 "results": {
                     "type": "object",
                     "description": "Dictionary mapping circuit_id → execution results.",
                     "propertyNames": {"type": "string"},
-
                     "additionalProperties": {
                         "type": "object",
                         "required": ["counts"],
                         "properties": {
                             "counts": {
                                 "type": "object",
-                                    "description": (
-                                        "Measurement results as a mapping bitstring -> count. "
-                                        "Bitstrings follow Qiskit's little-endian convention: "
-                                        "the RIGHTMOST bit corresponds to logical qubit 0, and "
-                                        "the LEFTMOST bit corresponds to logical qubit (n-1). "
-                                        "Example (3 qubits): bitstring '010' means qubit2=0, qubit1=1, qubit0=0."
-                                    ),
+                                "description": (
+                                    "Measurement results as a mapping bitstring -> count. "
+                                    "Bitstrings follow Qiskit's little-endian convention: "
+                                    "the RIGHTMOST bit corresponds to logical qubit 0, and "
+                                    "the LEFTMOST bit corresponds to logical qubit (n-1). "
+                                    "Example (3 qubits): bitstring '010' means qubit2=0, qubit1=1, qubit0=0."
+                                ),
                                 "propertyNames": {
                                     "type": "string",
-                                    "pattern": "^[01]+$"
+                                    "pattern": "^[01]+$",
                                 },
                                 "additionalProperties": {
                                     "type": "integer",
-                                    "minimum": 0
+                                    "minimum": 0,
                                 },
                             },
                         },

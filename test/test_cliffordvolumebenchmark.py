@@ -10,13 +10,16 @@ from ScalableVolumetricBenchmark import CliffordVolumeBenchmark
 
 
 def test_clifford_compute_number_of_measurements_rule():
-    b_small = CliffordVolumeBenchmark(number_of_qubits=5, sample_size=1, auto_save=False)
-    assert b_small.number_of_measurements == 5
+    b_small = CliffordVolumeBenchmark(
+        number_of_qubits=5, sample_size=1, auto_save=False
+    )
+    assert b_small.number_of_measurements == 4
 
-    b_large = CliffordVolumeBenchmark(number_of_qubits=20, sample_size=1, auto_save=False)
-    # Rule: 10 + floor(n/5) / 2
-    expected = int(10 + np.floor(20 / 5) / 2)
-    assert b_large.number_of_measurements == expected
+    b_large = CliffordVolumeBenchmark(
+        number_of_qubits=20, sample_size=1, auto_save=False
+    )
+
+    assert b_large.number_of_measurements == 4
 
 
 def _make_simple_clifford_with_results(
@@ -125,8 +128,8 @@ def test_clifford_get_all_expectation_value_structure():
     assert len(dest_map) == 1
 
     # Expectation values should match what we encoded (1 and 0)
-    (ev_s, se_s), = stab_map.values()
-    (ev_d, se_d), = dest_map.values()
+    ((ev_s, se_s),) = stab_map.values()
+    ((ev_d, se_d),) = dest_map.values()
 
     assert ev_s == pytest.approx(1.0)
     assert ev_d == pytest.approx(0.0)
@@ -137,7 +140,9 @@ def test_clifford_get_all_expectation_value_structure():
 
 
 def test_clifford_evaluate_benchmark_raises_on_missing_results():
-    b = CliffordVolumeBenchmark(number_of_qubits=1, sample_size=1, shots=10, auto_save=False)
+    b = CliffordVolumeBenchmark(
+        number_of_qubits=1, sample_size=1, shots=10, auto_save=False
+    )
     # Missing experimental_results
     with pytest.raises(ValueError):
         b.evaluate_benchmark()

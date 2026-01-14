@@ -10,11 +10,15 @@ from ScalableVolumetricBenchmark import FreeFermionVolumeBenchmark
 
 def test_freefermion_compute_number_of_measurements_rule():
     # For n <= 10: 2 * n
-    b_small = FreeFermionVolumeBenchmark(number_of_qubits=5, sample_size=1, auto_save=False)
+    b_small = FreeFermionVolumeBenchmark(
+        number_of_qubits=5, sample_size=1, auto_save=False
+    )
     assert b_small.number_of_measurements == 2 * 5
 
     # For n > 10: 20 + floor(n / 5)
-    b_large = FreeFermionVolumeBenchmark(number_of_qubits=20, sample_size=1, auto_save=False)
+    b_large = FreeFermionVolumeBenchmark(
+        number_of_qubits=20, sample_size=1, auto_save=False
+    )
     expected = int(20 + np.floor(20 / 5))
     assert b_large.number_of_measurements == expected
 

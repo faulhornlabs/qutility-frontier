@@ -26,11 +26,9 @@ from .freefermionvolumebenchmark import FreeFermionVolumeBenchmark
 
 __all__ = [
     "Benchmark",
-
     # JSON Schema
     "SCHEMA_VERSION",
     "BENCHMARK_JSON_SCHEMA",
-
     # Core circuit utilities
     "QuantumCircuit",
     "QuantumGate",
@@ -42,7 +40,6 @@ __all__ = [
     "reconstruct",
     "check_decomposition",
     "plot_decomposition",
-
     # Implementations
     "CliffordVolumeBenchmark",
     "FreeFermionVolumeBenchmark",

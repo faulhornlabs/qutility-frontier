@@ -16,7 +16,7 @@ from .quantumbenchmark import (
 
 from .benchmarkschema import (
     SCHEMA_VERSION,
-    BENCHMARK_JSON_SCHEMA, 
+    BENCHMARK_JSON_SCHEMA,
 )
 
 from .so_decomposition import (
@@ -26,8 +26,9 @@ from .so_decomposition import (
     check_decomposition,
     plot_decomposition,
 )
+
 __all__ = [
-    "QuantumCircuit", 
+    "QuantumCircuit",
     "QuantumGate",
     "TwoQubitQuantumGate",
     "QasmEmitter",

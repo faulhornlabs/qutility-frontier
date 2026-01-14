@@ -768,7 +768,6 @@ class QuantumCircuit:
                 print(line[start : start + max_line_length])
             print()
 
-
     # -----------------------------
     # Unitary matrix generation
     # -----------------------------
@@ -816,18 +815,17 @@ class QuantumCircuit:
 
         return U
 
-    
     def _apply_gate_to_state(
         self, state: np.ndarray, gate: "QuantumGate", n_qubits: int
     ) -> np.ndarray:
         """
         Apply a single gate to a statevector in-place-like (returns the same array).
-    
+
         Args:
             state: 1D numpy array of length 2**n_qubits.
             gate:  QuantumGate or TwoQubitQuantumGate.
             n_qubits: number of qubits.
-    
+
         Returns:
             The updated state (same ndarray object).
         """
@@ -847,9 +845,9 @@ class QuantumCircuit:
             c = gate.control_qubits[0]
             t = gate.target_qubits[0]
             state = self._apply_2q_matrix(state, U2, c, t, n_qubits)
-    
+
         return state
-    
+
     @staticmethod
     def _single_qubit_matrix(
         name: str, params: Optional[Sequence[float]]
@@ -857,7 +855,7 @@ class QuantumCircuit:
         """Return the 2x2 matrix for a single-qubit gate."""
         name = name.lower()
         p = list(params or [])
-    
+
         # Common fixed gates
         if name == "x":
             return np.array([[0, 1], [1, 0]], dtype=complex)
@@ -866,18 +864,14 @@ class QuantumCircuit:
         if name == "z":
             return np.array([[1, 0], [0, -1]], dtype=complex)
         if name == "h":
-            return (1.0 / np.sqrt(2.0)) * np.array(
-                [[1, 1], [1, -1]], dtype=complex
-            )
+            return (1.0 / np.sqrt(2.0)) * np.array([[1, 1], [1, -1]], dtype=complex)
         if name == "s":
             return np.array([[1, 0], [0, 1j]], dtype=complex)
         if name == "sdg":
             return np.array([[1, 0], [0, -1j]], dtype=complex)
         if name == "t":
-            return np.array(
-                [[1, 0], [0, np.exp(1j * np.pi / 4)]], dtype=complex
-            )
-    
+            return np.array([[1, 0], [0, np.exp(1j * np.pi / 4)]], dtype=complex)
+
         # Phase gate p(λ) ~ Rz(λ) up to global phase
         if name == "p":
             if len(p) != 1:
@@ -887,7 +881,7 @@ class QuantumCircuit:
                 [[1, 0], [0, np.exp(1j * lam)]],
                 dtype=complex,
             )
-    
+
         # General U(theta, phi, lambda) (QASM / U3 convention)
         if name == "u":
             if len(p) != 3:
@@ -902,7 +896,7 @@ class QuantumCircuit:
                 ],
                 dtype=complex,
             )
-    
+
         # Rotations
         if name == "rx":
             if len(p) != 1:
@@ -910,10 +904,8 @@ class QuantumCircuit:
             theta = p[0]
             ct = np.cos(theta / 2.0)
             st = np.sin(theta / 2.0)
-            return np.array(
-                [[ct, -1j * st], [-1j * st, ct]], dtype=complex
-            )
-    
+            return np.array([[ct, -1j * st], [-1j * st, ct]], dtype=complex)
+
         if name == "ry":
             if len(p) != 1:
                 raise ValueError("Gate 'ry' expects one parameter.")
@@ -921,7 +913,7 @@ class QuantumCircuit:
             ct = np.cos(theta / 2.0)
             st = np.sin(theta / 2.0)
             return np.array([[ct, -st], [st, ct]], dtype=complex)
-    
+
         if name == "rz":
             if len(p) != 1:
                 raise ValueError("Gate 'rz' expects one parameter.")
@@ -933,17 +925,15 @@ class QuantumCircuit:
                 ],
                 dtype=complex,
             )
-    
+
         raise NotImplementedError(f"Unsupported single-qubit gate: {name!r}")
-    
+
     @staticmethod
-    def _two_qubit_matrix(
-        name: str, params: Optional[Sequence[float]]
-    ) -> np.ndarray:
+    def _two_qubit_matrix(name: str, params: Optional[Sequence[float]]) -> np.ndarray:
         """Return the 4x4 matrix for a two-qubit gate in basis |c t>."""
         _ = params  # currently unused
         name = name.lower()
-    
+
         if name == "cx":
             # CNOT with control = |1>, flips target
             return np.array(
@@ -955,7 +945,7 @@ class QuantumCircuit:
                 ],
                 dtype=complex,
             )
-    
+
         if name == "cy":
             # control=1, apply Y to target
             return np.array(
@@ -967,7 +957,7 @@ class QuantumCircuit:
                 ],
                 dtype=complex,
             )
-    
+
         if name == "cz":
             return np.array(
                 [
@@ -978,7 +968,7 @@ class QuantumCircuit:
                 ],
                 dtype=complex,
             )
-    
+
         if name == "swap":
             return np.array(
                 [
@@ -989,9 +979,9 @@ class QuantumCircuit:
                 ],
                 dtype=complex,
             )
-    
+
         raise NotImplementedError(f"Unsupported two-qubit gate: {name!r}")
-    
+
     @staticmethod
     def _apply_1q_matrix(
         state: np.ndarray, U: np.ndarray, qubit: int, n_qubits: int
@@ -1000,7 +990,7 @@ class QuantumCircuit:
         dim = state.shape[0]
         if dim != (1 << n_qubits):
             raise ValueError("State dimension does not match number of qubits.")
-    
+
         mask = 1 << qubit
         for i in range(dim):
             if (i & mask) == 0:
@@ -1010,7 +1000,7 @@ class QuantumCircuit:
                 state[i] = U[0, 0] * a0 + U[0, 1] * a1
                 state[j] = U[1, 0] * a0 + U[1, 1] * a1
         return state
-    
+
     @staticmethod
     def _apply_2q_matrix(
         state: np.ndarray,
@@ -1021,17 +1011,17 @@ class QuantumCircuit:
     ) -> np.ndarray:
         """
         Apply a 4x4 matrix U acting on (control, target) in that order.
-    
+
         Basis ordering for the 4x4 block is:
             |c t> ∈ {|00>, |01>, |10>, |11>}
         """
         dim = state.shape[0]
         if dim != (1 << n_qubits):
             raise ValueError("State dimension does not match number of qubits.")
-    
+
         mc = 1 << control
         mt = 1 << target
-    
+
         for i in range(dim):
             # choose only the base indices where both bits are 0
             if (i & mc) == 0 and (i & mt) == 0:
@@ -1039,24 +1029,25 @@ class QuantumCircuit:
                 i01 = i | mt
                 i10 = i | mc
                 i11 = i | mc | mt
-    
+
                 v0 = state[i00]
                 v1 = state[i01]
                 v2 = state[i10]
                 v3 = state[i11]
-    
+
                 # U @ [v0, v1, v2, v3]
                 new0 = U[0, 0] * v0 + U[0, 1] * v1 + U[0, 2] * v2 + U[0, 3] * v3
                 new1 = U[1, 0] * v0 + U[1, 1] * v1 + U[1, 2] * v2 + U[1, 3] * v3
                 new2 = U[2, 0] * v0 + U[2, 1] * v1 + U[2, 2] * v2 + U[2, 3] * v3
                 new3 = U[3, 0] * v0 + U[3, 1] * v1 + U[3, 2] * v2 + U[3, 3] * v3
-    
+
                 state[i00] = new0
                 state[i01] = new1
                 state[i10] = new2
                 state[i11] = new3
-    
+
         return state
+
 
 # =============================================================
 # QASM Emitter

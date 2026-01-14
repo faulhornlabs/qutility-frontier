@@ -58,10 +58,7 @@ class GivensRotation:
     theta: float
 
     def __repr__(self) -> str:
-        return (
-            f"GivensRotation(i={self.n}, j={self.m}, "
-            f"theta={self.theta:.4f})"
-        )
+        return f"GivensRotation(i={self.n}, j={self.m}, theta={self.theta:.4f})"
 
     def matrix(self, size: int) -> np.ndarray:
         """Return the dense matrix representation of the rotation.
@@ -142,8 +139,7 @@ def so_decomposition(
     det = np.linalg.det(U)
     if not np.isclose(det, 1.0, atol=atol):
         raise ValueError(
-            f"Input matrix must have determinant +1 (SO(N)). "
-            f"Got det(U)={det:.6f}."
+            f"Input matrix must have determinant +1 (SO(N)). Got det(U)={det:.6f}."
         )
 
     rotations: List[GivensRotation] = []
@@ -208,9 +204,7 @@ def so_decomposition(
 
                 # Left multiplication modifies rows row1, row2.
                 U = G @ U
-                reverse_layer_rotations.append(
-                    GivensRotation(row1, row2, theta)
-                )
+                reverse_layer_rotations.append(GivensRotation(row1, row2, theta))
 
     # Final diagonalisation pass.
     for rot in reversed(reverse_layer_rotations):
@@ -344,7 +338,7 @@ def plot_decomposition(G: List[GivensRotation], size: Optional[int] = None) -> N
             zorder=1,
             marker="o",
             markersize=8,
-            color='tab:red'
+            color="tab:red",
         )
         ax.text(
             x + 0.1,
@@ -357,18 +351,10 @@ def plot_decomposition(G: List[GivensRotation], size: Optional[int] = None) -> N
         depth[m] += 1
 
     for mode in range(size):
-        ax.hlines(
-            mode + 1,
-            -0.5,
-            depth.max(),
-            ls="--",
-            zorder=0,
-            color="black"
-        )
+        ax.hlines(mode + 1, -0.5, depth.max(), ls="--", zorder=0, color="black")
 
     ax.set_ylim(0.5, size + 0.5)
     ax.set_xlim(-0.5, depth.max() + 0.5)
     ax.axis("off")
     plt.tight_layout()
     plt.show()
-
