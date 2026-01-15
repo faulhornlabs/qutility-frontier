@@ -24,6 +24,9 @@ from .utils import (
 from .cliffordvolumebenchmark import CliffordVolumeBenchmark
 from .freefermionvolumebenchmark import FreeFermionVolumeBenchmark
 
+CliffordVolumeBenchmark.__module__ = __name__
+FreeFermionVolumeBenchmark.__module__ = __name__
+
 __all__ = [
     "Benchmark",
     # JSON Schema

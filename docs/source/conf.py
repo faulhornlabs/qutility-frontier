@@ -1,48 +1,40 @@
-# Configuration file for the Sphinx documentation builder.
-#
-# For the full list of built-in configuration values, see the documentation:
-# https://www.sphinx-doc.org/en/master/usage/configuration.html
+from __future__ import annotations
 
-# -- Project information -----------------------------------------------------
-# https://www.sphinx-doc.org/en/master/usage/configuration.html#project-information
-
+import os
 import sys
-from pathlib import Path
+from datetime import datetime
 
-# project_root = docs/source/../../
-PROJECT_ROOT = Path(__file__).resolve().parents[2]
-sys.path.insert(0, str(PROJECT_ROOT))
+PROJECT_ROOT = os.path.abspath(os.path.join(os.path.dirname(__file__), "..", ".."))
+sys.path.insert(0, PROJECT_ROOT)
 
 project = "ScalableVolumetricBenchmark"
-copyright = "2025, Attila Portik"
-author = "Attila Portik"
-release = "0.0.3"
-
-# -- General configuration ---------------------------------------------------
-# https://www.sphinx-doc.org/en/master/usage/configuration.html#general-configuration
+author = "ScalableVolumetricBenchmark contributors"
+copyright = f"{datetime.now().year}, {author}"
+release = "0.1.0"
 
 extensions = [
-    "sphinx.ext.autodoc",  # pull docs from docstrings
-    "sphinx.ext.napoleon",  # support Google/NumPy docstring styles
-    "sphinx.ext.viewcode",  # add links to highlighted source code
-    "sphinx.ext.autosummary",  # (optional) summary tables
-    "sphinx.ext.mathjax",  # for LaTeX-style math like in the screenshot
+    "sphinx.ext.autodoc",
+    "sphinx.ext.autosummary",
+    "sphinx.ext.napoleon",
+    "sphinx.ext.viewcode",
 ]
 
 templates_path = ["_templates"]
-exclude_patterns = []
+exclude_patterns = ["_build", "Thumbs.db", ".DS_Store"]
 
+# ✅ autosummary ON
 autosummary_generate = True
 
+# ✅ prevents imported/re-exported members from duplicating
+autosummary_imported_members = False
 
-# -- Options for HTML output -------------------------------------------------
-# https://www.sphinx-doc.org/en/master/usage/configuration.html#options-for-html-output
+# ✅ shorter class/function names in pages
+add_module_names = False
+
+autodoc_default_options = {
+    "members": True,
+    "show-inheritance": True,
+}
 
 html_theme = "sphinx_rtd_theme"
-html_theme_options = {
-    "collapse_navigation": False,
-    "sticky_navigation": True,
-    "navigation_depth": 4,
-    "titles_only": False,
-}
 html_static_path = ["_static"]
