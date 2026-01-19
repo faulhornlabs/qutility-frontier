@@ -1,5 +1,11 @@
 # ScalableVolumetricBenchmark
 
+Project names:
+- BenchmarQ
+- BenchmarkQit
+- SQallable
+- VolumetricQ
+
 **ScalableVolumetricBenchmark** ($\leftarrow$ replace later) is an open-source Python package for implementing scalable and hardware-agnostic quantum benchmarking protocols. The package provides implementations of recently proposed volumetric benchmarks and offers tools to generate benchmark instances in a reproducible form.
 
 In contrast to component-level tests, this benchmark suite targets system-level characterization, aiming to capture the computational performance of the full quantum processor. It focuses on **volumetric benchmarks** — protocols designed to map the performance of the entire quantum processor (end-to-end), rather than benchmarking isolated components.
