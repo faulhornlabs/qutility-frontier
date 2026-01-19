@@ -597,33 +597,48 @@ class QuantumCircuit:
     # -----------------------------
     # Measurement & reset
     # -----------------------------
+
     def add_measurement(
-        self, qubit: int | Sequence[int], classical_bit: int | Sequence[int]
+        self,
+        qubit: int | Sequence[int],
+        classical_bit: int | Sequence[int],
     ) -> None:
         """
         Append measurement(s).
-
-        Args:
-            qubit: Single qubit index or sequence of indices.
-            classical_bit: Single classical bit index or sequence. If both are
-                sequences, their lengths must match; otherwise a single
-                classical bit is reused for each qubit.
-        Raises:
-            ValueError: If both arguments are sequences of different lengths.
+    
+        Supports scalar ints, lists/tuples, numpy arrays, and range().
+    
+        Rules:
+          - If both are sequences, they must have equal length (pairwise mapping).
+          - If qubit is a sequence and classical_bit is scalar, classical_bit is reused.
+          - If qubit is scalar and classical_bit is sequence, classical_bit must be length 1
+            (or you can decide to error).
         """
-        if isinstance(qubit, (list, tuple, np.ndarray)):
-            if isinstance(classical_bit, (list, tuple, np.ndarray)):
-                if len(qubit) != len(classical_bit):
-                    raise ValueError(
-                        "Length of qubit list must match length of classical_bit list."
-                    )
-                for q, c in zip(qubit, classical_bit):
-                    self.measurements.append((int(q), int(c)))
-            else:
-                for q in qubit:
-                    self.measurements.append((int(q), int(classical_bit)))
+    
+        def is_seq(x: object) -> bool:
+            return isinstance(x, Sequence) and not isinstance(x, (str, bytes))
+    
+        qubit_is_seq = is_seq(qubit)
+        cbit_is_seq = is_seq(classical_bit)
+    
+        # Case 1: both are sequences -> zip pairwise
+        if qubit_is_seq and cbit_is_seq:
+            if len(qubit) != len(classical_bit):
+                raise ValueError(
+                    "Length of qubit sequence must match length of classical_bit sequence."
+                )
+            for q, c in zip(qubit, classical_bit):
+                self.measurements.append((int(q), int(c)))
+    
+        # Case 2: qubits is sequence, cbits is scalar -> broadcast classical_bit
+        elif qubit_is_seq and not cbit_is_seq:
+            for q in qubit:
+                self.measurements.append((int(q), int(classical_bit)))
+    
+        # Case 3: qubit is scalar
         else:
             self.measurements.append((int(qubit), int(classical_bit)))
+
 
     def add_reset_operation(self, qubit: int) -> None:
         """Append a reset operation for the specified ``qubit``."""
