@@ -31,17 +31,16 @@ This package does **not** execute circuits directly on hardware providers. Inste
 
 * Open-source Python package designed to simplify the implementation of **platform-independent quantum benchmark protocols**.
 * A **benchmark *base* class** with a well-defined internal structure and workflow, including customizable methods for:
-* benchmark instance creation,
-* circuit generation,
-* serialization / saving,
-* loading and re-evaluation.
+  * benchmark instance creation,
+  * circuit generation,
+  * serialization / saving,
+  * loading and re-evaluation.
 * A lightweight **Python-based representation of quantum circuits**, enabling intuitive and flexible implementation of benchmark logic while remaining independent of any specific SDK.
 * **Hardware-agnostic circuit export** via **OpenQASM** (QASM 2 / QASM 3), with optional SDK-specific adaptations (e.g., gate aliasing).
 * A **JSON schema** to store complete benchmark instances, including:
-
-* benchmark metadata and generated circuits,
-* experimental results (shot counts),
-* evaluation results (scores, pass/fail conditions, and derived metrics),
+  * benchmark metadata and generated circuits,
+  * experimental results (shot counts),
+  * evaluation results (scores, pass/fail conditions, and derived metrics),
   together with utilities for saving and reloading benchmark instances reproducibly.
 
 ### Implemented scalable volumetric benchmarks
@@ -50,13 +49,13 @@ This package currently includes two implementations of scalable volumetric bench
 
 * **Clifford Volume Benchmark**
 
-* efficiently verifiable using stabilizer techniques
-* measures stabilizer and destabilizer observables to quantify device performance
+  * efficiently verifiable using stabilizer techniques
+  * measures stabilizer and destabilizer observables to quantify device performance
 
 * **Free-Fermion Volume Benchmark**
 
-* based on Gaussian / free-fermionic circuits (SO(2n) transformations)
-* evaluates device performance through Majorana-mode based observables
+  * based on Gaussian / free-fermionic circuits (SO(2n) transformations)
+  * evaluates device performance through Majorana-mode based observables
 
 ### Tutorials and demos
 
@@ -64,11 +63,6 @@ This package currently includes two implementations of scalable volumetric bench
 
 ---
 
-
----
-
-## Requirements
----
 
 ## Requirements
 
@@ -245,7 +239,7 @@ This enables reproducible generation, execution, and scoring while remaining pla
 
 ## Acknowledgements
 
-One of the benchmarks implemented in this package (the **Clifford Volume Benchmark**) is included in the set of **Key Performance Indicators (KPIs)** defined within the **EU Quantum Flagship** initiative for quantum computing benchmarking. The implementation provided here has also been collected as part of this initiative.
+One of the benchmarks implemented in this package (the **Clifford Volume Benchmark**) is included in the set of **Key Performance Indicators (KPIs)** defined within the **EU Quantum Flagship** initiative for quantum computer benchmarking. The implementation provided here has also been collected as part of this initiative.
 
 For details, see: https://arxiv.org/pdf/2512.19653
 
