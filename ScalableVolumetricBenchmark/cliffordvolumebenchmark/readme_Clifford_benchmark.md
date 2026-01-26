@@ -35,7 +35,7 @@ The **$n$-qubit Clifford group** $\mathcal{C}(n)$ is the set of unitary operator
 
 $$
 \mathcal{C}(n)
-= \left \{
+= \left\{
 U \in \mathrm{U}(2^n)
 \,| \,
 U P U^\dagger \in \mathcal{P}_n
