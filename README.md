@@ -157,6 +157,7 @@ Installs the extra packages needed to run the tutorial notebooks and use externa
 ```bash
 pip install ".[tutorials]"
 ```
+> Note: This package has been tested on Windows using Conda, with Python 3.10 and 3.12.
 
 ---
 
