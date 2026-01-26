@@ -1,25 +1,20 @@
 # ScalableVolumetricBenchmark
 
-Project names:
-- BenchmarQ
-- BenchmarkQit
-- SQallable
-- VolumetricQ
 
-**ScalableVolumetricBenchmark** ($\leftarrow$ replace later) is an open-source Python package for implementing scalable and hardware-agnostic quantum benchmarking protocols. The package provides implementations of recently proposed volumetric benchmarks and offers tools to generate benchmark instances in a reproducible form.
+**ScalableVolumetricBenchmark** ($\leftarrow$ replace later) is an open-source Python package for implementing scalable and hardware-agnostic quantum benchmarking protocols. The package provides implementations of recently proposed scalable benchmarks and offers tools to generate benchmark instances in a reproducible form. The **Clifford Volume Benchmark** implemented in this package is part of the **EU Quantum Flagship KPIs** for quantum computer benchmarking (see: https://arxiv.org/pdf/2512.19653).
 
-In contrast to component-level tests, this benchmark suite targets system-level characterization, aiming to capture the computational performance of the full quantum processor. It focuses on **volumetric benchmarks** — protocols designed to map the performance of the entire quantum processor (end-to-end), rather than benchmarking isolated components. <-- not just volumetric 
+In contrast to component-level tests, this benchmark suite targets system-level characterization, aiming to capture the computational performance of the full quantum processor. It focuses on protocols designed to map the performance of the entire quantum processor (end-to-end), rather than benchmarking isolated components. 
 
-Benchmarking quantum devices at scale is challenging, in particular because many benchmark protocols rely on quantum algorithms that do not scale well with system size. <-- how it does not scale? the quantum alogtihm it self scales but it can not be classically evaulated 
+Benchmarking quantum devices at scale is challenging, particularly because many benchmarking protocols rely on full-fledged quantum algorithms. However, evaluating these benchmarks typically requires classical calculations to validate the output of the quantum algorithm. Since this classical verification step does not scale efficiently with system size, validating such quantum algorithms becomes infeasible for large-scale devices.
 
-In addition, the lack of standardization across quantum SDKs and provider workflows creates a significant incompatibility gap: applications and algorithms are often difficult to realize across different platforms and may require multiple independent implementations. This makes cross-platform comparison hard and  inefficient. <-- pl tedious
+In addition, the lack of standardization across quantum SDKs and provider workflows creates a significant incompatibility gap: applications and algorithms are often difficult to realize across different platforms and may require multiple independent implementations. This makes cross-platform comparison both difficult and tedious.
 
 This project addresses both issues by:
 
-- providing **scalable, platform-independent** volumetric benchmarks, and
+- providing **scalable, platform-independent** benchmarks, and
 - representing benchmark circuits in a **simple intermediate format** based on **OpenQASM**, so that the same benchmark instance can be exported and executed across multiple platforms.
 
-This package does **not** execute circuits directly on hardware providers. Instead, it generates benchmark circuits in **OpenQASM**, which can be run using the provider’s own recommended workflow. <- collect the examples for running + simulators
+This package is **not** intended to serve as a tool for executing circuits directly on hardware providers. Instead, its purpose is to provide a convenient solution for generating benchmark circuits in OpenQASM format, which can then be executed using each provider’s recommended workflow. In addition, we collect and include real-world use cases demonstrating how these circuits can be imported into different SDKs and run on both simulators and real quantum hardware.
 
 > *Development status:* This project is under active development.
 
@@ -30,7 +25,7 @@ This package does **not** execute circuits directly on hardware providers. Inste
 ### Framework utilities
 
 * Open-source Python package designed to simplify the implementation of **platform-independent quantum benchmark protocols**.
-* A **benchmark *base* class** (with a well-defined internal structure and) <-- nem kell workflow, including customizable methods for:
+* A **benchmark *base* class** with a well-defined workflow, including customizable methods for:
   * benchmark instance creation,
   * circuit generation,
   * serialization / saving,
@@ -43,9 +38,9 @@ This package does **not** execute circuits directly on hardware providers. Inste
   * evaluation results (scores, pass/fail conditions, and derived metrics),
   together with utilities for saving and reloading benchmark instances reproducibly.
 
-### Implemented scalable volumetric benchmarks <-- - volumteric
+### Implemented scalable benchmarks
 
-This package currently includes two implementations of scalable volumetric benchmarks introduced in the accompanying paper: https://arxiv.org/abs/2512.19413 :
+This package currently includes two implementations of scalable benchmarks introduced in the accompanying paper: https://arxiv.org/abs/2512.19413 :
 
 * **Clifford Volume Benchmark**
 
@@ -59,7 +54,7 @@ This package currently includes two implementations of scalable volumetric bench
 
 ### Tutorials and demos
 
-* Notebooks, including tutorials and demos, demonstrating the usage of the benchmarks and provided utilities are available in the `notebooks/` folder. 
+* Notebooks, including tutorials and demos, demonstrating the usage of the benchmarks and provided utilities are available in the [`notebooks/`](https://github.com/faulhornlabs/scalable-volumetric-benchmark/tree/main/notebooks) folder. 
 
 ---
 ## Requirements
@@ -110,14 +105,14 @@ You can install directly from GitHub using:
 
 # Install the package
 pip install --upgrade pip
-pip install git+<REPO_URL>
-```
+pip install "git+ssh://git@github.com/faulhornlabs/scalable-volumetric-benchmark.git"
 
-Or install manually via clongin the repository:
+```
+Note that  installing via `pip install git+...` installs only the package. Tutorial notebooks and other extra files are not kept locally. To get the full repository (including `notebooks/`), clone and install it manually:
 
 #### Option 1: Setup with `venv`
 ```bash
-git clone <REPO_URL>
+git clone git@github.com:faulhornlabs/scalable-volumetric-benchmark.git
 cd ScalableVolumetricBenchmark
 
 # Create and activate a virtual environment
@@ -132,7 +127,7 @@ pip install .
 #### Option 2: Setup with `conda`
 
 ```bash
-git clone <REPO_URL>
+git clone git@github.com:faulhornlabs/scalable-volumetric-benchmark.git
 cd ScalableVolumetricBenchmark
 
 # Create and activate a conda environment
@@ -144,7 +139,7 @@ pip install --upgrade pip
 pip install .
 ```
 
-**Editable mode**  (`pip install -e .`) is recommended only during development, since changes in the source code are applied immediately without reinstalling.
+> **Editable mode**  (`pip install -e .`) is recommended only during development, since changes in the source code are applied immediately without reinstalling.
 
 ### Optional installs
 
@@ -176,27 +171,27 @@ from ScalableVolumetricBenchmark import CliffordVolumeBenchmark
 from ScalableVolumetricBenchmark import QasmEmitterOptions
 
 emitter = QasmEmitterOptions(format="qasm3", target_sdk="qiskit")  # or "braket", "tket", or None
-bench = CliffordVolumeBenchmark(
+benchmark = CliffordVolumeBenchmark(
   number_of_qubits=5,
   sample_size=10,
   emitter_options=emitter,
   shots=512,
 )
 
-bench.create_benchmark()  # generates samples and (by default) auto-saves JSON under .benchmarks/
+benchmark.create_benchmark()  # generates samples and (by default) auto-saves JSON under .benchmarks/
 ```
 
 Access the generated circuits:
 
 ```python
 # Flat list of OpenQASM programs (one per circuit)
-qasm_programs = bench.get_all_circuits()
+qasm_programs = benchmark.get_all_circuits()
 
 # Flat list of circuit IDs in the same order
-circuit_ids = bench.get_all_circuit_ids()
+circuit_ids = benchmark.get_all_circuit_ids()
 
 # Access full structure (including observable strings)
-samples = bench.samples
+samples = benchmark.samples
 first_circuit = samples[0]["circuits"][0] # <- sample index and circuit index 
 print(first_circuit["circuit_id"])
 print(first_circuit["observable"])
@@ -225,7 +220,7 @@ list_of_counts = [
 {"00000": 255, "11111": 257},
   # ...
 ]
-bench.add_experimental_results(
+benchmark.add_experimental_results(
   counts_by_circuit_id,
   #list_of_counts,
   platform="my_provider",
@@ -236,7 +231,7 @@ bench.add_experimental_results(
 ### 4) Evaluate and obtain the benchmark score
 
 ```python
-evaluation = bench.evaluate_benchmark()
+evaluation = benchmark.evaluate_benchmark()
 print(evaluation)
 ```
 
@@ -250,13 +245,13 @@ Some benchmarks also provide built-in plotting helpers, for details see the docu
 
 The Clifford Volume Benchmark samples random **n-qubit Clifford unitaries**, then probes the output state using a set of measured **stabilizers** (ideal expectation value 1) and **destabilizers** (ideal expectation value 0). The benchmark passes for width *n* when stabilizers stay above a threshold and destabilizers stay below a threshold in magnitude.
 
-See: `readme_Clifford_benchmark.md` for the full protocol and interpretation.
+See: [`readme_Clifford_benchmark.md`](http://github.com/faulhornlabs/scalable-volumetric-benchmark/blob/main/ScalableVolumetricBenchmark/cliffordvolumebenchmark/readme_Clifford_benchmark.md) for the full protocol and interpretation.
 
 ### Free-Fermion Volume Benchmark
 
 The Free-Fermion Volume (FFV) Benchmark samples random **SO(2n)** transformations (Gaussian/free-fermionic unitaries), constructs circuits from a decomposition into elementary rotations, and evaluates the device by measuring Majorana-mode observables (mapped to Pauli strings). It checks “parallel” and “orthogonal” projection values against recommended thresholds.
 
-See: `readme_FreeFermion_becnhmark.md` for the full protocol and interpretation.
+See: [`readme_FreeFermion_becnhmark.md`](https://github.com/faulhornlabs/scalable-volumetric-benchmark/blob/main/ScalableVolumetricBenchmark/freefermionvolumebenchmark/readme_FreeFermion_becnhmark.md) for the full protocol and interpretation.
 
 ---
 
@@ -276,7 +271,7 @@ This enables reproducible generation, execution, and scoring while remaining pla
 ## Suggested workflow
 
 1. Generate a benchmark instance and export circuits (OpenQASM).
-2. Execute circuits using the provider’s preferred workflow.
+2. Execute circuits using the provider’s preferred workflow. (For examples see the tutorials in the [`notebooks/`](https://github.com/faulhornlabs/scalable-volumetric-benchmark/tree/main/notebooks) folder.) 
 3. Attach counts back to the benchmark instance.
 4. Evaluate and store results (score + derived metrics).
 
