@@ -35,11 +35,12 @@ The **$n$-qubit Clifford group** $\mathcal{C}(n)$ is the set of unitary operator
 
 $$
 \mathcal{C}(n)
-= \left\{U \in \mathrm{U}(2^n)
-\,\middle|\,
+= \left \{
+U \in \mathrm{U}(2^n)
+\,| \,
 U P U^\dagger \in \mathcal{P}_n
 \text{ for all } P \in \mathcal{P}_n
-\right\}\mathrm{U}(1).
+\right\} / \mathrm{U}(1).
 $$
 
 Starting from $\ket{0}^{\otimes n}$, any Clifford unitary $C \in \mathcal{C}(n)$ prepares a **stabilizer state**
