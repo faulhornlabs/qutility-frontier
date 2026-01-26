@@ -34,7 +34,7 @@ The benchmark leverages the Gottesman–Knill theorem: any circuit composed of C
 The **$n$-qubit Clifford group** $\mathcal{C}(n)$ is the set of unitary operators (up to global phase) that map the $n$-qubit Pauli group $\mathcal{P}_n$ to itself under conjugation:
 
 $$ 
-\mathcal{C}(n) = \left\{ U \in \mathrm{U}(2^n) \,| \, U P U^\dagger \in \mathcal{P}_n \text{ for all } P \in \mathcal{P}_n \right\} / \mathrm{U}(1).
+\mathcal{C}(n) = \{\, U \in \mathrm{U}(2^n) \,| \, U P U^\dagger \in \mathcal{P}_n \text{ for all } P \in \mathcal{P}_n \,\} / \mathrm{U}(1).
 $$
 
 Starting from $\ket{0}^{\otimes n}$, any Clifford unitary $C \in \mathcal{C}(n)$ prepares a **stabilizer state**
