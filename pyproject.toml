@@ -6,7 +6,7 @@ build-backend = "setuptools.build_meta"
 name = "scalable_volumetric_benchmark"
 version = "0.1.0"
 description = "Quantum circuit utilities for volumetric benchmarking."
-requires-python = ">=3.8,<3.13"
+requires-python = ">=3.10,<3.13"
 
 dependencies = [
     "numpy>=1.21",
@@ -22,3 +22,31 @@ authors = [
 
 [tool.setuptools.packages.find]
 include = ["ScalableVolumetricBenchmark", "ScalableVolumetricBenchmark.*"]
+
+[project.optional-dependencies]
+dev = [
+    "pytest>=8.4.2",
+    "ruff>=0.14.3",
+    "jupyterlab>=4.0",
+    "notebook>=7.0",
+    "ipykernel>=6.0",
+    "ipython>=8.0",
+    "jsonschema>=4.25.1",
+]
+
+tutorials = [
+    "jupyterlab>=4.0",
+    "notebook>=7.0",
+    "ipykernel>=6.0",
+    "ipython>=8.0",
+    "jsonschema>=4.25.1",
+    "openqasm3>=1.0.1",
+    "qiskit>=1.4.5",
+    "qiskit-aer>=0.17.2",
+    "qiskit-qasm3-import>=0.6.0",
+    "amazon-braket-sdk>=1.104.1",
+    "boto3>=1.40.66",
+    "pytket>=2.11.0",
+    "pytket-qiskit>=0.74.0",
+    "rustworkx>=0.17.1",
+]

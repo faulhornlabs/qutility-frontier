@@ -8,18 +8,18 @@ Project names:
 
 **ScalableVolumetricBenchmark** ($\leftarrow$ replace later) is an open-source Python package for implementing scalable and hardware-agnostic quantum benchmarking protocols. The package provides implementations of recently proposed volumetric benchmarks and offers tools to generate benchmark instances in a reproducible form.
 
-In contrast to component-level tests, this benchmark suite targets system-level characterization, aiming to capture the computational performance of the full quantum processor. It focuses on **volumetric benchmarks** — protocols designed to map the performance of the entire quantum processor (end-to-end), rather than benchmarking isolated components.
+In contrast to component-level tests, this benchmark suite targets system-level characterization, aiming to capture the computational performance of the full quantum processor. It focuses on **volumetric benchmarks** — protocols designed to map the performance of the entire quantum processor (end-to-end), rather than benchmarking isolated components. <-- not just volumetric 
 
-Benchmarking quantum devices at scale is challenging, in particular because many benchmark protocols rely on quantum algorithms that do not scale well with system size.
+Benchmarking quantum devices at scale is challenging, in particular because many benchmark protocols rely on quantum algorithms that do not scale well with system size. <-- how it does not scale? the quantum alogtihm it self scales but it can not be classically evaulated 
 
-In addition, the lack of standardization across quantum SDKs and provider workflows creates a significant incompatibility gap: applications and algorithms are often difficult to realize across different platforms and may require multiple independent implementations. This makes cross-platform comparison hard and  inefficient.
+In addition, the lack of standardization across quantum SDKs and provider workflows creates a significant incompatibility gap: applications and algorithms are often difficult to realize across different platforms and may require multiple independent implementations. This makes cross-platform comparison hard and  inefficient. <-- pl tedious
 
 This project addresses both issues by:
 
 - providing **scalable, platform-independent** volumetric benchmarks, and
 - representing benchmark circuits in a **simple intermediate format** based on **OpenQASM**, so that the same benchmark instance can be exported and executed across multiple platforms.
 
-This package does **not** execute circuits directly on hardware providers. Instead, it generates benchmark circuits in **OpenQASM**, which can be run using the provider’s own recommended workflow.
+This package does **not** execute circuits directly on hardware providers. Instead, it generates benchmark circuits in **OpenQASM**, which can be run using the provider’s own recommended workflow. <- collect the examples for running + simulators
 
 > *Development status:* This project is under active development.
 
@@ -30,7 +30,7 @@ This package does **not** execute circuits directly on hardware providers. Inste
 ### Framework utilities
 
 * Open-source Python package designed to simplify the implementation of **platform-independent quantum benchmark protocols**.
-* A **benchmark *base* class** with a well-defined internal structure and workflow, including customizable methods for:
+* A **benchmark *base* class** (with a well-defined internal structure and) <-- nem kell workflow, including customizable methods for:
   * benchmark instance creation,
   * circuit generation,
   * serialization / saving,
@@ -43,7 +43,7 @@ This package does **not** execute circuits directly on hardware providers. Inste
   * evaluation results (scores, pass/fail conditions, and derived metrics),
   together with utilities for saving and reloading benchmark instances reproducibly.
 
-### Implemented scalable volumetric benchmarks
+### Implemented scalable volumetric benchmarks <-- - volumteric
 
 This package currently includes two implementations of scalable volumetric benchmarks introduced in the accompanying paper: https://arxiv.org/abs/2512.19413 :
 
@@ -59,37 +59,63 @@ This package currently includes two implementations of scalable volumetric bench
 
 ### Tutorials and demos
 
-* Notebooks, including tutorials and demos, demonstrating the usage of the benchmarks and provided utilities are available in the `notebooks/` folder.
+* Notebooks, including tutorials and demos, demonstrating the usage of the benchmarks and provided utilities are available in the `notebooks/` folder. 
 
 ---
-
-
 ## Requirements
 
-- Python **>= 3.8, < 3.12**
+- Python **>= 3.10, < 3.13**
 - Required dependencies:
-- `numpy >= 1.21`
-- `scipy >= 1.8` 
-- `matplotlib >= 3.5`
-- `stim >= 1.12`
+  - `numpy >= 1.21`
+  - `scipy >= 1.8`
+  - `matplotlib >= 3.5`
+  - `stim >= 1.12`
+  - `jsonschema >= 4.25.1` (Only needed if you want to validate benchmark JSON files against the schema)
 
-**Optional:**
-- `jsonschema` — only needed if you want to validate benchmark JSON files against the schema.
+### Optional dependencies
 
-**Development tool dependencies (optional)**
-The following tools are not required for end users, but are commonly useful during development:
-- `pytest` (testing)
-- `ruff` / `flake8` (formatting, linting)
-- `mypy` (type checking)
-- `jupyter` / `notebook` (running tutorial notebooks)
+#### Tutorials / notebook extras (optional)
+Recommended if you want to run the tutorial notebooks and use external SDKs:
+- `jupyterlab >= 4.0`
+- `notebook >= 7.0`
+- `ipykernel >= 6.0`
+- `ipython >= 8.0`
+- `jsonschema >= 4.25.1`
+- `openqasm3 >= 1.0.1`
+- `qiskit >= 1.4.5`
+- `qiskit-aer >= 0.17.2`
+- `qiskit-qasm3-import >= 0.6.0`
+- `amazon-braket-sdk >= 1.104.1`
+- `boto3 >= 1.40.66`
+- `pytket >= 2.11.0`
+- `pytket-qiskit >= 0.74.0`
+- `rustworkx >= 0.17.1`
+
+#### Development dependencies (optional)
+Useful if you're contributing or developing locally:
+- `pytest >= 8.4.2` (testing)
+- `ruff >= 0.14.3` (linting/formatting)
+- `jupyterlab >= 4.0`
+- `notebook >= 7.0`
+- `ipykernel >= 6.0`
+- `ipython >= 8.0`
+- `jsonschema >= 4.25.1`
 
 ---
 
 ## Installation
 
-Clone the repository and install the package in **editable mode** (`pip install -e .`). Editable mode is recommended during development, since changes in the source code are applied immediately without reinstalling.
+You can install directly from GitHub using:
+```bash
 
-### Option 1: Setup with `venv` (standard Python)
+# Install the package
+pip install --upgrade pip
+pip install git+<REPO_URL>
+```
+
+Or install manually via clongin the repository:
+
+#### Option 1: Setup with `venv`
 ```bash
 git clone <REPO_URL>
 cd ScalableVolumetricBenchmark
@@ -100,10 +126,10 @@ source .venv/bin/activate    # On Windows: .venv\Scripts\activate
 
 # Install the package
 pip install --upgrade pip
-pip install -e .
+pip install .
 ```
 
-### Option 2: Setup with `conda`
+#### Option 2: Setup with `conda`
 
 ```bash
 git clone <REPO_URL>
@@ -115,7 +141,26 @@ conda activate scalablevolumetricbenchmark
 
 # Install the package
 pip install --upgrade pip
-pip install -e .
+pip install .
+```
+
+**Editable mode**  (`pip install -e .`) is recommended only during development, since changes in the source code are applied immediately without reinstalling.
+
+### Optional installs
+
+
+**Development tools (`dev`)**
+Includes tools for testing and code quality checks (e.g. `pytest`, `ruff`), and is recommended if you plan to contribute to the project or develop new features.
+
+```bash
+pip install ".[dev]"
+```
+
+**Tutorial + SDK extras (`tutorials`)**
+Installs the extra packages needed to run the tutorial notebooks and use external quantum SDKs (e.g. Qiskit, Braket, PyTKET).
+
+```bash
+pip install ".[tutorials]"
 ```
 
 ---
