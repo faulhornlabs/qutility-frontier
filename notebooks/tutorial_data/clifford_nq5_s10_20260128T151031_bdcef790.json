@@ -1,0 +1,4092 @@
+{
+  "schema_version": "0.1.1",
+  "benchmark_name": "clifford",
+  "benchmark_id": "clifford_nq5_s10_20260128T151031_bdcef790",
+  "number_of_qubits": 5,
+  "sample_size": 10,
+  "format": "qasm2",
+  "target_sdk": "qiskit",
+  "shots": 2048,
+  "global_metadata": {},
+  "samples": [
+    {
+      "sample_id": 0,
+      "sample_metadata": {
+        "type": "clifford",
+        "number_of_measurements": 4,
+        "clifford_operator": {
+          "stabilizers": [
+            "-XZZZX",
+            "-IYXXZ",
+            "+XXYII",
+            "-IXIXX",
+            "-ZZYXZ"
+          ],
+          "destabilizers": [
+            "+XZZIZ",
+            "-XIIYZ",
+            "-ZYXYX",
+            "-ZIZIY",
+            "+IIYXX"
+          ]
+        }
+      },
+      "circuits": [
+        {
+          "circuit_id": "0_stab_0",
+          "observable": "-IXIXX",
+          "qasm": "OPENQASM 2.0;\n\ninclude \"qelib1.inc\";\n\nqreg q[5];\ncreg c[5];\n\ncx q[2], q[0];\ncx q[0], q[2];\ncx q[2], q[0];\nh q[0];\nh q[3];\ncx q[0], q[3];\ncx q[0], q[4];\ns q[2];\nh q[2];\ncx q[1], q[0];\ncx q[2], q[0];\ncx q[3], q[1];\ncx q[1], q[3];\ncx q[3], q[1];\ns q[1];\nh q[1];\ns q[1];\nh q[2];\ncx q[1], q[2];\ncx q[1], q[3];\nh q[3];\nh q[4];\ncx q[3], q[1];\ncx q[4], q[1];\ncx q[4], q[2];\ncx q[2], q[4];\ncx q[4], q[2];\nh q[2];\ns q[2];\nh q[3];\ncx q[2], q[3];\nh q[4];\ncx q[4], q[2];\ns q[3];\nh q[3];\ncx q[3], q[4];\nh q[4];\ns q[4];\nh q[1];\nh q[2];\nh q[4];\ns q[1];\ns q[1];\ns q[2];\ns q[2];\ns q[4];\ns q[4];\nh q[1];\nh q[2];\nh q[4];\ns q[0];\ns q[0];\nh q[1];\nh q[3];\nh q[4];\n\nmeasure q[0] -> c[0];\nmeasure q[1] -> c[1];\nmeasure q[2] -> c[2];\nmeasure q[3] -> c[3];\nmeasure q[4] -> c[4];",
+          "metadata": {
+            "kind": "stabilizer",
+            "index": 0
+          }
+        },
+        {
+          "circuit_id": "0_stab_1",
+          "observable": "-XZZZX",
+          "qasm": "OPENQASM 2.0;\n\ninclude \"qelib1.inc\";\n\nqreg q[5];\ncreg c[5];\n\ncx q[2], q[0];\ncx q[0], q[2];\ncx q[2], q[0];\nh q[0];\nh q[3];\ncx q[0], q[3];\ncx q[0], q[4];\ns q[2];\nh q[2];\ncx q[1], q[0];\ncx q[2], q[0];\ncx q[3], q[1];\ncx q[1], q[3];\ncx q[3], q[1];\ns q[1];\nh q[1];\ns q[1];\nh q[2];\ncx q[1], q[2];\ncx q[1], q[3];\nh q[3];\nh q[4];\ncx q[3], q[1];\ncx q[4], q[1];\ncx q[4], q[2];\ncx q[2], q[4];\ncx q[4], q[2];\nh q[2];\ns q[2];\nh q[3];\ncx q[2], q[3];\nh q[4];\ncx q[4], q[2];\ns q[3];\nh q[3];\ncx q[3], q[4];\nh q[4];\ns q[4];\nh q[1];\nh q[2];\nh q[4];\ns q[1];\ns q[1];\ns q[2];\ns q[2];\ns q[4];\ns q[4];\nh q[1];\nh q[2];\nh q[4];\ns q[0];\ns q[0];\nh q[0];\nh q[4];\n\nmeasure q[0] -> c[0];\nmeasure q[1] -> c[1];\nmeasure q[2] -> c[2];\nmeasure q[3] -> c[3];\nmeasure q[4] -> c[4];",
+          "metadata": {
+            "kind": "stabilizer",
+            "index": 1
+          }
+        },
+        {
+          "circuit_id": "0_stab_2",
+          "observable": "-ZZYXZ",
+          "qasm": "OPENQASM 2.0;\n\ninclude \"qelib1.inc\";\n\nqreg q[5];\ncreg c[5];\n\ncx q[2], q[0];\ncx q[0], q[2];\ncx q[2], q[0];\nh q[0];\nh q[3];\ncx q[0], q[3];\ncx q[0], q[4];\ns q[2];\nh q[2];\ncx q[1], q[0];\ncx q[2], q[0];\ncx q[3], q[1];\ncx q[1], q[3];\ncx q[3], q[1];\ns q[1];\nh q[1];\ns q[1];\nh q[2];\ncx q[1], q[2];\ncx q[1], q[3];\nh q[3];\nh q[4];\ncx q[3], q[1];\ncx q[4], q[1];\ncx q[4], q[2];\ncx q[2], q[4];\ncx q[4], q[2];\nh q[2];\ns q[2];\nh q[3];\ncx q[2], q[3];\nh q[4];\ncx q[4], q[2];\ns q[3];\nh q[3];\ncx q[3], q[4];\nh q[4];\ns q[4];\nh q[1];\nh q[2];\nh q[4];\ns q[1];\ns q[1];\ns q[2];\ns q[2];\ns q[4];\ns q[4];\nh q[1];\nh q[2];\nh q[4];\ns q[0];\ns q[0];\nsdg q[2];\nh q[2];\nh q[3];\n\nmeasure q[0] -> c[0];\nmeasure q[1] -> c[1];\nmeasure q[2] -> c[2];\nmeasure q[3] -> c[3];\nmeasure q[4] -> c[4];",
+          "metadata": {
+            "kind": "stabilizer",
+            "index": 2
+          }
+        },
+        {
+          "circuit_id": "0_stab_3",
+          "observable": "-IYXXZ",
+          "qasm": "OPENQASM 2.0;\n\ninclude \"qelib1.inc\";\n\nqreg q[5];\ncreg c[5];\n\ncx q[2], q[0];\ncx q[0], q[2];\ncx q[2], q[0];\nh q[0];\nh q[3];\ncx q[0], q[3];\ncx q[0], q[4];\ns q[2];\nh q[2];\ncx q[1], q[0];\ncx q[2], q[0];\ncx q[3], q[1];\ncx q[1], q[3];\ncx q[3], q[1];\ns q[1];\nh q[1];\ns q[1];\nh q[2];\ncx q[1], q[2];\ncx q[1], q[3];\nh q[3];\nh q[4];\ncx q[3], q[1];\ncx q[4], q[1];\ncx q[4], q[2];\ncx q[2], q[4];\ncx q[4], q[2];\nh q[2];\ns q[2];\nh q[3];\ncx q[2], q[3];\nh q[4];\ncx q[4], q[2];\ns q[3];\nh q[3];\ncx q[3], q[4];\nh q[4];\ns q[4];\nh q[1];\nh q[2];\nh q[4];\ns q[1];\ns q[1];\ns q[2];\ns q[2];\ns q[4];\ns q[4];\nh q[1];\nh q[2];\nh q[4];\ns q[0];\ns q[0];\nsdg q[1];\nh q[1];\nh q[2];\nh q[3];\n\nmeasure q[0] -> c[0];\nmeasure q[1] -> c[1];\nmeasure q[2] -> c[2];\nmeasure q[3] -> c[3];\nmeasure q[4] -> c[4];",
+          "metadata": {
+            "kind": "stabilizer",
+            "index": 3
+          }
+        },
+        {
+          "circuit_id": "0_destab_0",
+          "observable": "+XZZIZ",
+          "qasm": "OPENQASM 2.0;\n\ninclude \"qelib1.inc\";\n\nqreg q[5];\ncreg c[5];\n\ncx q[2], q[0];\ncx q[0], q[2];\ncx q[2], q[0];\nh q[0];\nh q[3];\ncx q[0], q[3];\ncx q[0], q[4];\ns q[2];\nh q[2];\ncx q[1], q[0];\ncx q[2], q[0];\ncx q[3], q[1];\ncx q[1], q[3];\ncx q[3], q[1];\ns q[1];\nh q[1];\ns q[1];\nh q[2];\ncx q[1], q[2];\ncx q[1], q[3];\nh q[3];\nh q[4];\ncx q[3], q[1];\ncx q[4], q[1];\ncx q[4], q[2];\ncx q[2], q[4];\ncx q[4], q[2];\nh q[2];\ns q[2];\nh q[3];\ncx q[2], q[3];\nh q[4];\ncx q[4], q[2];\ns q[3];\nh q[3];\ncx q[3], q[4];\nh q[4];\ns q[4];\nh q[1];\nh q[2];\nh q[4];\ns q[1];\ns q[1];\ns q[2];\ns q[2];\ns q[4];\ns q[4];\nh q[1];\nh q[2];\nh q[4];\ns q[0];\ns q[0];\nh q[0];\n\nmeasure q[0] -> c[0];\nmeasure q[1] -> c[1];\nmeasure q[2] -> c[2];\nmeasure q[3] -> c[3];\nmeasure q[4] -> c[4];",
+          "metadata": {
+            "kind": "destabilizer",
+            "index": 0
+          }
+        },
+        {
+          "circuit_id": "0_destab_1",
+          "observable": "-XIIYZ",
+          "qasm": "OPENQASM 2.0;\n\ninclude \"qelib1.inc\";\n\nqreg q[5];\ncreg c[5];\n\ncx q[2], q[0];\ncx q[0], q[2];\ncx q[2], q[0];\nh q[0];\nh q[3];\ncx q[0], q[3];\ncx q[0], q[4];\ns q[2];\nh q[2];\ncx q[1], q[0];\ncx q[2], q[0];\ncx q[3], q[1];\ncx q[1], q[3];\ncx q[3], q[1];\ns q[1];\nh q[1];\ns q[1];\nh q[2];\ncx q[1], q[2];\ncx q[1], q[3];\nh q[3];\nh q[4];\ncx q[3], q[1];\ncx q[4], q[1];\ncx q[4], q[2];\ncx q[2], q[4];\ncx q[4], q[2];\nh q[2];\ns q[2];\nh q[3];\ncx q[2], q[3];\nh q[4];\ncx q[4], q[2];\ns q[3];\nh q[3];\ncx q[3], q[4];\nh q[4];\ns q[4];\nh q[1];\nh q[2];\nh q[4];\ns q[1];\ns q[1];\ns q[2];\ns q[2];\ns q[4];\ns q[4];\nh q[1];\nh q[2];\nh q[4];\ns q[0];\ns q[0];\nh q[0];\nsdg q[3];\nh q[3];\n\nmeasure q[0] -> c[0];\nmeasure q[1] -> c[1];\nmeasure q[2] -> c[2];\nmeasure q[3] -> c[3];\nmeasure q[4] -> c[4];",
+          "metadata": {
+            "kind": "destabilizer",
+            "index": 1
+          }
+        },
+        {
+          "circuit_id": "0_destab_2",
+          "observable": "-ZIZIY",
+          "qasm": "OPENQASM 2.0;\n\ninclude \"qelib1.inc\";\n\nqreg q[5];\ncreg c[5];\n\ncx q[2], q[0];\ncx q[0], q[2];\ncx q[2], q[0];\nh q[0];\nh q[3];\ncx q[0], q[3];\ncx q[0], q[4];\ns q[2];\nh q[2];\ncx q[1], q[0];\ncx q[2], q[0];\ncx q[3], q[1];\ncx q[1], q[3];\ncx q[3], q[1];\ns q[1];\nh q[1];\ns q[1];\nh q[2];\ncx q[1], q[2];\ncx q[1], q[3];\nh q[3];\nh q[4];\ncx q[3], q[1];\ncx q[4], q[1];\ncx q[4], q[2];\ncx q[2], q[4];\ncx q[4], q[2];\nh q[2];\ns q[2];\nh q[3];\ncx q[2], q[3];\nh q[4];\ncx q[4], q[2];\ns q[3];\nh q[3];\ncx q[3], q[4];\nh q[4];\ns q[4];\nh q[1];\nh q[2];\nh q[4];\ns q[1];\ns q[1];\ns q[2];\ns q[2];\ns q[4];\ns q[4];\nh q[1];\nh q[2];\nh q[4];\ns q[0];\ns q[0];\nsdg q[4];\nh q[4];\n\nmeasure q[0] -> c[0];\nmeasure q[1] -> c[1];\nmeasure q[2] -> c[2];\nmeasure q[3] -> c[3];\nmeasure q[4] -> c[4];",
+          "metadata": {
+            "kind": "destabilizer",
+            "index": 2
+          }
+        },
+        {
+          "circuit_id": "0_destab_3",
+          "observable": "-ZYXYX",
+          "qasm": "OPENQASM 2.0;\n\ninclude \"qelib1.inc\";\n\nqreg q[5];\ncreg c[5];\n\ncx q[2], q[0];\ncx q[0], q[2];\ncx q[2], q[0];\nh q[0];\nh q[3];\ncx q[0], q[3];\ncx q[0], q[4];\ns q[2];\nh q[2];\ncx q[1], q[0];\ncx q[2], q[0];\ncx q[3], q[1];\ncx q[1], q[3];\ncx q[3], q[1];\ns q[1];\nh q[1];\ns q[1];\nh q[2];\ncx q[1], q[2];\ncx q[1], q[3];\nh q[3];\nh q[4];\ncx q[3], q[1];\ncx q[4], q[1];\ncx q[4], q[2];\ncx q[2], q[4];\ncx q[4], q[2];\nh q[2];\ns q[2];\nh q[3];\ncx q[2], q[3];\nh q[4];\ncx q[4], q[2];\ns q[3];\nh q[3];\ncx q[3], q[4];\nh q[4];\ns q[4];\nh q[1];\nh q[2];\nh q[4];\ns q[1];\ns q[1];\ns q[2];\ns q[2];\ns q[4];\ns q[4];\nh q[1];\nh q[2];\nh q[4];\ns q[0];\ns q[0];\nsdg q[1];\nh q[1];\nh q[2];\nsdg q[3];\nh q[3];\nh q[4];\n\nmeasure q[0] -> c[0];\nmeasure q[1] -> c[1];\nmeasure q[2] -> c[2];\nmeasure q[3] -> c[3];\nmeasure q[4] -> c[4];",
+          "metadata": {
+            "kind": "destabilizer",
+            "index": 3
+          }
+        }
+      ]
+    },
+    {
+      "sample_id": 1,
+      "sample_metadata": {
+        "type": "clifford",
+        "number_of_measurements": 4,
+        "clifford_operator": {
+          "stabilizers": [
+            "-XIZIX",
+            "-IYIYI",
+            "-IIXIZ",
+            "-IXYZY",
+            "-YIZYY"
+          ],
+          "destabilizers": [
+            "-XIXYI",
+            "+YZYIX",
+            "+ZZXXX",
+            "-YIYIX",
+            "+XZZXX"
+          ]
+        }
+      },
+      "circuits": [
+        {
+          "circuit_id": "1_stab_0",
+          "observable": "-IXYZY",
+          "qasm": "OPENQASM 2.0;\n\ninclude \"qelib1.inc\";\n\nqreg q[5];\ncreg c[5];\n\ncx q[4], q[0];\ncx q[0], q[4];\ncx q[4], q[0];\ns q[0];\nh q[0];\ns q[0];\nh q[1];\nh q[2];\nh q[3];\ncx q[0], q[1];\ncx q[0], q[2];\ncx q[0], q[3];\ns q[4];\nh q[1];\nh q[3];\nh q[4];\ncx q[1], q[0];\ncx q[3], q[0];\ncx q[4], q[0];\ncx q[3], q[1];\ncx q[1], q[3];\ncx q[3], q[1];\nh q[1];\ncx q[1], q[3];\nh q[3];\ncx q[3], q[1];\ncx q[4], q[2];\ncx q[2], q[4];\ncx q[4], q[2];\nh q[2];\ns q[2];\ns q[3];\ncx q[2], q[3];\ns q[4];\nh q[3];\nh q[4];\ncx q[3], q[2];\ncx q[4], q[2];\nh q[3];\ns q[3];\ns q[4];\ncx q[3], q[4];\nh q[4];\ncx q[4], q[3];\ns q[4];\nh q[0];\nh q[1];\nh q[2];\ns q[0];\ns q[0];\ns q[1];\ns q[1];\ns q[2];\ns q[2];\nh q[0];\nh q[1];\nh q[2];\ns q[0];\ns q[0];\ns q[2];\ns q[2];\ns q[4];\ns q[4];\nh q[1];\nsdg q[2];\nh q[2];\nsdg q[4];\nh q[4];\n\nmeasure q[0] -> c[0];\nmeasure q[1] -> c[1];\nmeasure q[2] -> c[2];\nmeasure q[3] -> c[3];\nmeasure q[4] -> c[4];",
+          "metadata": {
+            "kind": "stabilizer",
+            "index": 0
+          }
+        },
+        {
+          "circuit_id": "1_stab_1",
+          "observable": "-IYIYI",
+          "qasm": "OPENQASM 2.0;\n\ninclude \"qelib1.inc\";\n\nqreg q[5];\ncreg c[5];\n\ncx q[4], q[0];\ncx q[0], q[4];\ncx q[4], q[0];\ns q[0];\nh q[0];\ns q[0];\nh q[1];\nh q[2];\nh q[3];\ncx q[0], q[1];\ncx q[0], q[2];\ncx q[0], q[3];\ns q[4];\nh q[1];\nh q[3];\nh q[4];\ncx q[1], q[0];\ncx q[3], q[0];\ncx q[4], q[0];\ncx q[3], q[1];\ncx q[1], q[3];\ncx q[3], q[1];\nh q[1];\ncx q[1], q[3];\nh q[3];\ncx q[3], q[1];\ncx q[4], q[2];\ncx q[2], q[4];\ncx q[4], q[2];\nh q[2];\ns q[2];\ns q[3];\ncx q[2], q[3];\ns q[4];\nh q[3];\nh q[4];\ncx q[3], q[2];\ncx q[4], q[2];\nh q[3];\ns q[3];\ns q[4];\ncx q[3], q[4];\nh q[4];\ncx q[4], q[3];\ns q[4];\nh q[0];\nh q[1];\nh q[2];\ns q[0];\ns q[0];\ns q[1];\ns q[1];\ns q[2];\ns q[2];\nh q[0];\nh q[1];\nh q[2];\ns q[0];\ns q[0];\ns q[2];\ns q[2];\ns q[4];\ns q[4];\nsdg q[1];\nh q[1];\nsdg q[3];\nh q[3];\n\nmeasure q[0] -> c[0];\nmeasure q[1] -> c[1];\nmeasure q[2] -> c[2];\nmeasure q[3] -> c[3];\nmeasure q[4] -> c[4];",
+          "metadata": {
+            "kind": "stabilizer",
+            "index": 1
+          }
+        },
+        {
+          "circuit_id": "1_stab_2",
+          "observable": "-YIZYY",
+          "qasm": "OPENQASM 2.0;\n\ninclude \"qelib1.inc\";\n\nqreg q[5];\ncreg c[5];\n\ncx q[4], q[0];\ncx q[0], q[4];\ncx q[4], q[0];\ns q[0];\nh q[0];\ns q[0];\nh q[1];\nh q[2];\nh q[3];\ncx q[0], q[1];\ncx q[0], q[2];\ncx q[0], q[3];\ns q[4];\nh q[1];\nh q[3];\nh q[4];\ncx q[1], q[0];\ncx q[3], q[0];\ncx q[4], q[0];\ncx q[3], q[1];\ncx q[1], q[3];\ncx q[3], q[1];\nh q[1];\ncx q[1], q[3];\nh q[3];\ncx q[3], q[1];\ncx q[4], q[2];\ncx q[2], q[4];\ncx q[4], q[2];\nh q[2];\ns q[2];\ns q[3];\ncx q[2], q[3];\ns q[4];\nh q[3];\nh q[4];\ncx q[3], q[2];\ncx q[4], q[2];\nh q[3];\ns q[3];\ns q[4];\ncx q[3], q[4];\nh q[4];\ncx q[4], q[3];\ns q[4];\nh q[0];\nh q[1];\nh q[2];\ns q[0];\ns q[0];\ns q[1];\ns q[1];\ns q[2];\ns q[2];\nh q[0];\nh q[1];\nh q[2];\ns q[0];\ns q[0];\ns q[2];\ns q[2];\ns q[4];\ns q[4];\nsdg q[0];\nh q[0];\nsdg q[3];\nh q[3];\nsdg q[4];\nh q[4];\n\nmeasure q[0] -> c[0];\nmeasure q[1] -> c[1];\nmeasure q[2] -> c[2];\nmeasure q[3] -> c[3];\nmeasure q[4] -> c[4];",
+          "metadata": {
+            "kind": "stabilizer",
+            "index": 2
+          }
+        },
+        {
+          "circuit_id": "1_stab_3",
+          "observable": "-IIXIZ",
+          "qasm": "OPENQASM 2.0;\n\ninclude \"qelib1.inc\";\n\nqreg q[5];\ncreg c[5];\n\ncx q[4], q[0];\ncx q[0], q[4];\ncx q[4], q[0];\ns q[0];\nh q[0];\ns q[0];\nh q[1];\nh q[2];\nh q[3];\ncx q[0], q[1];\ncx q[0], q[2];\ncx q[0], q[3];\ns q[4];\nh q[1];\nh q[3];\nh q[4];\ncx q[1], q[0];\ncx q[3], q[0];\ncx q[4], q[0];\ncx q[3], q[1];\ncx q[1], q[3];\ncx q[3], q[1];\nh q[1];\ncx q[1], q[3];\nh q[3];\ncx q[3], q[1];\ncx q[4], q[2];\ncx q[2], q[4];\ncx q[4], q[2];\nh q[2];\ns q[2];\ns q[3];\ncx q[2], q[3];\ns q[4];\nh q[3];\nh q[4];\ncx q[3], q[2];\ncx q[4], q[2];\nh q[3];\ns q[3];\ns q[4];\ncx q[3], q[4];\nh q[4];\ncx q[4], q[3];\ns q[4];\nh q[0];\nh q[1];\nh q[2];\ns q[0];\ns q[0];\ns q[1];\ns q[1];\ns q[2];\ns q[2];\nh q[0];\nh q[1];\nh q[2];\ns q[0];\ns q[0];\ns q[2];\ns q[2];\ns q[4];\ns q[4];\nh q[2];\n\nmeasure q[0] -> c[0];\nmeasure q[1] -> c[1];\nmeasure q[2] -> c[2];\nmeasure q[3] -> c[3];\nmeasure q[4] -> c[4];",
+          "metadata": {
+            "kind": "stabilizer",
+            "index": 3
+          }
+        },
+        {
+          "circuit_id": "1_destab_0",
+          "observable": "-YIYIX",
+          "qasm": "OPENQASM 2.0;\n\ninclude \"qelib1.inc\";\n\nqreg q[5];\ncreg c[5];\n\ncx q[4], q[0];\ncx q[0], q[4];\ncx q[4], q[0];\ns q[0];\nh q[0];\ns q[0];\nh q[1];\nh q[2];\nh q[3];\ncx q[0], q[1];\ncx q[0], q[2];\ncx q[0], q[3];\ns q[4];\nh q[1];\nh q[3];\nh q[4];\ncx q[1], q[0];\ncx q[3], q[0];\ncx q[4], q[0];\ncx q[3], q[1];\ncx q[1], q[3];\ncx q[3], q[1];\nh q[1];\ncx q[1], q[3];\nh q[3];\ncx q[3], q[1];\ncx q[4], q[2];\ncx q[2], q[4];\ncx q[4], q[2];\nh q[2];\ns q[2];\ns q[3];\ncx q[2], q[3];\ns q[4];\nh q[3];\nh q[4];\ncx q[3], q[2];\ncx q[4], q[2];\nh q[3];\ns q[3];\ns q[4];\ncx q[3], q[4];\nh q[4];\ncx q[4], q[3];\ns q[4];\nh q[0];\nh q[1];\nh q[2];\ns q[0];\ns q[0];\ns q[1];\ns q[1];\ns q[2];\ns q[2];\nh q[0];\nh q[1];\nh q[2];\ns q[0];\ns q[0];\ns q[2];\ns q[2];\ns q[4];\ns q[4];\nsdg q[0];\nh q[0];\nsdg q[2];\nh q[2];\nh q[4];\n\nmeasure q[0] -> c[0];\nmeasure q[1] -> c[1];\nmeasure q[2] -> c[2];\nmeasure q[3] -> c[3];\nmeasure q[4] -> c[4];",
+          "metadata": {
+            "kind": "destabilizer",
+            "index": 0
+          }
+        },
+        {
+          "circuit_id": "1_destab_1",
+          "observable": "+ZZXXX",
+          "qasm": "OPENQASM 2.0;\n\ninclude \"qelib1.inc\";\n\nqreg q[5];\ncreg c[5];\n\ncx q[4], q[0];\ncx q[0], q[4];\ncx q[4], q[0];\ns q[0];\nh q[0];\ns q[0];\nh q[1];\nh q[2];\nh q[3];\ncx q[0], q[1];\ncx q[0], q[2];\ncx q[0], q[3];\ns q[4];\nh q[1];\nh q[3];\nh q[4];\ncx q[1], q[0];\ncx q[3], q[0];\ncx q[4], q[0];\ncx q[3], q[1];\ncx q[1], q[3];\ncx q[3], q[1];\nh q[1];\ncx q[1], q[3];\nh q[3];\ncx q[3], q[1];\ncx q[4], q[2];\ncx q[2], q[4];\ncx q[4], q[2];\nh q[2];\ns q[2];\ns q[3];\ncx q[2], q[3];\ns q[4];\nh q[3];\nh q[4];\ncx q[3], q[2];\ncx q[4], q[2];\nh q[3];\ns q[3];\ns q[4];\ncx q[3], q[4];\nh q[4];\ncx q[4], q[3];\ns q[4];\nh q[0];\nh q[1];\nh q[2];\ns q[0];\ns q[0];\ns q[1];\ns q[1];\ns q[2];\ns q[2];\nh q[0];\nh q[1];\nh q[2];\ns q[0];\ns q[0];\ns q[2];\ns q[2];\ns q[4];\ns q[4];\nh q[2];\nh q[3];\nh q[4];\n\nmeasure q[0] -> c[0];\nmeasure q[1] -> c[1];\nmeasure q[2] -> c[2];\nmeasure q[3] -> c[3];\nmeasure q[4] -> c[4];",
+          "metadata": {
+            "kind": "destabilizer",
+            "index": 1
+          }
+        },
+        {
+          "circuit_id": "1_destab_2",
+          "observable": "-XIXYI",
+          "qasm": "OPENQASM 2.0;\n\ninclude \"qelib1.inc\";\n\nqreg q[5];\ncreg c[5];\n\ncx q[4], q[0];\ncx q[0], q[4];\ncx q[4], q[0];\ns q[0];\nh q[0];\ns q[0];\nh q[1];\nh q[2];\nh q[3];\ncx q[0], q[1];\ncx q[0], q[2];\ncx q[0], q[3];\ns q[4];\nh q[1];\nh q[3];\nh q[4];\ncx q[1], q[0];\ncx q[3], q[0];\ncx q[4], q[0];\ncx q[3], q[1];\ncx q[1], q[3];\ncx q[3], q[1];\nh q[1];\ncx q[1], q[3];\nh q[3];\ncx q[3], q[1];\ncx q[4], q[2];\ncx q[2], q[4];\ncx q[4], q[2];\nh q[2];\ns q[2];\ns q[3];\ncx q[2], q[3];\ns q[4];\nh q[3];\nh q[4];\ncx q[3], q[2];\ncx q[4], q[2];\nh q[3];\ns q[3];\ns q[4];\ncx q[3], q[4];\nh q[4];\ncx q[4], q[3];\ns q[4];\nh q[0];\nh q[1];\nh q[2];\ns q[0];\ns q[0];\ns q[1];\ns q[1];\ns q[2];\ns q[2];\nh q[0];\nh q[1];\nh q[2];\ns q[0];\ns q[0];\ns q[2];\ns q[2];\ns q[4];\ns q[4];\nh q[0];\nh q[2];\nsdg q[3];\nh q[3];\n\nmeasure q[0] -> c[0];\nmeasure q[1] -> c[1];\nmeasure q[2] -> c[2];\nmeasure q[3] -> c[3];\nmeasure q[4] -> c[4];",
+          "metadata": {
+            "kind": "destabilizer",
+            "index": 2
+          }
+        },
+        {
+          "circuit_id": "1_destab_3",
+          "observable": "+XZZXX",
+          "qasm": "OPENQASM 2.0;\n\ninclude \"qelib1.inc\";\n\nqreg q[5];\ncreg c[5];\n\ncx q[4], q[0];\ncx q[0], q[4];\ncx q[4], q[0];\ns q[0];\nh q[0];\ns q[0];\nh q[1];\nh q[2];\nh q[3];\ncx q[0], q[1];\ncx q[0], q[2];\ncx q[0], q[3];\ns q[4];\nh q[1];\nh q[3];\nh q[4];\ncx q[1], q[0];\ncx q[3], q[0];\ncx q[4], q[0];\ncx q[3], q[1];\ncx q[1], q[3];\ncx q[3], q[1];\nh q[1];\ncx q[1], q[3];\nh q[3];\ncx q[3], q[1];\ncx q[4], q[2];\ncx q[2], q[4];\ncx q[4], q[2];\nh q[2];\ns q[2];\ns q[3];\ncx q[2], q[3];\ns q[4];\nh q[3];\nh q[4];\ncx q[3], q[2];\ncx q[4], q[2];\nh q[3];\ns q[3];\ns q[4];\ncx q[3], q[4];\nh q[4];\ncx q[4], q[3];\ns q[4];\nh q[0];\nh q[1];\nh q[2];\ns q[0];\ns q[0];\ns q[1];\ns q[1];\ns q[2];\ns q[2];\nh q[0];\nh q[1];\nh q[2];\ns q[0];\ns q[0];\ns q[2];\ns q[2];\ns q[4];\ns q[4];\nh q[0];\nh q[3];\nh q[4];\n\nmeasure q[0] -> c[0];\nmeasure q[1] -> c[1];\nmeasure q[2] -> c[2];\nmeasure q[3] -> c[3];\nmeasure q[4] -> c[4];",
+          "metadata": {
+            "kind": "destabilizer",
+            "index": 3
+          }
+        }
+      ]
+    },
+    {
+      "sample_id": 2,
+      "sample_metadata": {
+        "type": "clifford",
+        "number_of_measurements": 4,
+        "clifford_operator": {
+          "stabilizers": [
+            "-ZXXYY",
+            "-IYXIX",
+            "-IXXIY",
+            "+ZYZIY",
+            "-ZIYYZ"
+          ],
+          "destabilizers": [
+            "-XXYYX",
+            "+XIZXX",
+            "+YYZIZ",
+            "-YIIZI",
+            "+YYYZY"
+          ]
+        }
+      },
+      "circuits": [
+        {
+          "circuit_id": "2_stab_0",
+          "observable": "+ZYZIY",
+          "qasm": "OPENQASM 2.0;\n\ninclude \"qelib1.inc\";\n\nqreg q[5];\ncreg c[5];\n\ns q[3];\ns q[4];\nh q[2];\ncx q[0], q[2];\ncx q[0], q[3];\ncx q[0], q[4];\nh q[2];\ncx q[1], q[0];\ncx q[2], q[0];\ncx q[3], q[0];\ncx q[4], q[0];\ncx q[2], q[1];\ncx q[1], q[2];\ncx q[2], q[1];\nh q[1];\ns q[3];\nh q[4];\ncx q[1], q[2];\ncx q[1], q[3];\ncx q[1], q[4];\ns q[4];\nh q[2];\nh q[4];\ncx q[2], q[1];\ncx q[3], q[1];\ncx q[4], q[1];\ncx q[4], q[2];\ncx q[2], q[4];\ncx q[4], q[2];\ns q[2];\nh q[2];\ns q[4];\ncx q[2], q[4];\ncx q[3], q[2];\ncx q[4], q[3];\ncx q[3], q[4];\ncx q[4], q[3];\nh q[3];\ncx q[4], q[3];\ns q[4];\nh q[4];\nh q[3];\nh q[4];\ns q[3];\ns q[3];\ns q[4];\ns q[4];\nh q[3];\nh q[4];\ns q[1];\ns q[1];\nsdg q[1];\nh q[1];\nsdg q[4];\nh q[4];\n\nmeasure q[0] -> c[0];\nmeasure q[1] -> c[1];\nmeasure q[2] -> c[2];\nmeasure q[3] -> c[3];\nmeasure q[4] -> c[4];",
+          "metadata": {
+            "kind": "stabilizer",
+            "index": 0
+          }
+        },
+        {
+          "circuit_id": "2_stab_1",
+          "observable": "-ZIYYZ",
+          "qasm": "OPENQASM 2.0;\n\ninclude \"qelib1.inc\";\n\nqreg q[5];\ncreg c[5];\n\ns q[3];\ns q[4];\nh q[2];\ncx q[0], q[2];\ncx q[0], q[3];\ncx q[0], q[4];\nh q[2];\ncx q[1], q[0];\ncx q[2], q[0];\ncx q[3], q[0];\ncx q[4], q[0];\ncx q[2], q[1];\ncx q[1], q[2];\ncx q[2], q[1];\nh q[1];\ns q[3];\nh q[4];\ncx q[1], q[2];\ncx q[1], q[3];\ncx q[1], q[4];\ns q[4];\nh q[2];\nh q[4];\ncx q[2], q[1];\ncx q[3], q[1];\ncx q[4], q[1];\ncx q[4], q[2];\ncx q[2], q[4];\ncx q[4], q[2];\ns q[2];\nh q[2];\ns q[4];\ncx q[2], q[4];\ncx q[3], q[2];\ncx q[4], q[3];\ncx q[3], q[4];\ncx q[4], q[3];\nh q[3];\ncx q[4], q[3];\ns q[4];\nh q[4];\nh q[3];\nh q[4];\ns q[3];\ns q[3];\ns q[4];\ns q[4];\nh q[3];\nh q[4];\ns q[1];\ns q[1];\nsdg q[2];\nh q[2];\nsdg q[3];\nh q[3];\n\nmeasure q[0] -> c[0];\nmeasure q[1] -> c[1];\nmeasure q[2] -> c[2];\nmeasure q[3] -> c[3];\nmeasure q[4] -> c[4];",
+          "metadata": {
+            "kind": "stabilizer",
+            "index": 1
+          }
+        },
+        {
+          "circuit_id": "2_stab_2",
+          "observable": "-ZXXYY",
+          "qasm": "OPENQASM 2.0;\n\ninclude \"qelib1.inc\";\n\nqreg q[5];\ncreg c[5];\n\ns q[3];\ns q[4];\nh q[2];\ncx q[0], q[2];\ncx q[0], q[3];\ncx q[0], q[4];\nh q[2];\ncx q[1], q[0];\ncx q[2], q[0];\ncx q[3], q[0];\ncx q[4], q[0];\ncx q[2], q[1];\ncx q[1], q[2];\ncx q[2], q[1];\nh q[1];\ns q[3];\nh q[4];\ncx q[1], q[2];\ncx q[1], q[3];\ncx q[1], q[4];\ns q[4];\nh q[2];\nh q[4];\ncx q[2], q[1];\ncx q[3], q[1];\ncx q[4], q[1];\ncx q[4], q[2];\ncx q[2], q[4];\ncx q[4], q[2];\ns q[2];\nh q[2];\ns q[4];\ncx q[2], q[4];\ncx q[3], q[2];\ncx q[4], q[3];\ncx q[3], q[4];\ncx q[4], q[3];\nh q[3];\ncx q[4], q[3];\ns q[4];\nh q[4];\nh q[3];\nh q[4];\ns q[3];\ns q[3];\ns q[4];\ns q[4];\nh q[3];\nh q[4];\ns q[1];\ns q[1];\nh q[1];\nh q[2];\nsdg q[3];\nh q[3];\nsdg q[4];\nh q[4];\n\nmeasure q[0] -> c[0];\nmeasure q[1] -> c[1];\nmeasure q[2] -> c[2];\nmeasure q[3] -> c[3];\nmeasure q[4] -> c[4];",
+          "metadata": {
+            "kind": "stabilizer",
+            "index": 2
+          }
+        },
+        {
+          "circuit_id": "2_stab_3",
+          "observable": "-IXXIY",
+          "qasm": "OPENQASM 2.0;\n\ninclude \"qelib1.inc\";\n\nqreg q[5];\ncreg c[5];\n\ns q[3];\ns q[4];\nh q[2];\ncx q[0], q[2];\ncx q[0], q[3];\ncx q[0], q[4];\nh q[2];\ncx q[1], q[0];\ncx q[2], q[0];\ncx q[3], q[0];\ncx q[4], q[0];\ncx q[2], q[1];\ncx q[1], q[2];\ncx q[2], q[1];\nh q[1];\ns q[3];\nh q[4];\ncx q[1], q[2];\ncx q[1], q[3];\ncx q[1], q[4];\ns q[4];\nh q[2];\nh q[4];\ncx q[2], q[1];\ncx q[3], q[1];\ncx q[4], q[1];\ncx q[4], q[2];\ncx q[2], q[4];\ncx q[4], q[2];\ns q[2];\nh q[2];\ns q[4];\ncx q[2], q[4];\ncx q[3], q[2];\ncx q[4], q[3];\ncx q[3], q[4];\ncx q[4], q[3];\nh q[3];\ncx q[4], q[3];\ns q[4];\nh q[4];\nh q[3];\nh q[4];\ns q[3];\ns q[3];\ns q[4];\ns q[4];\nh q[3];\nh q[4];\ns q[1];\ns q[1];\nh q[1];\nh q[2];\nsdg q[4];\nh q[4];\n\nmeasure q[0] -> c[0];\nmeasure q[1] -> c[1];\nmeasure q[2] -> c[2];\nmeasure q[3] -> c[3];\nmeasure q[4] -> c[4];",
+          "metadata": {
+            "kind": "stabilizer",
+            "index": 3
+          }
+        },
+        {
+          "circuit_id": "2_destab_0",
+          "observable": "-YIIZI",
+          "qasm": "OPENQASM 2.0;\n\ninclude \"qelib1.inc\";\n\nqreg q[5];\ncreg c[5];\n\ns q[3];\ns q[4];\nh q[2];\ncx q[0], q[2];\ncx q[0], q[3];\ncx q[0], q[4];\nh q[2];\ncx q[1], q[0];\ncx q[2], q[0];\ncx q[3], q[0];\ncx q[4], q[0];\ncx q[2], q[1];\ncx q[1], q[2];\ncx q[2], q[1];\nh q[1];\ns q[3];\nh q[4];\ncx q[1], q[2];\ncx q[1], q[3];\ncx q[1], q[4];\ns q[4];\nh q[2];\nh q[4];\ncx q[2], q[1];\ncx q[3], q[1];\ncx q[4], q[1];\ncx q[4], q[2];\ncx q[2], q[4];\ncx q[4], q[2];\ns q[2];\nh q[2];\ns q[4];\ncx q[2], q[4];\ncx q[3], q[2];\ncx q[4], q[3];\ncx q[3], q[4];\ncx q[4], q[3];\nh q[3];\ncx q[4], q[3];\ns q[4];\nh q[4];\nh q[3];\nh q[4];\ns q[3];\ns q[3];\ns q[4];\ns q[4];\nh q[3];\nh q[4];\ns q[1];\ns q[1];\nsdg q[0];\nh q[0];\n\nmeasure q[0] -> c[0];\nmeasure q[1] -> c[1];\nmeasure q[2] -> c[2];\nmeasure q[3] -> c[3];\nmeasure q[4] -> c[4];",
+          "metadata": {
+            "kind": "destabilizer",
+            "index": 0
+          }
+        },
+        {
+          "circuit_id": "2_destab_1",
+          "observable": "-XXYYX",
+          "qasm": "OPENQASM 2.0;\n\ninclude \"qelib1.inc\";\n\nqreg q[5];\ncreg c[5];\n\ns q[3];\ns q[4];\nh q[2];\ncx q[0], q[2];\ncx q[0], q[3];\ncx q[0], q[4];\nh q[2];\ncx q[1], q[0];\ncx q[2], q[0];\ncx q[3], q[0];\ncx q[4], q[0];\ncx q[2], q[1];\ncx q[1], q[2];\ncx q[2], q[1];\nh q[1];\ns q[3];\nh q[4];\ncx q[1], q[2];\ncx q[1], q[3];\ncx q[1], q[4];\ns q[4];\nh q[2];\nh q[4];\ncx q[2], q[1];\ncx q[3], q[1];\ncx q[4], q[1];\ncx q[4], q[2];\ncx q[2], q[4];\ncx q[4], q[2];\ns q[2];\nh q[2];\ns q[4];\ncx q[2], q[4];\ncx q[3], q[2];\ncx q[4], q[3];\ncx q[3], q[4];\ncx q[4], q[3];\nh q[3];\ncx q[4], q[3];\ns q[4];\nh q[4];\nh q[3];\nh q[4];\ns q[3];\ns q[3];\ns q[4];\ns q[4];\nh q[3];\nh q[4];\ns q[1];\ns q[1];\nh q[0];\nh q[1];\nsdg q[2];\nh q[2];\nsdg q[3];\nh q[3];\nh q[4];\n\nmeasure q[0] -> c[0];\nmeasure q[1] -> c[1];\nmeasure q[2] -> c[2];\nmeasure q[3] -> c[3];\nmeasure q[4] -> c[4];",
+          "metadata": {
+            "kind": "destabilizer",
+            "index": 1
+          }
+        },
+        {
+          "circuit_id": "2_destab_2",
+          "observable": "+YYYZY",
+          "qasm": "OPENQASM 2.0;\n\ninclude \"qelib1.inc\";\n\nqreg q[5];\ncreg c[5];\n\ns q[3];\ns q[4];\nh q[2];\ncx q[0], q[2];\ncx q[0], q[3];\ncx q[0], q[4];\nh q[2];\ncx q[1], q[0];\ncx q[2], q[0];\ncx q[3], q[0];\ncx q[4], q[0];\ncx q[2], q[1];\ncx q[1], q[2];\ncx q[2], q[1];\nh q[1];\ns q[3];\nh q[4];\ncx q[1], q[2];\ncx q[1], q[3];\ncx q[1], q[4];\ns q[4];\nh q[2];\nh q[4];\ncx q[2], q[1];\ncx q[3], q[1];\ncx q[4], q[1];\ncx q[4], q[2];\ncx q[2], q[4];\ncx q[4], q[2];\ns q[2];\nh q[2];\ns q[4];\ncx q[2], q[4];\ncx q[3], q[2];\ncx q[4], q[3];\ncx q[3], q[4];\ncx q[4], q[3];\nh q[3];\ncx q[4], q[3];\ns q[4];\nh q[4];\nh q[3];\nh q[4];\ns q[3];\ns q[3];\ns q[4];\ns q[4];\nh q[3];\nh q[4];\ns q[1];\ns q[1];\nsdg q[0];\nh q[0];\nsdg q[1];\nh q[1];\nsdg q[2];\nh q[2];\nsdg q[4];\nh q[4];\n\nmeasure q[0] -> c[0];\nmeasure q[1] -> c[1];\nmeasure q[2] -> c[2];\nmeasure q[3] -> c[3];\nmeasure q[4] -> c[4];",
+          "metadata": {
+            "kind": "destabilizer",
+            "index": 2
+          }
+        },
+        {
+          "circuit_id": "2_destab_3",
+          "observable": "+YYZIZ",
+          "qasm": "OPENQASM 2.0;\n\ninclude \"qelib1.inc\";\n\nqreg q[5];\ncreg c[5];\n\ns q[3];\ns q[4];\nh q[2];\ncx q[0], q[2];\ncx q[0], q[3];\ncx q[0], q[4];\nh q[2];\ncx q[1], q[0];\ncx q[2], q[0];\ncx q[3], q[0];\ncx q[4], q[0];\ncx q[2], q[1];\ncx q[1], q[2];\ncx q[2], q[1];\nh q[1];\ns q[3];\nh q[4];\ncx q[1], q[2];\ncx q[1], q[3];\ncx q[1], q[4];\ns q[4];\nh q[2];\nh q[4];\ncx q[2], q[1];\ncx q[3], q[1];\ncx q[4], q[1];\ncx q[4], q[2];\ncx q[2], q[4];\ncx q[4], q[2];\ns q[2];\nh q[2];\ns q[4];\ncx q[2], q[4];\ncx q[3], q[2];\ncx q[4], q[3];\ncx q[3], q[4];\ncx q[4], q[3];\nh q[3];\ncx q[4], q[3];\ns q[4];\nh q[4];\nh q[3];\nh q[4];\ns q[3];\ns q[3];\ns q[4];\ns q[4];\nh q[3];\nh q[4];\ns q[1];\ns q[1];\nsdg q[0];\nh q[0];\nsdg q[1];\nh q[1];\n\nmeasure q[0] -> c[0];\nmeasure q[1] -> c[1];\nmeasure q[2] -> c[2];\nmeasure q[3] -> c[3];\nmeasure q[4] -> c[4];",
+          "metadata": {
+            "kind": "destabilizer",
+            "index": 3
+          }
+        }
+      ]
+    },
+    {
+      "sample_id": 3,
+      "sample_metadata": {
+        "type": "clifford",
+        "number_of_measurements": 4,
+        "clifford_operator": {
+          "stabilizers": [
+            "-YXZIZ",
+            "+XIZYY",
+            "+ZXXII",
+            "-YXZYZ",
+            "-XYIYI"
+          ],
+          "destabilizers": [
+            "+XZXXI",
+            "-IYZIX",
+            "+IIZYI",
+            "+XXYXI",
+            "+YYIIX"
+          ]
+        }
+      },
+      "circuits": [
+        {
+          "circuit_id": "3_stab_0",
+          "observable": "-YXZIZ",
+          "qasm": "OPENQASM 2.0;\n\ninclude \"qelib1.inc\";\n\nqreg q[5];\ncreg c[5];\n\ns q[0];\nh q[0];\ns q[0];\nh q[4];\ncx q[0], q[2];\ncx q[0], q[3];\ncx q[0], q[4];\ns q[3];\ns q[4];\nh q[1];\nh q[3];\nh q[4];\ncx q[1], q[0];\ncx q[3], q[0];\ncx q[4], q[0];\ncx q[3], q[1];\ncx q[1], q[3];\ncx q[3], q[1];\nh q[1];\ns q[1];\ncx q[1], q[2];\ncx q[1], q[3];\ncx q[1], q[4];\nh q[3];\nh q[4];\ncx q[3], q[1];\ncx q[4], q[1];\nh q[2];\ns q[2];\ns q[3];\ns q[4];\ncx q[2], q[3];\ncx q[2], q[4];\ns q[4];\nh q[4];\ncx q[3], q[2];\ncx q[4], q[2];\ncx q[4], q[3];\ncx q[3], q[4];\ncx q[4], q[3];\nh q[3];\ns q[3];\ncx q[4], q[3];\nh q[4];\ns q[4];\nh q[3];\ns q[3];\ns q[3];\nh q[3];\ns q[2];\ns q[2];\ns q[3];\ns q[3];\nsdg q[0];\nh q[0];\nh q[1];\n\nmeasure q[0] -> c[0];\nmeasure q[1] -> c[1];\nmeasure q[2] -> c[2];\nmeasure q[3] -> c[3];\nmeasure q[4] -> c[4];",
+          "metadata": {
+            "kind": "stabilizer",
+            "index": 0
+          }
+        },
+        {
+          "circuit_id": "3_stab_1",
+          "observable": "+XIZYY",
+          "qasm": "OPENQASM 2.0;\n\ninclude \"qelib1.inc\";\n\nqreg q[5];\ncreg c[5];\n\ns q[0];\nh q[0];\ns q[0];\nh q[4];\ncx q[0], q[2];\ncx q[0], q[3];\ncx q[0], q[4];\ns q[3];\ns q[4];\nh q[1];\nh q[3];\nh q[4];\ncx q[1], q[0];\ncx q[3], q[0];\ncx q[4], q[0];\ncx q[3], q[1];\ncx q[1], q[3];\ncx q[3], q[1];\nh q[1];\ns q[1];\ncx q[1], q[2];\ncx q[1], q[3];\ncx q[1], q[4];\nh q[3];\nh q[4];\ncx q[3], q[1];\ncx q[4], q[1];\nh q[2];\ns q[2];\ns q[3];\ns q[4];\ncx q[2], q[3];\ncx q[2], q[4];\ns q[4];\nh q[4];\ncx q[3], q[2];\ncx q[4], q[2];\ncx q[4], q[3];\ncx q[3], q[4];\ncx q[4], q[3];\nh q[3];\ns q[3];\ncx q[4], q[3];\nh q[4];\ns q[4];\nh q[3];\ns q[3];\ns q[3];\nh q[3];\ns q[2];\ns q[2];\ns q[3];\ns q[3];\nh q[0];\nsdg q[3];\nh q[3];\nsdg q[4];\nh q[4];\n\nmeasure q[0] -> c[0];\nmeasure q[1] -> c[1];\nmeasure q[2] -> c[2];\nmeasure q[3] -> c[3];\nmeasure q[4] -> c[4];",
+          "metadata": {
+            "kind": "stabilizer",
+            "index": 1
+          }
+        },
+        {
+          "circuit_id": "3_stab_2",
+          "observable": "+ZXXII",
+          "qasm": "OPENQASM 2.0;\n\ninclude \"qelib1.inc\";\n\nqreg q[5];\ncreg c[5];\n\ns q[0];\nh q[0];\ns q[0];\nh q[4];\ncx q[0], q[2];\ncx q[0], q[3];\ncx q[0], q[4];\ns q[3];\ns q[4];\nh q[1];\nh q[3];\nh q[4];\ncx q[1], q[0];\ncx q[3], q[0];\ncx q[4], q[0];\ncx q[3], q[1];\ncx q[1], q[3];\ncx q[3], q[1];\nh q[1];\ns q[1];\ncx q[1], q[2];\ncx q[1], q[3];\ncx q[1], q[4];\nh q[3];\nh q[4];\ncx q[3], q[1];\ncx q[4], q[1];\nh q[2];\ns q[2];\ns q[3];\ns q[4];\ncx q[2], q[3];\ncx q[2], q[4];\ns q[4];\nh q[4];\ncx q[3], q[2];\ncx q[4], q[2];\ncx q[4], q[3];\ncx q[3], q[4];\ncx q[4], q[3];\nh q[3];\ns q[3];\ncx q[4], q[3];\nh q[4];\ns q[4];\nh q[3];\ns q[3];\ns q[3];\nh q[3];\ns q[2];\ns q[2];\ns q[3];\ns q[3];\nh q[1];\nh q[2];\n\nmeasure q[0] -> c[0];\nmeasure q[1] -> c[1];\nmeasure q[2] -> c[2];\nmeasure q[3] -> c[3];\nmeasure q[4] -> c[4];",
+          "metadata": {
+            "kind": "stabilizer",
+            "index": 2
+          }
+        },
+        {
+          "circuit_id": "3_stab_3",
+          "observable": "-XYIYI",
+          "qasm": "OPENQASM 2.0;\n\ninclude \"qelib1.inc\";\n\nqreg q[5];\ncreg c[5];\n\ns q[0];\nh q[0];\ns q[0];\nh q[4];\ncx q[0], q[2];\ncx q[0], q[3];\ncx q[0], q[4];\ns q[3];\ns q[4];\nh q[1];\nh q[3];\nh q[4];\ncx q[1], q[0];\ncx q[3], q[0];\ncx q[4], q[0];\ncx q[3], q[1];\ncx q[1], q[3];\ncx q[3], q[1];\nh q[1];\ns q[1];\ncx q[1], q[2];\ncx q[1], q[3];\ncx q[1], q[4];\nh q[3];\nh q[4];\ncx q[3], q[1];\ncx q[4], q[1];\nh q[2];\ns q[2];\ns q[3];\ns q[4];\ncx q[2], q[3];\ncx q[2], q[4];\ns q[4];\nh q[4];\ncx q[3], q[2];\ncx q[4], q[2];\ncx q[4], q[3];\ncx q[3], q[4];\ncx q[4], q[3];\nh q[3];\ns q[3];\ncx q[4], q[3];\nh q[4];\ns q[4];\nh q[3];\ns q[3];\ns q[3];\nh q[3];\ns q[2];\ns q[2];\ns q[3];\ns q[3];\nh q[0];\nsdg q[1];\nh q[1];\nsdg q[3];\nh q[3];\n\nmeasure q[0] -> c[0];\nmeasure q[1] -> c[1];\nmeasure q[2] -> c[2];\nmeasure q[3] -> c[3];\nmeasure q[4] -> c[4];",
+          "metadata": {
+            "kind": "stabilizer",
+            "index": 3
+          }
+        },
+        {
+          "circuit_id": "3_destab_0",
+          "observable": "-IYZIX",
+          "qasm": "OPENQASM 2.0;\n\ninclude \"qelib1.inc\";\n\nqreg q[5];\ncreg c[5];\n\ns q[0];\nh q[0];\ns q[0];\nh q[4];\ncx q[0], q[2];\ncx q[0], q[3];\ncx q[0], q[4];\ns q[3];\ns q[4];\nh q[1];\nh q[3];\nh q[4];\ncx q[1], q[0];\ncx q[3], q[0];\ncx q[4], q[0];\ncx q[3], q[1];\ncx q[1], q[3];\ncx q[3], q[1];\nh q[1];\ns q[1];\ncx q[1], q[2];\ncx q[1], q[3];\ncx q[1], q[4];\nh q[3];\nh q[4];\ncx q[3], q[1];\ncx q[4], q[1];\nh q[2];\ns q[2];\ns q[3];\ns q[4];\ncx q[2], q[3];\ncx q[2], q[4];\ns q[4];\nh q[4];\ncx q[3], q[2];\ncx q[4], q[2];\ncx q[4], q[3];\ncx q[3], q[4];\ncx q[4], q[3];\nh q[3];\ns q[3];\ncx q[4], q[3];\nh q[4];\ns q[4];\nh q[3];\ns q[3];\ns q[3];\nh q[3];\ns q[2];\ns q[2];\ns q[3];\ns q[3];\nsdg q[1];\nh q[1];\nh q[4];\n\nmeasure q[0] -> c[0];\nmeasure q[1] -> c[1];\nmeasure q[2] -> c[2];\nmeasure q[3] -> c[3];\nmeasure q[4] -> c[4];",
+          "metadata": {
+            "kind": "destabilizer",
+            "index": 0
+          }
+        },
+        {
+          "circuit_id": "3_destab_1",
+          "observable": "+YYIIX",
+          "qasm": "OPENQASM 2.0;\n\ninclude \"qelib1.inc\";\n\nqreg q[5];\ncreg c[5];\n\ns q[0];\nh q[0];\ns q[0];\nh q[4];\ncx q[0], q[2];\ncx q[0], q[3];\ncx q[0], q[4];\ns q[3];\ns q[4];\nh q[1];\nh q[3];\nh q[4];\ncx q[1], q[0];\ncx q[3], q[0];\ncx q[4], q[0];\ncx q[3], q[1];\ncx q[1], q[3];\ncx q[3], q[1];\nh q[1];\ns q[1];\ncx q[1], q[2];\ncx q[1], q[3];\ncx q[1], q[4];\nh q[3];\nh q[4];\ncx q[3], q[1];\ncx q[4], q[1];\nh q[2];\ns q[2];\ns q[3];\ns q[4];\ncx q[2], q[3];\ncx q[2], q[4];\ns q[4];\nh q[4];\ncx q[3], q[2];\ncx q[4], q[2];\ncx q[4], q[3];\ncx q[3], q[4];\ncx q[4], q[3];\nh q[3];\ns q[3];\ncx q[4], q[3];\nh q[4];\ns q[4];\nh q[3];\ns q[3];\ns q[3];\nh q[3];\ns q[2];\ns q[2];\ns q[3];\ns q[3];\nsdg q[0];\nh q[0];\nsdg q[1];\nh q[1];\nh q[4];\n\nmeasure q[0] -> c[0];\nmeasure q[1] -> c[1];\nmeasure q[2] -> c[2];\nmeasure q[3] -> c[3];\nmeasure q[4] -> c[4];",
+          "metadata": {
+            "kind": "destabilizer",
+            "index": 1
+          }
+        },
+        {
+          "circuit_id": "3_destab_2",
+          "observable": "+XXYXI",
+          "qasm": "OPENQASM 2.0;\n\ninclude \"qelib1.inc\";\n\nqreg q[5];\ncreg c[5];\n\ns q[0];\nh q[0];\ns q[0];\nh q[4];\ncx q[0], q[2];\ncx q[0], q[3];\ncx q[0], q[4];\ns q[3];\ns q[4];\nh q[1];\nh q[3];\nh q[4];\ncx q[1], q[0];\ncx q[3], q[0];\ncx q[4], q[0];\ncx q[3], q[1];\ncx q[1], q[3];\ncx q[3], q[1];\nh q[1];\ns q[1];\ncx q[1], q[2];\ncx q[1], q[3];\ncx q[1], q[4];\nh q[3];\nh q[4];\ncx q[3], q[1];\ncx q[4], q[1];\nh q[2];\ns q[2];\ns q[3];\ns q[4];\ncx q[2], q[3];\ncx q[2], q[4];\ns q[4];\nh q[4];\ncx q[3], q[2];\ncx q[4], q[2];\ncx q[4], q[3];\ncx q[3], q[4];\ncx q[4], q[3];\nh q[3];\ns q[3];\ncx q[4], q[3];\nh q[4];\ns q[4];\nh q[3];\ns q[3];\ns q[3];\nh q[3];\ns q[2];\ns q[2];\ns q[3];\ns q[3];\nh q[0];\nh q[1];\nsdg q[2];\nh q[2];\nh q[3];\n\nmeasure q[0] -> c[0];\nmeasure q[1] -> c[1];\nmeasure q[2] -> c[2];\nmeasure q[3] -> c[3];\nmeasure q[4] -> c[4];",
+          "metadata": {
+            "kind": "destabilizer",
+            "index": 2
+          }
+        },
+        {
+          "circuit_id": "3_destab_3",
+          "observable": "+XZXXI",
+          "qasm": "OPENQASM 2.0;\n\ninclude \"qelib1.inc\";\n\nqreg q[5];\ncreg c[5];\n\ns q[0];\nh q[0];\ns q[0];\nh q[4];\ncx q[0], q[2];\ncx q[0], q[3];\ncx q[0], q[4];\ns q[3];\ns q[4];\nh q[1];\nh q[3];\nh q[4];\ncx q[1], q[0];\ncx q[3], q[0];\ncx q[4], q[0];\ncx q[3], q[1];\ncx q[1], q[3];\ncx q[3], q[1];\nh q[1];\ns q[1];\ncx q[1], q[2];\ncx q[1], q[3];\ncx q[1], q[4];\nh q[3];\nh q[4];\ncx q[3], q[1];\ncx q[4], q[1];\nh q[2];\ns q[2];\ns q[3];\ns q[4];\ncx q[2], q[3];\ncx q[2], q[4];\ns q[4];\nh q[4];\ncx q[3], q[2];\ncx q[4], q[2];\ncx q[4], q[3];\ncx q[3], q[4];\ncx q[4], q[3];\nh q[3];\ns q[3];\ncx q[4], q[3];\nh q[4];\ns q[4];\nh q[3];\ns q[3];\ns q[3];\nh q[3];\ns q[2];\ns q[2];\ns q[3];\ns q[3];\nh q[0];\nh q[2];\nh q[3];\n\nmeasure q[0] -> c[0];\nmeasure q[1] -> c[1];\nmeasure q[2] -> c[2];\nmeasure q[3] -> c[3];\nmeasure q[4] -> c[4];",
+          "metadata": {
+            "kind": "destabilizer",
+            "index": 3
+          }
+        }
+      ]
+    },
+    {
+      "sample_id": 4,
+      "sample_metadata": {
+        "type": "clifford",
+        "number_of_measurements": 4,
+        "clifford_operator": {
+          "stabilizers": [
+            "-XYIYY",
+            "+IZYYX",
+            "+IZIIX",
+            "-XZXZI",
+            "+IXIYZ"
+          ],
+          "destabilizers": [
+            "-ZXIIZ",
+            "-IYZIY",
+            "+ZIXYZ",
+            "-XZXXI",
+            "+YZYII"
+          ]
+        }
+      },
+      "circuits": [
+        {
+          "circuit_id": "4_stab_0",
+          "observable": "-XYIYY",
+          "qasm": "OPENQASM 2.0;\n\ninclude \"qelib1.inc\";\n\nqreg q[5];\ncreg c[5];\n\nh q[0];\nh q[2];\nh q[4];\ncx q[0], q[2];\ncx q[0], q[4];\ns q[3];\nh q[3];\nh q[4];\ncx q[3], q[0];\ncx q[4], q[0];\ns q[1];\nh q[2];\nh q[3];\nh q[4];\ncx q[1], q[2];\ncx q[1], q[3];\ncx q[1], q[4];\ns q[4];\nh q[4];\ncx q[2], q[1];\ncx q[4], q[1];\ns q[2];\nh q[2];\ns q[2];\ncx q[2], q[3];\ns q[3];\nh q[3];\nh q[4];\ncx q[3], q[4];\nh q[4];\ncx q[4], q[3];\nh q[4];\nh q[1];\nh q[2];\nh q[4];\ns q[1];\ns q[1];\ns q[2];\ns q[2];\ns q[4];\ns q[4];\nh q[1];\nh q[2];\nh q[4];\ns q[0];\ns q[0];\ns q[4];\ns q[4];\nh q[0];\nsdg q[1];\nh q[1];\nsdg q[3];\nh q[3];\nsdg q[4];\nh q[4];\n\nmeasure q[0] -> c[0];\nmeasure q[1] -> c[1];\nmeasure q[2] -> c[2];\nmeasure q[3] -> c[3];\nmeasure q[4] -> c[4];",
+          "metadata": {
+            "kind": "stabilizer",
+            "index": 0
+          }
+        },
+        {
+          "circuit_id": "4_stab_1",
+          "observable": "+IZIIX",
+          "qasm": "OPENQASM 2.0;\n\ninclude \"qelib1.inc\";\n\nqreg q[5];\ncreg c[5];\n\nh q[0];\nh q[2];\nh q[4];\ncx q[0], q[2];\ncx q[0], q[4];\ns q[3];\nh q[3];\nh q[4];\ncx q[3], q[0];\ncx q[4], q[0];\ns q[1];\nh q[2];\nh q[3];\nh q[4];\ncx q[1], q[2];\ncx q[1], q[3];\ncx q[1], q[4];\ns q[4];\nh q[4];\ncx q[2], q[1];\ncx q[4], q[1];\ns q[2];\nh q[2];\ns q[2];\ncx q[2], q[3];\ns q[3];\nh q[3];\nh q[4];\ncx q[3], q[4];\nh q[4];\ncx q[4], q[3];\nh q[4];\nh q[1];\nh q[2];\nh q[4];\ns q[1];\ns q[1];\ns q[2];\ns q[2];\ns q[4];\ns q[4];\nh q[1];\nh q[2];\nh q[4];\ns q[0];\ns q[0];\ns q[4];\ns q[4];\nh q[4];\n\nmeasure q[0] -> c[0];\nmeasure q[1] -> c[1];\nmeasure q[2] -> c[2];\nmeasure q[3] -> c[3];\nmeasure q[4] -> c[4];",
+          "metadata": {
+            "kind": "stabilizer",
+            "index": 1
+          }
+        },
+        {
+          "circuit_id": "4_stab_2",
+          "observable": "-XZXZI",
+          "qasm": "OPENQASM 2.0;\n\ninclude \"qelib1.inc\";\n\nqreg q[5];\ncreg c[5];\n\nh q[0];\nh q[2];\nh q[4];\ncx q[0], q[2];\ncx q[0], q[4];\ns q[3];\nh q[3];\nh q[4];\ncx q[3], q[0];\ncx q[4], q[0];\ns q[1];\nh q[2];\nh q[3];\nh q[4];\ncx q[1], q[2];\ncx q[1], q[3];\ncx q[1], q[4];\ns q[4];\nh q[4];\ncx q[2], q[1];\ncx q[4], q[1];\ns q[2];\nh q[2];\ns q[2];\ncx q[2], q[3];\ns q[3];\nh q[3];\nh q[4];\ncx q[3], q[4];\nh q[4];\ncx q[4], q[3];\nh q[4];\nh q[1];\nh q[2];\nh q[4];\ns q[1];\ns q[1];\ns q[2];\ns q[2];\ns q[4];\ns q[4];\nh q[1];\nh q[2];\nh q[4];\ns q[0];\ns q[0];\ns q[4];\ns q[4];\nh q[0];\nh q[2];\n\nmeasure q[0] -> c[0];\nmeasure q[1] -> c[1];\nmeasure q[2] -> c[2];\nmeasure q[3] -> c[3];\nmeasure q[4] -> c[4];",
+          "metadata": {
+            "kind": "stabilizer",
+            "index": 2
+          }
+        },
+        {
+          "circuit_id": "4_stab_3",
+          "observable": "+IXIYZ",
+          "qasm": "OPENQASM 2.0;\n\ninclude \"qelib1.inc\";\n\nqreg q[5];\ncreg c[5];\n\nh q[0];\nh q[2];\nh q[4];\ncx q[0], q[2];\ncx q[0], q[4];\ns q[3];\nh q[3];\nh q[4];\ncx q[3], q[0];\ncx q[4], q[0];\ns q[1];\nh q[2];\nh q[3];\nh q[4];\ncx q[1], q[2];\ncx q[1], q[3];\ncx q[1], q[4];\ns q[4];\nh q[4];\ncx q[2], q[1];\ncx q[4], q[1];\ns q[2];\nh q[2];\ns q[2];\ncx q[2], q[3];\ns q[3];\nh q[3];\nh q[4];\ncx q[3], q[4];\nh q[4];\ncx q[4], q[3];\nh q[4];\nh q[1];\nh q[2];\nh q[4];\ns q[1];\ns q[1];\ns q[2];\ns q[2];\ns q[4];\ns q[4];\nh q[1];\nh q[2];\nh q[4];\ns q[0];\ns q[0];\ns q[4];\ns q[4];\nh q[1];\nsdg q[3];\nh q[3];\n\nmeasure q[0] -> c[0];\nmeasure q[1] -> c[1];\nmeasure q[2] -> c[2];\nmeasure q[3] -> c[3];\nmeasure q[4] -> c[4];",
+          "metadata": {
+            "kind": "stabilizer",
+            "index": 3
+          }
+        },
+        {
+          "circuit_id": "4_destab_0",
+          "observable": "+YZYII",
+          "qasm": "OPENQASM 2.0;\n\ninclude \"qelib1.inc\";\n\nqreg q[5];\ncreg c[5];\n\nh q[0];\nh q[2];\nh q[4];\ncx q[0], q[2];\ncx q[0], q[4];\ns q[3];\nh q[3];\nh q[4];\ncx q[3], q[0];\ncx q[4], q[0];\ns q[1];\nh q[2];\nh q[3];\nh q[4];\ncx q[1], q[2];\ncx q[1], q[3];\ncx q[1], q[4];\ns q[4];\nh q[4];\ncx q[2], q[1];\ncx q[4], q[1];\ns q[2];\nh q[2];\ns q[2];\ncx q[2], q[3];\ns q[3];\nh q[3];\nh q[4];\ncx q[3], q[4];\nh q[4];\ncx q[4], q[3];\nh q[4];\nh q[1];\nh q[2];\nh q[4];\ns q[1];\ns q[1];\ns q[2];\ns q[2];\ns q[4];\ns q[4];\nh q[1];\nh q[2];\nh q[4];\ns q[0];\ns q[0];\ns q[4];\ns q[4];\nsdg q[0];\nh q[0];\nsdg q[2];\nh q[2];\n\nmeasure q[0] -> c[0];\nmeasure q[1] -> c[1];\nmeasure q[2] -> c[2];\nmeasure q[3] -> c[3];\nmeasure q[4] -> c[4];",
+          "metadata": {
+            "kind": "destabilizer",
+            "index": 0
+          }
+        },
+        {
+          "circuit_id": "4_destab_1",
+          "observable": "-ZXIIZ",
+          "qasm": "OPENQASM 2.0;\n\ninclude \"qelib1.inc\";\n\nqreg q[5];\ncreg c[5];\n\nh q[0];\nh q[2];\nh q[4];\ncx q[0], q[2];\ncx q[0], q[4];\ns q[3];\nh q[3];\nh q[4];\ncx q[3], q[0];\ncx q[4], q[0];\ns q[1];\nh q[2];\nh q[3];\nh q[4];\ncx q[1], q[2];\ncx q[1], q[3];\ncx q[1], q[4];\ns q[4];\nh q[4];\ncx q[2], q[1];\ncx q[4], q[1];\ns q[2];\nh q[2];\ns q[2];\ncx q[2], q[3];\ns q[3];\nh q[3];\nh q[4];\ncx q[3], q[4];\nh q[4];\ncx q[4], q[3];\nh q[4];\nh q[1];\nh q[2];\nh q[4];\ns q[1];\ns q[1];\ns q[2];\ns q[2];\ns q[4];\ns q[4];\nh q[1];\nh q[2];\nh q[4];\ns q[0];\ns q[0];\ns q[4];\ns q[4];\nh q[1];\n\nmeasure q[0] -> c[0];\nmeasure q[1] -> c[1];\nmeasure q[2] -> c[2];\nmeasure q[3] -> c[3];\nmeasure q[4] -> c[4];",
+          "metadata": {
+            "kind": "destabilizer",
+            "index": 1
+          }
+        },
+        {
+          "circuit_id": "4_destab_2",
+          "observable": "+ZIXYZ",
+          "qasm": "OPENQASM 2.0;\n\ninclude \"qelib1.inc\";\n\nqreg q[5];\ncreg c[5];\n\nh q[0];\nh q[2];\nh q[4];\ncx q[0], q[2];\ncx q[0], q[4];\ns q[3];\nh q[3];\nh q[4];\ncx q[3], q[0];\ncx q[4], q[0];\ns q[1];\nh q[2];\nh q[3];\nh q[4];\ncx q[1], q[2];\ncx q[1], q[3];\ncx q[1], q[4];\ns q[4];\nh q[4];\ncx q[2], q[1];\ncx q[4], q[1];\ns q[2];\nh q[2];\ns q[2];\ncx q[2], q[3];\ns q[3];\nh q[3];\nh q[4];\ncx q[3], q[4];\nh q[4];\ncx q[4], q[3];\nh q[4];\nh q[1];\nh q[2];\nh q[4];\ns q[1];\ns q[1];\ns q[2];\ns q[2];\ns q[4];\ns q[4];\nh q[1];\nh q[2];\nh q[4];\ns q[0];\ns q[0];\ns q[4];\ns q[4];\nh q[2];\nsdg q[3];\nh q[3];\n\nmeasure q[0] -> c[0];\nmeasure q[1] -> c[1];\nmeasure q[2] -> c[2];\nmeasure q[3] -> c[3];\nmeasure q[4] -> c[4];",
+          "metadata": {
+            "kind": "destabilizer",
+            "index": 2
+          }
+        },
+        {
+          "circuit_id": "4_destab_3",
+          "observable": "-IYZIY",
+          "qasm": "OPENQASM 2.0;\n\ninclude \"qelib1.inc\";\n\nqreg q[5];\ncreg c[5];\n\nh q[0];\nh q[2];\nh q[4];\ncx q[0], q[2];\ncx q[0], q[4];\ns q[3];\nh q[3];\nh q[4];\ncx q[3], q[0];\ncx q[4], q[0];\ns q[1];\nh q[2];\nh q[3];\nh q[4];\ncx q[1], q[2];\ncx q[1], q[3];\ncx q[1], q[4];\ns q[4];\nh q[4];\ncx q[2], q[1];\ncx q[4], q[1];\ns q[2];\nh q[2];\ns q[2];\ncx q[2], q[3];\ns q[3];\nh q[3];\nh q[4];\ncx q[3], q[4];\nh q[4];\ncx q[4], q[3];\nh q[4];\nh q[1];\nh q[2];\nh q[4];\ns q[1];\ns q[1];\ns q[2];\ns q[2];\ns q[4];\ns q[4];\nh q[1];\nh q[2];\nh q[4];\ns q[0];\ns q[0];\ns q[4];\ns q[4];\nsdg q[1];\nh q[1];\nsdg q[4];\nh q[4];\n\nmeasure q[0] -> c[0];\nmeasure q[1] -> c[1];\nmeasure q[2] -> c[2];\nmeasure q[3] -> c[3];\nmeasure q[4] -> c[4];",
+          "metadata": {
+            "kind": "destabilizer",
+            "index": 3
+          }
+        }
+      ]
+    },
+    {
+      "sample_id": 5,
+      "sample_metadata": {
+        "type": "clifford",
+        "number_of_measurements": 4,
+        "clifford_operator": {
+          "stabilizers": [
+            "-IIYIZ",
+            "+ZIIZZ",
+            "-YZYYZ",
+            "-IXIZI",
+            "+ZYZYY"
+          ],
+          "destabilizers": [
+            "-IZYXX",
+            "+XZXXY",
+            "-ZYZXX",
+            "+IIXYX",
+            "-YIZIY"
+          ]
+        }
+      },
+      "circuits": [
+        {
+          "circuit_id": "5_stab_0",
+          "observable": "-IIYIZ",
+          "qasm": "OPENQASM 2.0;\n\ninclude \"qelib1.inc\";\n\nqreg q[5];\ncreg c[5];\n\ncx q[1], q[0];\ncx q[0], q[1];\ncx q[1], q[0];\ns q[2];\ns q[4];\ncx q[0], q[2];\ncx q[0], q[4];\ns q[2];\nh q[2];\ncx q[2], q[0];\ncx q[4], q[0];\ncx q[2], q[1];\ncx q[1], q[2];\ncx q[2], q[1];\nh q[1];\ns q[1];\ns q[4];\nh q[2];\ncx q[1], q[2];\ncx q[1], q[4];\nh q[3];\nh q[4];\ncx q[3], q[1];\ncx q[4], q[1];\ncx q[4], q[2];\ncx q[2], q[4];\ncx q[4], q[2];\nh q[4];\ncx q[2], q[4];\nh q[3];\nh q[4];\ncx q[3], q[2];\ncx q[4], q[2];\ns q[3];\nh q[4];\ncx q[3], q[4];\ns q[4];\nh q[4];\ns q[4];\nh q[0];\nh q[1];\nh q[4];\ns q[0];\ns q[0];\ns q[1];\ns q[1];\ns q[4];\ns q[4];\nh q[0];\nh q[1];\nh q[4];\ns q[1];\ns q[1];\ns q[2];\ns q[2];\ns q[4];\ns q[4];\nsdg q[2];\nh q[2];\n\nmeasure q[0] -> c[0];\nmeasure q[1] -> c[1];\nmeasure q[2] -> c[2];\nmeasure q[3] -> c[3];\nmeasure q[4] -> c[4];",
+          "metadata": {
+            "kind": "stabilizer",
+            "index": 0
+          }
+        },
+        {
+          "circuit_id": "5_stab_1",
+          "observable": "+ZYZYY",
+          "qasm": "OPENQASM 2.0;\n\ninclude \"qelib1.inc\";\n\nqreg q[5];\ncreg c[5];\n\ncx q[1], q[0];\ncx q[0], q[1];\ncx q[1], q[0];\ns q[2];\ns q[4];\ncx q[0], q[2];\ncx q[0], q[4];\ns q[2];\nh q[2];\ncx q[2], q[0];\ncx q[4], q[0];\ncx q[2], q[1];\ncx q[1], q[2];\ncx q[2], q[1];\nh q[1];\ns q[1];\ns q[4];\nh q[2];\ncx q[1], q[2];\ncx q[1], q[4];\nh q[3];\nh q[4];\ncx q[3], q[1];\ncx q[4], q[1];\ncx q[4], q[2];\ncx q[2], q[4];\ncx q[4], q[2];\nh q[4];\ncx q[2], q[4];\nh q[3];\nh q[4];\ncx q[3], q[2];\ncx q[4], q[2];\ns q[3];\nh q[4];\ncx q[3], q[4];\ns q[4];\nh q[4];\ns q[4];\nh q[0];\nh q[1];\nh q[4];\ns q[0];\ns q[0];\ns q[1];\ns q[1];\ns q[4];\ns q[4];\nh q[0];\nh q[1];\nh q[4];\ns q[1];\ns q[1];\ns q[2];\ns q[2];\ns q[4];\ns q[4];\nsdg q[1];\nh q[1];\nsdg q[3];\nh q[3];\nsdg q[4];\nh q[4];\n\nmeasure q[0] -> c[0];\nmeasure q[1] -> c[1];\nmeasure q[2] -> c[2];\nmeasure q[3] -> c[3];\nmeasure q[4] -> c[4];",
+          "metadata": {
+            "kind": "stabilizer",
+            "index": 1
+          }
+        },
+        {
+          "circuit_id": "5_stab_2",
+          "observable": "+ZIIZZ",
+          "qasm": "OPENQASM 2.0;\n\ninclude \"qelib1.inc\";\n\nqreg q[5];\ncreg c[5];\n\ncx q[1], q[0];\ncx q[0], q[1];\ncx q[1], q[0];\ns q[2];\ns q[4];\ncx q[0], q[2];\ncx q[0], q[4];\ns q[2];\nh q[2];\ncx q[2], q[0];\ncx q[4], q[0];\ncx q[2], q[1];\ncx q[1], q[2];\ncx q[2], q[1];\nh q[1];\ns q[1];\ns q[4];\nh q[2];\ncx q[1], q[2];\ncx q[1], q[4];\nh q[3];\nh q[4];\ncx q[3], q[1];\ncx q[4], q[1];\ncx q[4], q[2];\ncx q[2], q[4];\ncx q[4], q[2];\nh q[4];\ncx q[2], q[4];\nh q[3];\nh q[4];\ncx q[3], q[2];\ncx q[4], q[2];\ns q[3];\nh q[4];\ncx q[3], q[4];\ns q[4];\nh q[4];\ns q[4];\nh q[0];\nh q[1];\nh q[4];\ns q[0];\ns q[0];\ns q[1];\ns q[1];\ns q[4];\ns q[4];\nh q[0];\nh q[1];\nh q[4];\ns q[1];\ns q[1];\ns q[2];\ns q[2];\ns q[4];\ns q[4];\n\nmeasure q[0] -> c[0];\nmeasure q[1] -> c[1];\nmeasure q[2] -> c[2];\nmeasure q[3] -> c[3];\nmeasure q[4] -> c[4];",
+          "metadata": {
+            "kind": "stabilizer",
+            "index": 2
+          }
+        },
+        {
+          "circuit_id": "5_stab_3",
+          "observable": "-YZYYZ",
+          "qasm": "OPENQASM 2.0;\n\ninclude \"qelib1.inc\";\n\nqreg q[5];\ncreg c[5];\n\ncx q[1], q[0];\ncx q[0], q[1];\ncx q[1], q[0];\ns q[2];\ns q[4];\ncx q[0], q[2];\ncx q[0], q[4];\ns q[2];\nh q[2];\ncx q[2], q[0];\ncx q[4], q[0];\ncx q[2], q[1];\ncx q[1], q[2];\ncx q[2], q[1];\nh q[1];\ns q[1];\ns q[4];\nh q[2];\ncx q[1], q[2];\ncx q[1], q[4];\nh q[3];\nh q[4];\ncx q[3], q[1];\ncx q[4], q[1];\ncx q[4], q[2];\ncx q[2], q[4];\ncx q[4], q[2];\nh q[4];\ncx q[2], q[4];\nh q[3];\nh q[4];\ncx q[3], q[2];\ncx q[4], q[2];\ns q[3];\nh q[4];\ncx q[3], q[4];\ns q[4];\nh q[4];\ns q[4];\nh q[0];\nh q[1];\nh q[4];\ns q[0];\ns q[0];\ns q[1];\ns q[1];\ns q[4];\ns q[4];\nh q[0];\nh q[1];\nh q[4];\ns q[1];\ns q[1];\ns q[2];\ns q[2];\ns q[4];\ns q[4];\nsdg q[0];\nh q[0];\nsdg q[2];\nh q[2];\nsdg q[3];\nh q[3];\n\nmeasure q[0] -> c[0];\nmeasure q[1] -> c[1];\nmeasure q[2] -> c[2];\nmeasure q[3] -> c[3];\nmeasure q[4] -> c[4];",
+          "metadata": {
+            "kind": "stabilizer",
+            "index": 3
+          }
+        },
+        {
+          "circuit_id": "5_destab_0",
+          "observable": "-YIZIY",
+          "qasm": "OPENQASM 2.0;\n\ninclude \"qelib1.inc\";\n\nqreg q[5];\ncreg c[5];\n\ncx q[1], q[0];\ncx q[0], q[1];\ncx q[1], q[0];\ns q[2];\ns q[4];\ncx q[0], q[2];\ncx q[0], q[4];\ns q[2];\nh q[2];\ncx q[2], q[0];\ncx q[4], q[0];\ncx q[2], q[1];\ncx q[1], q[2];\ncx q[2], q[1];\nh q[1];\ns q[1];\ns q[4];\nh q[2];\ncx q[1], q[2];\ncx q[1], q[4];\nh q[3];\nh q[4];\ncx q[3], q[1];\ncx q[4], q[1];\ncx q[4], q[2];\ncx q[2], q[4];\ncx q[4], q[2];\nh q[4];\ncx q[2], q[4];\nh q[3];\nh q[4];\ncx q[3], q[2];\ncx q[4], q[2];\ns q[3];\nh q[4];\ncx q[3], q[4];\ns q[4];\nh q[4];\ns q[4];\nh q[0];\nh q[1];\nh q[4];\ns q[0];\ns q[0];\ns q[1];\ns q[1];\ns q[4];\ns q[4];\nh q[0];\nh q[1];\nh q[4];\ns q[1];\ns q[1];\ns q[2];\ns q[2];\ns q[4];\ns q[4];\nsdg q[0];\nh q[0];\nsdg q[4];\nh q[4];\n\nmeasure q[0] -> c[0];\nmeasure q[1] -> c[1];\nmeasure q[2] -> c[2];\nmeasure q[3] -> c[3];\nmeasure q[4] -> c[4];",
+          "metadata": {
+            "kind": "destabilizer",
+            "index": 0
+          }
+        },
+        {
+          "circuit_id": "5_destab_1",
+          "observable": "+XZXXY",
+          "qasm": "OPENQASM 2.0;\n\ninclude \"qelib1.inc\";\n\nqreg q[5];\ncreg c[5];\n\ncx q[1], q[0];\ncx q[0], q[1];\ncx q[1], q[0];\ns q[2];\ns q[4];\ncx q[0], q[2];\ncx q[0], q[4];\ns q[2];\nh q[2];\ncx q[2], q[0];\ncx q[4], q[0];\ncx q[2], q[1];\ncx q[1], q[2];\ncx q[2], q[1];\nh q[1];\ns q[1];\ns q[4];\nh q[2];\ncx q[1], q[2];\ncx q[1], q[4];\nh q[3];\nh q[4];\ncx q[3], q[1];\ncx q[4], q[1];\ncx q[4], q[2];\ncx q[2], q[4];\ncx q[4], q[2];\nh q[4];\ncx q[2], q[4];\nh q[3];\nh q[4];\ncx q[3], q[2];\ncx q[4], q[2];\ns q[3];\nh q[4];\ncx q[3], q[4];\ns q[4];\nh q[4];\ns q[4];\nh q[0];\nh q[1];\nh q[4];\ns q[0];\ns q[0];\ns q[1];\ns q[1];\ns q[4];\ns q[4];\nh q[0];\nh q[1];\nh q[4];\ns q[1];\ns q[1];\ns q[2];\ns q[2];\ns q[4];\ns q[4];\nh q[0];\nh q[2];\nh q[3];\nsdg q[4];\nh q[4];\n\nmeasure q[0] -> c[0];\nmeasure q[1] -> c[1];\nmeasure q[2] -> c[2];\nmeasure q[3] -> c[3];\nmeasure q[4] -> c[4];",
+          "metadata": {
+            "kind": "destabilizer",
+            "index": 1
+          }
+        },
+        {
+          "circuit_id": "5_destab_2",
+          "observable": "-IZYXX",
+          "qasm": "OPENQASM 2.0;\n\ninclude \"qelib1.inc\";\n\nqreg q[5];\ncreg c[5];\n\ncx q[1], q[0];\ncx q[0], q[1];\ncx q[1], q[0];\ns q[2];\ns q[4];\ncx q[0], q[2];\ncx q[0], q[4];\ns q[2];\nh q[2];\ncx q[2], q[0];\ncx q[4], q[0];\ncx q[2], q[1];\ncx q[1], q[2];\ncx q[2], q[1];\nh q[1];\ns q[1];\ns q[4];\nh q[2];\ncx q[1], q[2];\ncx q[1], q[4];\nh q[3];\nh q[4];\ncx q[3], q[1];\ncx q[4], q[1];\ncx q[4], q[2];\ncx q[2], q[4];\ncx q[4], q[2];\nh q[4];\ncx q[2], q[4];\nh q[3];\nh q[4];\ncx q[3], q[2];\ncx q[4], q[2];\ns q[3];\nh q[4];\ncx q[3], q[4];\ns q[4];\nh q[4];\ns q[4];\nh q[0];\nh q[1];\nh q[4];\ns q[0];\ns q[0];\ns q[1];\ns q[1];\ns q[4];\ns q[4];\nh q[0];\nh q[1];\nh q[4];\ns q[1];\ns q[1];\ns q[2];\ns q[2];\ns q[4];\ns q[4];\nsdg q[2];\nh q[2];\nh q[3];\nh q[4];\n\nmeasure q[0] -> c[0];\nmeasure q[1] -> c[1];\nmeasure q[2] -> c[2];\nmeasure q[3] -> c[3];\nmeasure q[4] -> c[4];",
+          "metadata": {
+            "kind": "destabilizer",
+            "index": 2
+          }
+        },
+        {
+          "circuit_id": "5_destab_3",
+          "observable": "-ZYZXX",
+          "qasm": "OPENQASM 2.0;\n\ninclude \"qelib1.inc\";\n\nqreg q[5];\ncreg c[5];\n\ncx q[1], q[0];\ncx q[0], q[1];\ncx q[1], q[0];\ns q[2];\ns q[4];\ncx q[0], q[2];\ncx q[0], q[4];\ns q[2];\nh q[2];\ncx q[2], q[0];\ncx q[4], q[0];\ncx q[2], q[1];\ncx q[1], q[2];\ncx q[2], q[1];\nh q[1];\ns q[1];\ns q[4];\nh q[2];\ncx q[1], q[2];\ncx q[1], q[4];\nh q[3];\nh q[4];\ncx q[3], q[1];\ncx q[4], q[1];\ncx q[4], q[2];\ncx q[2], q[4];\ncx q[4], q[2];\nh q[4];\ncx q[2], q[4];\nh q[3];\nh q[4];\ncx q[3], q[2];\ncx q[4], q[2];\ns q[3];\nh q[4];\ncx q[3], q[4];\ns q[4];\nh q[4];\ns q[4];\nh q[0];\nh q[1];\nh q[4];\ns q[0];\ns q[0];\ns q[1];\ns q[1];\ns q[4];\ns q[4];\nh q[0];\nh q[1];\nh q[4];\ns q[1];\ns q[1];\ns q[2];\ns q[2];\ns q[4];\ns q[4];\nsdg q[1];\nh q[1];\nh q[3];\nh q[4];\n\nmeasure q[0] -> c[0];\nmeasure q[1] -> c[1];\nmeasure q[2] -> c[2];\nmeasure q[3] -> c[3];\nmeasure q[4] -> c[4];",
+          "metadata": {
+            "kind": "destabilizer",
+            "index": 3
+          }
+        }
+      ]
+    },
+    {
+      "sample_id": 6,
+      "sample_metadata": {
+        "type": "clifford",
+        "number_of_measurements": 4,
+        "clifford_operator": {
+          "stabilizers": [
+            "-IIZIX",
+            "+XYZYX",
+            "+IIYYY",
+            "-YXZYX",
+            "+IZYXZ"
+          ],
+          "destabilizers": [
+            "-XXYYI",
+            "-ZYIYI",
+            "-IIIYX",
+            "-YIYXZ",
+            "+YYXXY"
+          ]
+        }
+      },
+      "circuits": [
+        {
+          "circuit_id": "6_stab_0",
+          "observable": "+IIYYY",
+          "qasm": "OPENQASM 2.0;\n\ninclude \"qelib1.inc\";\n\nqreg q[5];\ncreg c[5];\n\ncx q[1], q[0];\ncx q[0], q[1];\ncx q[1], q[0];\nh q[0];\ns q[3];\nh q[4];\ncx q[0], q[3];\ncx q[0], q[4];\nh q[3];\nh q[4];\ncx q[1], q[0];\ncx q[3], q[0];\ncx q[4], q[0];\ncx q[3], q[1];\ncx q[1], q[3];\ncx q[3], q[1];\nh q[1];\ncx q[1], q[4];\ncx q[3], q[1];\ncx q[3], q[2];\ncx q[2], q[3];\ncx q[3], q[2];\ns q[2];\ncx q[2], q[3];\ns q[4];\nh q[3];\nh q[4];\ncx q[3], q[2];\ncx q[4], q[2];\ncx q[4], q[3];\ncx q[3], q[4];\ncx q[4], q[3];\ns q[3];\nh q[3];\ns q[3];\ns q[4];\ncx q[3], q[4];\nh q[4];\ncx q[4], q[3];\nh q[4];\ns q[4];\ns q[1];\ns q[1];\nsdg q[2];\nh q[2];\nsdg q[3];\nh q[3];\nsdg q[4];\nh q[4];\n\nmeasure q[0] -> c[0];\nmeasure q[1] -> c[1];\nmeasure q[2] -> c[2];\nmeasure q[3] -> c[3];\nmeasure q[4] -> c[4];",
+          "metadata": {
+            "kind": "stabilizer",
+            "index": 0
+          }
+        },
+        {
+          "circuit_id": "6_stab_1",
+          "observable": "+XYZYX",
+          "qasm": "OPENQASM 2.0;\n\ninclude \"qelib1.inc\";\n\nqreg q[5];\ncreg c[5];\n\ncx q[1], q[0];\ncx q[0], q[1];\ncx q[1], q[0];\nh q[0];\ns q[3];\nh q[4];\ncx q[0], q[3];\ncx q[0], q[4];\nh q[3];\nh q[4];\ncx q[1], q[0];\ncx q[3], q[0];\ncx q[4], q[0];\ncx q[3], q[1];\ncx q[1], q[3];\ncx q[3], q[1];\nh q[1];\ncx q[1], q[4];\ncx q[3], q[1];\ncx q[3], q[2];\ncx q[2], q[3];\ncx q[3], q[2];\ns q[2];\ncx q[2], q[3];\ns q[4];\nh q[3];\nh q[4];\ncx q[3], q[2];\ncx q[4], q[2];\ncx q[4], q[3];\ncx q[3], q[4];\ncx q[4], q[3];\ns q[3];\nh q[3];\ns q[3];\ns q[4];\ncx q[3], q[4];\nh q[4];\ncx q[4], q[3];\nh q[4];\ns q[4];\ns q[1];\ns q[1];\nh q[0];\nsdg q[1];\nh q[1];\nsdg q[3];\nh q[3];\nh q[4];\n\nmeasure q[0] -> c[0];\nmeasure q[1] -> c[1];\nmeasure q[2] -> c[2];\nmeasure q[3] -> c[3];\nmeasure q[4] -> c[4];",
+          "metadata": {
+            "kind": "stabilizer",
+            "index": 1
+          }
+        },
+        {
+          "circuit_id": "6_stab_2",
+          "observable": "+IZYXZ",
+          "qasm": "OPENQASM 2.0;\n\ninclude \"qelib1.inc\";\n\nqreg q[5];\ncreg c[5];\n\ncx q[1], q[0];\ncx q[0], q[1];\ncx q[1], q[0];\nh q[0];\ns q[3];\nh q[4];\ncx q[0], q[3];\ncx q[0], q[4];\nh q[3];\nh q[4];\ncx q[1], q[0];\ncx q[3], q[0];\ncx q[4], q[0];\ncx q[3], q[1];\ncx q[1], q[3];\ncx q[3], q[1];\nh q[1];\ncx q[1], q[4];\ncx q[3], q[1];\ncx q[3], q[2];\ncx q[2], q[3];\ncx q[3], q[2];\ns q[2];\ncx q[2], q[3];\ns q[4];\nh q[3];\nh q[4];\ncx q[3], q[2];\ncx q[4], q[2];\ncx q[4], q[3];\ncx q[3], q[4];\ncx q[4], q[3];\ns q[3];\nh q[3];\ns q[3];\ns q[4];\ncx q[3], q[4];\nh q[4];\ncx q[4], q[3];\nh q[4];\ns q[4];\ns q[1];\ns q[1];\nsdg q[2];\nh q[2];\nh q[3];\n\nmeasure q[0] -> c[0];\nmeasure q[1] -> c[1];\nmeasure q[2] -> c[2];\nmeasure q[3] -> c[3];\nmeasure q[4] -> c[4];",
+          "metadata": {
+            "kind": "stabilizer",
+            "index": 2
+          }
+        },
+        {
+          "circuit_id": "6_stab_3",
+          "observable": "-IIZIX",
+          "qasm": "OPENQASM 2.0;\n\ninclude \"qelib1.inc\";\n\nqreg q[5];\ncreg c[5];\n\ncx q[1], q[0];\ncx q[0], q[1];\ncx q[1], q[0];\nh q[0];\ns q[3];\nh q[4];\ncx q[0], q[3];\ncx q[0], q[4];\nh q[3];\nh q[4];\ncx q[1], q[0];\ncx q[3], q[0];\ncx q[4], q[0];\ncx q[3], q[1];\ncx q[1], q[3];\ncx q[3], q[1];\nh q[1];\ncx q[1], q[4];\ncx q[3], q[1];\ncx q[3], q[2];\ncx q[2], q[3];\ncx q[3], q[2];\ns q[2];\ncx q[2], q[3];\ns q[4];\nh q[3];\nh q[4];\ncx q[3], q[2];\ncx q[4], q[2];\ncx q[4], q[3];\ncx q[3], q[4];\ncx q[4], q[3];\ns q[3];\nh q[3];\ns q[3];\ns q[4];\ncx q[3], q[4];\nh q[4];\ncx q[4], q[3];\nh q[4];\ns q[4];\ns q[1];\ns q[1];\nh q[4];\n\nmeasure q[0] -> c[0];\nmeasure q[1] -> c[1];\nmeasure q[2] -> c[2];\nmeasure q[3] -> c[3];\nmeasure q[4] -> c[4];",
+          "metadata": {
+            "kind": "stabilizer",
+            "index": 3
+          }
+        },
+        {
+          "circuit_id": "6_destab_0",
+          "observable": "-XXYYI",
+          "qasm": "OPENQASM 2.0;\n\ninclude \"qelib1.inc\";\n\nqreg q[5];\ncreg c[5];\n\ncx q[1], q[0];\ncx q[0], q[1];\ncx q[1], q[0];\nh q[0];\ns q[3];\nh q[4];\ncx q[0], q[3];\ncx q[0], q[4];\nh q[3];\nh q[4];\ncx q[1], q[0];\ncx q[3], q[0];\ncx q[4], q[0];\ncx q[3], q[1];\ncx q[1], q[3];\ncx q[3], q[1];\nh q[1];\ncx q[1], q[4];\ncx q[3], q[1];\ncx q[3], q[2];\ncx q[2], q[3];\ncx q[3], q[2];\ns q[2];\ncx q[2], q[3];\ns q[4];\nh q[3];\nh q[4];\ncx q[3], q[2];\ncx q[4], q[2];\ncx q[4], q[3];\ncx q[3], q[4];\ncx q[4], q[3];\ns q[3];\nh q[3];\ns q[3];\ns q[4];\ncx q[3], q[4];\nh q[4];\ncx q[4], q[3];\nh q[4];\ns q[4];\ns q[1];\ns q[1];\nh q[0];\nh q[1];\nsdg q[2];\nh q[2];\nsdg q[3];\nh q[3];\n\nmeasure q[0] -> c[0];\nmeasure q[1] -> c[1];\nmeasure q[2] -> c[2];\nmeasure q[3] -> c[3];\nmeasure q[4] -> c[4];",
+          "metadata": {
+            "kind": "destabilizer",
+            "index": 0
+          }
+        },
+        {
+          "circuit_id": "6_destab_1",
+          "observable": "-YIYXZ",
+          "qasm": "OPENQASM 2.0;\n\ninclude \"qelib1.inc\";\n\nqreg q[5];\ncreg c[5];\n\ncx q[1], q[0];\ncx q[0], q[1];\ncx q[1], q[0];\nh q[0];\ns q[3];\nh q[4];\ncx q[0], q[3];\ncx q[0], q[4];\nh q[3];\nh q[4];\ncx q[1], q[0];\ncx q[3], q[0];\ncx q[4], q[0];\ncx q[3], q[1];\ncx q[1], q[3];\ncx q[3], q[1];\nh q[1];\ncx q[1], q[4];\ncx q[3], q[1];\ncx q[3], q[2];\ncx q[2], q[3];\ncx q[3], q[2];\ns q[2];\ncx q[2], q[3];\ns q[4];\nh q[3];\nh q[4];\ncx q[3], q[2];\ncx q[4], q[2];\ncx q[4], q[3];\ncx q[3], q[4];\ncx q[4], q[3];\ns q[3];\nh q[3];\ns q[3];\ns q[4];\ncx q[3], q[4];\nh q[4];\ncx q[4], q[3];\nh q[4];\ns q[4];\ns q[1];\ns q[1];\nsdg q[0];\nh q[0];\nsdg q[2];\nh q[2];\nh q[3];\n\nmeasure q[0] -> c[0];\nmeasure q[1] -> c[1];\nmeasure q[2] -> c[2];\nmeasure q[3] -> c[3];\nmeasure q[4] -> c[4];",
+          "metadata": {
+            "kind": "destabilizer",
+            "index": 1
+          }
+        },
+        {
+          "circuit_id": "6_destab_2",
+          "observable": "-IIIYX",
+          "qasm": "OPENQASM 2.0;\n\ninclude \"qelib1.inc\";\n\nqreg q[5];\ncreg c[5];\n\ncx q[1], q[0];\ncx q[0], q[1];\ncx q[1], q[0];\nh q[0];\ns q[3];\nh q[4];\ncx q[0], q[3];\ncx q[0], q[4];\nh q[3];\nh q[4];\ncx q[1], q[0];\ncx q[3], q[0];\ncx q[4], q[0];\ncx q[3], q[1];\ncx q[1], q[3];\ncx q[3], q[1];\nh q[1];\ncx q[1], q[4];\ncx q[3], q[1];\ncx q[3], q[2];\ncx q[2], q[3];\ncx q[3], q[2];\ns q[2];\ncx q[2], q[3];\ns q[4];\nh q[3];\nh q[4];\ncx q[3], q[2];\ncx q[4], q[2];\ncx q[4], q[3];\ncx q[3], q[4];\ncx q[4], q[3];\ns q[3];\nh q[3];\ns q[3];\ns q[4];\ncx q[3], q[4];\nh q[4];\ncx q[4], q[3];\nh q[4];\ns q[4];\ns q[1];\ns q[1];\nsdg q[3];\nh q[3];\nh q[4];\n\nmeasure q[0] -> c[0];\nmeasure q[1] -> c[1];\nmeasure q[2] -> c[2];\nmeasure q[3] -> c[3];\nmeasure q[4] -> c[4];",
+          "metadata": {
+            "kind": "destabilizer",
+            "index": 2
+          }
+        },
+        {
+          "circuit_id": "6_destab_3",
+          "observable": "-ZYIYI",
+          "qasm": "OPENQASM 2.0;\n\ninclude \"qelib1.inc\";\n\nqreg q[5];\ncreg c[5];\n\ncx q[1], q[0];\ncx q[0], q[1];\ncx q[1], q[0];\nh q[0];\ns q[3];\nh q[4];\ncx q[0], q[3];\ncx q[0], q[4];\nh q[3];\nh q[4];\ncx q[1], q[0];\ncx q[3], q[0];\ncx q[4], q[0];\ncx q[3], q[1];\ncx q[1], q[3];\ncx q[3], q[1];\nh q[1];\ncx q[1], q[4];\ncx q[3], q[1];\ncx q[3], q[2];\ncx q[2], q[3];\ncx q[3], q[2];\ns q[2];\ncx q[2], q[3];\ns q[4];\nh q[3];\nh q[4];\ncx q[3], q[2];\ncx q[4], q[2];\ncx q[4], q[3];\ncx q[3], q[4];\ncx q[4], q[3];\ns q[3];\nh q[3];\ns q[3];\ns q[4];\ncx q[3], q[4];\nh q[4];\ncx q[4], q[3];\nh q[4];\ns q[4];\ns q[1];\ns q[1];\nsdg q[1];\nh q[1];\nsdg q[3];\nh q[3];\n\nmeasure q[0] -> c[0];\nmeasure q[1] -> c[1];\nmeasure q[2] -> c[2];\nmeasure q[3] -> c[3];\nmeasure q[4] -> c[4];",
+          "metadata": {
+            "kind": "destabilizer",
+            "index": 3
+          }
+        }
+      ]
+    },
+    {
+      "sample_id": 7,
+      "sample_metadata": {
+        "type": "clifford",
+        "number_of_measurements": 4,
+        "clifford_operator": {
+          "stabilizers": [
+            "-ZZYZI",
+            "+ZIZYI",
+            "-ZYZIX",
+            "-ZZIIZ",
+            "+XYIZZ"
+          ],
+          "destabilizers": [
+            "-IIXZZ",
+            "-XYIIZ",
+            "+YXIZZ",
+            "+YYYIX",
+            "-XZIXX"
+          ]
+        }
+      },
+      "circuits": [
+        {
+          "circuit_id": "7_stab_0",
+          "observable": "-ZZYZI",
+          "qasm": "OPENQASM 2.0;\n\ninclude \"qelib1.inc\";\n\nqreg q[5];\ncreg c[5];\n\ncx q[1], q[0];\ncx q[0], q[1];\ncx q[1], q[0];\ns q[2];\ns q[3];\ncx q[0], q[1];\ncx q[0], q[2];\ncx q[0], q[3];\ns q[4];\nh q[4];\ncx q[2], q[0];\ncx q[3], q[0];\ncx q[4], q[0];\ncx q[2], q[1];\ncx q[1], q[2];\ncx q[2], q[1];\nh q[1];\ns q[1];\nh q[4];\ncx q[1], q[2];\ncx q[1], q[3];\ncx q[1], q[4];\ns q[4];\nh q[4];\ncx q[3], q[1];\ncx q[4], q[1];\ns q[2];\nh q[2];\ns q[2];\ns q[4];\nh q[3];\ncx q[2], q[3];\ncx q[2], q[4];\nh q[3];\ncx q[3], q[2];\ncx q[4], q[3];\ncx q[3], q[4];\ncx q[4], q[3];\ns q[3];\ns q[4];\nh q[4];\ncx q[4], q[3];\ns q[4];\nh q[4];\ns q[4];\nh q[0];\nh q[1];\nh q[2];\nh q[3];\nh q[4];\ns q[0];\ns q[0];\ns q[1];\ns q[1];\ns q[2];\ns q[2];\ns q[3];\ns q[3];\ns q[4];\ns q[4];\nh q[0];\nh q[1];\nh q[2];\nh q[3];\nh q[4];\ns q[0];\ns q[0];\ns q[1];\ns q[1];\ns q[3];\ns q[3];\ns q[4];\ns q[4];\nsdg q[2];\nh q[2];\n\nmeasure q[0] -> c[0];\nmeasure q[1] -> c[1];\nmeasure q[2] -> c[2];\nmeasure q[3] -> c[3];\nmeasure q[4] -> c[4];",
+          "metadata": {
+            "kind": "stabilizer",
+            "index": 0
+          }
+        },
+        {
+          "circuit_id": "7_stab_1",
+          "observable": "+XYIZZ",
+          "qasm": "OPENQASM 2.0;\n\ninclude \"qelib1.inc\";\n\nqreg q[5];\ncreg c[5];\n\ncx q[1], q[0];\ncx q[0], q[1];\ncx q[1], q[0];\ns q[2];\ns q[3];\ncx q[0], q[1];\ncx q[0], q[2];\ncx q[0], q[3];\ns q[4];\nh q[4];\ncx q[2], q[0];\ncx q[3], q[0];\ncx q[4], q[0];\ncx q[2], q[1];\ncx q[1], q[2];\ncx q[2], q[1];\nh q[1];\ns q[1];\nh q[4];\ncx q[1], q[2];\ncx q[1], q[3];\ncx q[1], q[4];\ns q[4];\nh q[4];\ncx q[3], q[1];\ncx q[4], q[1];\ns q[2];\nh q[2];\ns q[2];\ns q[4];\nh q[3];\ncx q[2], q[3];\ncx q[2], q[4];\nh q[3];\ncx q[3], q[2];\ncx q[4], q[3];\ncx q[3], q[4];\ncx q[4], q[3];\ns q[3];\ns q[4];\nh q[4];\ncx q[4], q[3];\ns q[4];\nh q[4];\ns q[4];\nh q[0];\nh q[1];\nh q[2];\nh q[3];\nh q[4];\ns q[0];\ns q[0];\ns q[1];\ns q[1];\ns q[2];\ns q[2];\ns q[3];\ns q[3];\ns q[4];\ns q[4];\nh q[0];\nh q[1];\nh q[2];\nh q[3];\nh q[4];\ns q[0];\ns q[0];\ns q[1];\ns q[1];\ns q[3];\ns q[3];\ns q[4];\ns q[4];\nh q[0];\nsdg q[1];\nh q[1];\n\nmeasure q[0] -> c[0];\nmeasure q[1] -> c[1];\nmeasure q[2] -> c[2];\nmeasure q[3] -> c[3];\nmeasure q[4] -> c[4];",
+          "metadata": {
+            "kind": "stabilizer",
+            "index": 1
+          }
+        },
+        {
+          "circuit_id": "7_stab_2",
+          "observable": "+ZIZYI",
+          "qasm": "OPENQASM 2.0;\n\ninclude \"qelib1.inc\";\n\nqreg q[5];\ncreg c[5];\n\ncx q[1], q[0];\ncx q[0], q[1];\ncx q[1], q[0];\ns q[2];\ns q[3];\ncx q[0], q[1];\ncx q[0], q[2];\ncx q[0], q[3];\ns q[4];\nh q[4];\ncx q[2], q[0];\ncx q[3], q[0];\ncx q[4], q[0];\ncx q[2], q[1];\ncx q[1], q[2];\ncx q[2], q[1];\nh q[1];\ns q[1];\nh q[4];\ncx q[1], q[2];\ncx q[1], q[3];\ncx q[1], q[4];\ns q[4];\nh q[4];\ncx q[3], q[1];\ncx q[4], q[1];\ns q[2];\nh q[2];\ns q[2];\ns q[4];\nh q[3];\ncx q[2], q[3];\ncx q[2], q[4];\nh q[3];\ncx q[3], q[2];\ncx q[4], q[3];\ncx q[3], q[4];\ncx q[4], q[3];\ns q[3];\ns q[4];\nh q[4];\ncx q[4], q[3];\ns q[4];\nh q[4];\ns q[4];\nh q[0];\nh q[1];\nh q[2];\nh q[3];\nh q[4];\ns q[0];\ns q[0];\ns q[1];\ns q[1];\ns q[2];\ns q[2];\ns q[3];\ns q[3];\ns q[4];\ns q[4];\nh q[0];\nh q[1];\nh q[2];\nh q[3];\nh q[4];\ns q[0];\ns q[0];\ns q[1];\ns q[1];\ns q[3];\ns q[3];\ns q[4];\ns q[4];\nsdg q[3];\nh q[3];\n\nmeasure q[0] -> c[0];\nmeasure q[1] -> c[1];\nmeasure q[2] -> c[2];\nmeasure q[3] -> c[3];\nmeasure q[4] -> c[4];",
+          "metadata": {
+            "kind": "stabilizer",
+            "index": 2
+          }
+        },
+        {
+          "circuit_id": "7_stab_3",
+          "observable": "-ZYZIX",
+          "qasm": "OPENQASM 2.0;\n\ninclude \"qelib1.inc\";\n\nqreg q[5];\ncreg c[5];\n\ncx q[1], q[0];\ncx q[0], q[1];\ncx q[1], q[0];\ns q[2];\ns q[3];\ncx q[0], q[1];\ncx q[0], q[2];\ncx q[0], q[3];\ns q[4];\nh q[4];\ncx q[2], q[0];\ncx q[3], q[0];\ncx q[4], q[0];\ncx q[2], q[1];\ncx q[1], q[2];\ncx q[2], q[1];\nh q[1];\ns q[1];\nh q[4];\ncx q[1], q[2];\ncx q[1], q[3];\ncx q[1], q[4];\ns q[4];\nh q[4];\ncx q[3], q[1];\ncx q[4], q[1];\ns q[2];\nh q[2];\ns q[2];\ns q[4];\nh q[3];\ncx q[2], q[3];\ncx q[2], q[4];\nh q[3];\ncx q[3], q[2];\ncx q[4], q[3];\ncx q[3], q[4];\ncx q[4], q[3];\ns q[3];\ns q[4];\nh q[4];\ncx q[4], q[3];\ns q[4];\nh q[4];\ns q[4];\nh q[0];\nh q[1];\nh q[2];\nh q[3];\nh q[4];\ns q[0];\ns q[0];\ns q[1];\ns q[1];\ns q[2];\ns q[2];\ns q[3];\ns q[3];\ns q[4];\ns q[4];\nh q[0];\nh q[1];\nh q[2];\nh q[3];\nh q[4];\ns q[0];\ns q[0];\ns q[1];\ns q[1];\ns q[3];\ns q[3];\ns q[4];\ns q[4];\nsdg q[1];\nh q[1];\nh q[4];\n\nmeasure q[0] -> c[0];\nmeasure q[1] -> c[1];\nmeasure q[2] -> c[2];\nmeasure q[3] -> c[3];\nmeasure q[4] -> c[4];",
+          "metadata": {
+            "kind": "stabilizer",
+            "index": 3
+          }
+        },
+        {
+          "circuit_id": "7_destab_0",
+          "observable": "-IIXZZ",
+          "qasm": "OPENQASM 2.0;\n\ninclude \"qelib1.inc\";\n\nqreg q[5];\ncreg c[5];\n\ncx q[1], q[0];\ncx q[0], q[1];\ncx q[1], q[0];\ns q[2];\ns q[3];\ncx q[0], q[1];\ncx q[0], q[2];\ncx q[0], q[3];\ns q[4];\nh q[4];\ncx q[2], q[0];\ncx q[3], q[0];\ncx q[4], q[0];\ncx q[2], q[1];\ncx q[1], q[2];\ncx q[2], q[1];\nh q[1];\ns q[1];\nh q[4];\ncx q[1], q[2];\ncx q[1], q[3];\ncx q[1], q[4];\ns q[4];\nh q[4];\ncx q[3], q[1];\ncx q[4], q[1];\ns q[2];\nh q[2];\ns q[2];\ns q[4];\nh q[3];\ncx q[2], q[3];\ncx q[2], q[4];\nh q[3];\ncx q[3], q[2];\ncx q[4], q[3];\ncx q[3], q[4];\ncx q[4], q[3];\ns q[3];\ns q[4];\nh q[4];\ncx q[4], q[3];\ns q[4];\nh q[4];\ns q[4];\nh q[0];\nh q[1];\nh q[2];\nh q[3];\nh q[4];\ns q[0];\ns q[0];\ns q[1];\ns q[1];\ns q[2];\ns q[2];\ns q[3];\ns q[3];\ns q[4];\ns q[4];\nh q[0];\nh q[1];\nh q[2];\nh q[3];\nh q[4];\ns q[0];\ns q[0];\ns q[1];\ns q[1];\ns q[3];\ns q[3];\ns q[4];\ns q[4];\nh q[2];\n\nmeasure q[0] -> c[0];\nmeasure q[1] -> c[1];\nmeasure q[2] -> c[2];\nmeasure q[3] -> c[3];\nmeasure q[4] -> c[4];",
+          "metadata": {
+            "kind": "destabilizer",
+            "index": 0
+          }
+        },
+        {
+          "circuit_id": "7_destab_1",
+          "observable": "-XZIXX",
+          "qasm": "OPENQASM 2.0;\n\ninclude \"qelib1.inc\";\n\nqreg q[5];\ncreg c[5];\n\ncx q[1], q[0];\ncx q[0], q[1];\ncx q[1], q[0];\ns q[2];\ns q[3];\ncx q[0], q[1];\ncx q[0], q[2];\ncx q[0], q[3];\ns q[4];\nh q[4];\ncx q[2], q[0];\ncx q[3], q[0];\ncx q[4], q[0];\ncx q[2], q[1];\ncx q[1], q[2];\ncx q[2], q[1];\nh q[1];\ns q[1];\nh q[4];\ncx q[1], q[2];\ncx q[1], q[3];\ncx q[1], q[4];\ns q[4];\nh q[4];\ncx q[3], q[1];\ncx q[4], q[1];\ns q[2];\nh q[2];\ns q[2];\ns q[4];\nh q[3];\ncx q[2], q[3];\ncx q[2], q[4];\nh q[3];\ncx q[3], q[2];\ncx q[4], q[3];\ncx q[3], q[4];\ncx q[4], q[3];\ns q[3];\ns q[4];\nh q[4];\ncx q[4], q[3];\ns q[4];\nh q[4];\ns q[4];\nh q[0];\nh q[1];\nh q[2];\nh q[3];\nh q[4];\ns q[0];\ns q[0];\ns q[1];\ns q[1];\ns q[2];\ns q[2];\ns q[3];\ns q[3];\ns q[4];\ns q[4];\nh q[0];\nh q[1];\nh q[2];\nh q[3];\nh q[4];\ns q[0];\ns q[0];\ns q[1];\ns q[1];\ns q[3];\ns q[3];\ns q[4];\ns q[4];\nh q[0];\nh q[3];\nh q[4];\n\nmeasure q[0] -> c[0];\nmeasure q[1] -> c[1];\nmeasure q[2] -> c[2];\nmeasure q[3] -> c[3];\nmeasure q[4] -> c[4];",
+          "metadata": {
+            "kind": "destabilizer",
+            "index": 1
+          }
+        },
+        {
+          "circuit_id": "7_destab_2",
+          "observable": "+YXIZZ",
+          "qasm": "OPENQASM 2.0;\n\ninclude \"qelib1.inc\";\n\nqreg q[5];\ncreg c[5];\n\ncx q[1], q[0];\ncx q[0], q[1];\ncx q[1], q[0];\ns q[2];\ns q[3];\ncx q[0], q[1];\ncx q[0], q[2];\ncx q[0], q[3];\ns q[4];\nh q[4];\ncx q[2], q[0];\ncx q[3], q[0];\ncx q[4], q[0];\ncx q[2], q[1];\ncx q[1], q[2];\ncx q[2], q[1];\nh q[1];\ns q[1];\nh q[4];\ncx q[1], q[2];\ncx q[1], q[3];\ncx q[1], q[4];\ns q[4];\nh q[4];\ncx q[3], q[1];\ncx q[4], q[1];\ns q[2];\nh q[2];\ns q[2];\ns q[4];\nh q[3];\ncx q[2], q[3];\ncx q[2], q[4];\nh q[3];\ncx q[3], q[2];\ncx q[4], q[3];\ncx q[3], q[4];\ncx q[4], q[3];\ns q[3];\ns q[4];\nh q[4];\ncx q[4], q[3];\ns q[4];\nh q[4];\ns q[4];\nh q[0];\nh q[1];\nh q[2];\nh q[3];\nh q[4];\ns q[0];\ns q[0];\ns q[1];\ns q[1];\ns q[2];\ns q[2];\ns q[3];\ns q[3];\ns q[4];\ns q[4];\nh q[0];\nh q[1];\nh q[2];\nh q[3];\nh q[4];\ns q[0];\ns q[0];\ns q[1];\ns q[1];\ns q[3];\ns q[3];\ns q[4];\ns q[4];\nsdg q[0];\nh q[0];\nh q[1];\n\nmeasure q[0] -> c[0];\nmeasure q[1] -> c[1];\nmeasure q[2] -> c[2];\nmeasure q[3] -> c[3];\nmeasure q[4] -> c[4];",
+          "metadata": {
+            "kind": "destabilizer",
+            "index": 2
+          }
+        },
+        {
+          "circuit_id": "7_destab_3",
+          "observable": "+YYYIX",
+          "qasm": "OPENQASM 2.0;\n\ninclude \"qelib1.inc\";\n\nqreg q[5];\ncreg c[5];\n\ncx q[1], q[0];\ncx q[0], q[1];\ncx q[1], q[0];\ns q[2];\ns q[3];\ncx q[0], q[1];\ncx q[0], q[2];\ncx q[0], q[3];\ns q[4];\nh q[4];\ncx q[2], q[0];\ncx q[3], q[0];\ncx q[4], q[0];\ncx q[2], q[1];\ncx q[1], q[2];\ncx q[2], q[1];\nh q[1];\ns q[1];\nh q[4];\ncx q[1], q[2];\ncx q[1], q[3];\ncx q[1], q[4];\ns q[4];\nh q[4];\ncx q[3], q[1];\ncx q[4], q[1];\ns q[2];\nh q[2];\ns q[2];\ns q[4];\nh q[3];\ncx q[2], q[3];\ncx q[2], q[4];\nh q[3];\ncx q[3], q[2];\ncx q[4], q[3];\ncx q[3], q[4];\ncx q[4], q[3];\ns q[3];\ns q[4];\nh q[4];\ncx q[4], q[3];\ns q[4];\nh q[4];\ns q[4];\nh q[0];\nh q[1];\nh q[2];\nh q[3];\nh q[4];\ns q[0];\ns q[0];\ns q[1];\ns q[1];\ns q[2];\ns q[2];\ns q[3];\ns q[3];\ns q[4];\ns q[4];\nh q[0];\nh q[1];\nh q[2];\nh q[3];\nh q[4];\ns q[0];\ns q[0];\ns q[1];\ns q[1];\ns q[3];\ns q[3];\ns q[4];\ns q[4];\nsdg q[0];\nh q[0];\nsdg q[1];\nh q[1];\nsdg q[2];\nh q[2];\nh q[4];\n\nmeasure q[0] -> c[0];\nmeasure q[1] -> c[1];\nmeasure q[2] -> c[2];\nmeasure q[3] -> c[3];\nmeasure q[4] -> c[4];",
+          "metadata": {
+            "kind": "destabilizer",
+            "index": 3
+          }
+        }
+      ]
+    },
+    {
+      "sample_id": 8,
+      "sample_metadata": {
+        "type": "clifford",
+        "number_of_measurements": 4,
+        "clifford_operator": {
+          "stabilizers": [
+            "+YZYYZ",
+            "-ZXZIY",
+            "+IXIIY",
+            "-YYXIZ",
+            "+YIXXI"
+          ],
+          "destabilizers": [
+            "+YZXXX",
+            "-IXXXY",
+            "+ZXXZZ",
+            "+IZZYX",
+            "+XZXIZ"
+          ]
+        }
+      },
+      "circuits": [
+        {
+          "circuit_id": "8_stab_0",
+          "observable": "-YYXIZ",
+          "qasm": "OPENQASM 2.0;\n\ninclude \"qelib1.inc\";\n\nqreg q[5];\ncreg c[5];\n\ncx q[4], q[0];\ncx q[0], q[4];\ncx q[4], q[0];\ns q[0];\nh q[0];\ns q[0];\ns q[4];\nh q[2];\ncx q[0], q[1];\ncx q[0], q[2];\ncx q[0], q[3];\ncx q[0], q[4];\nh q[3];\nh q[4];\ncx q[3], q[0];\ncx q[4], q[0];\ns q[1];\nh q[1];\ns q[1];\ncx q[1], q[2];\ncx q[1], q[3];\ns q[2];\nh q[2];\ncx q[2], q[1];\ncx q[3], q[1];\ncx q[4], q[2];\ncx q[2], q[4];\ncx q[4], q[2];\ns q[2];\ns q[4];\ncx q[2], q[4];\ns q[3];\nh q[3];\ncx q[3], q[2];\ns q[3];\nh q[4];\ncx q[4], q[3];\nh q[4];\ns q[4];\nh q[0];\nh q[2];\nh q[4];\ns q[0];\ns q[0];\ns q[2];\ns q[2];\ns q[4];\ns q[4];\nh q[0];\nh q[2];\nh q[4];\ns q[1];\ns q[1];\ns q[2];\ns q[2];\nsdg q[0];\nh q[0];\nsdg q[1];\nh q[1];\nh q[2];\n\nmeasure q[0] -> c[0];\nmeasure q[1] -> c[1];\nmeasure q[2] -> c[2];\nmeasure q[3] -> c[3];\nmeasure q[4] -> c[4];",
+          "metadata": {
+            "kind": "stabilizer",
+            "index": 0
+          }
+        },
+        {
+          "circuit_id": "8_stab_1",
+          "observable": "+IXIIY",
+          "qasm": "OPENQASM 2.0;\n\ninclude \"qelib1.inc\";\n\nqreg q[5];\ncreg c[5];\n\ncx q[4], q[0];\ncx q[0], q[4];\ncx q[4], q[0];\ns q[0];\nh q[0];\ns q[0];\ns q[4];\nh q[2];\ncx q[0], q[1];\ncx q[0], q[2];\ncx q[0], q[3];\ncx q[0], q[4];\nh q[3];\nh q[4];\ncx q[3], q[0];\ncx q[4], q[0];\ns q[1];\nh q[1];\ns q[1];\ncx q[1], q[2];\ncx q[1], q[3];\ns q[2];\nh q[2];\ncx q[2], q[1];\ncx q[3], q[1];\ncx q[4], q[2];\ncx q[2], q[4];\ncx q[4], q[2];\ns q[2];\ns q[4];\ncx q[2], q[4];\ns q[3];\nh q[3];\ncx q[3], q[2];\ns q[3];\nh q[4];\ncx q[4], q[3];\nh q[4];\ns q[4];\nh q[0];\nh q[2];\nh q[4];\ns q[0];\ns q[0];\ns q[2];\ns q[2];\ns q[4];\ns q[4];\nh q[0];\nh q[2];\nh q[4];\ns q[1];\ns q[1];\ns q[2];\ns q[2];\nh q[1];\nsdg q[4];\nh q[4];\n\nmeasure q[0] -> c[0];\nmeasure q[1] -> c[1];\nmeasure q[2] -> c[2];\nmeasure q[3] -> c[3];\nmeasure q[4] -> c[4];",
+          "metadata": {
+            "kind": "stabilizer",
+            "index": 1
+          }
+        },
+        {
+          "circuit_id": "8_stab_2",
+          "observable": "+YIXXI",
+          "qasm": "OPENQASM 2.0;\n\ninclude \"qelib1.inc\";\n\nqreg q[5];\ncreg c[5];\n\ncx q[4], q[0];\ncx q[0], q[4];\ncx q[4], q[0];\ns q[0];\nh q[0];\ns q[0];\ns q[4];\nh q[2];\ncx q[0], q[1];\ncx q[0], q[2];\ncx q[0], q[3];\ncx q[0], q[4];\nh q[3];\nh q[4];\ncx q[3], q[0];\ncx q[4], q[0];\ns q[1];\nh q[1];\ns q[1];\ncx q[1], q[2];\ncx q[1], q[3];\ns q[2];\nh q[2];\ncx q[2], q[1];\ncx q[3], q[1];\ncx q[4], q[2];\ncx q[2], q[4];\ncx q[4], q[2];\ns q[2];\ns q[4];\ncx q[2], q[4];\ns q[3];\nh q[3];\ncx q[3], q[2];\ns q[3];\nh q[4];\ncx q[4], q[3];\nh q[4];\ns q[4];\nh q[0];\nh q[2];\nh q[4];\ns q[0];\ns q[0];\ns q[2];\ns q[2];\ns q[4];\ns q[4];\nh q[0];\nh q[2];\nh q[4];\ns q[1];\ns q[1];\ns q[2];\ns q[2];\nsdg q[0];\nh q[0];\nh q[2];\nh q[3];\n\nmeasure q[0] -> c[0];\nmeasure q[1] -> c[1];\nmeasure q[2] -> c[2];\nmeasure q[3] -> c[3];\nmeasure q[4] -> c[4];",
+          "metadata": {
+            "kind": "stabilizer",
+            "index": 2
+          }
+        },
+        {
+          "circuit_id": "8_stab_3",
+          "observable": "+YZYYZ",
+          "qasm": "OPENQASM 2.0;\n\ninclude \"qelib1.inc\";\n\nqreg q[5];\ncreg c[5];\n\ncx q[4], q[0];\ncx q[0], q[4];\ncx q[4], q[0];\ns q[0];\nh q[0];\ns q[0];\ns q[4];\nh q[2];\ncx q[0], q[1];\ncx q[0], q[2];\ncx q[0], q[3];\ncx q[0], q[4];\nh q[3];\nh q[4];\ncx q[3], q[0];\ncx q[4], q[0];\ns q[1];\nh q[1];\ns q[1];\ncx q[1], q[2];\ncx q[1], q[3];\ns q[2];\nh q[2];\ncx q[2], q[1];\ncx q[3], q[1];\ncx q[4], q[2];\ncx q[2], q[4];\ncx q[4], q[2];\ns q[2];\ns q[4];\ncx q[2], q[4];\ns q[3];\nh q[3];\ncx q[3], q[2];\ns q[3];\nh q[4];\ncx q[4], q[3];\nh q[4];\ns q[4];\nh q[0];\nh q[2];\nh q[4];\ns q[0];\ns q[0];\ns q[2];\ns q[2];\ns q[4];\ns q[4];\nh q[0];\nh q[2];\nh q[4];\ns q[1];\ns q[1];\ns q[2];\ns q[2];\nsdg q[0];\nh q[0];\nsdg q[2];\nh q[2];\nsdg q[3];\nh q[3];\n\nmeasure q[0] -> c[0];\nmeasure q[1] -> c[1];\nmeasure q[2] -> c[2];\nmeasure q[3] -> c[3];\nmeasure q[4] -> c[4];",
+          "metadata": {
+            "kind": "stabilizer",
+            "index": 3
+          }
+        },
+        {
+          "circuit_id": "8_destab_0",
+          "observable": "-IXXXY",
+          "qasm": "OPENQASM 2.0;\n\ninclude \"qelib1.inc\";\n\nqreg q[5];\ncreg c[5];\n\ncx q[4], q[0];\ncx q[0], q[4];\ncx q[4], q[0];\ns q[0];\nh q[0];\ns q[0];\ns q[4];\nh q[2];\ncx q[0], q[1];\ncx q[0], q[2];\ncx q[0], q[3];\ncx q[0], q[4];\nh q[3];\nh q[4];\ncx q[3], q[0];\ncx q[4], q[0];\ns q[1];\nh q[1];\ns q[1];\ncx q[1], q[2];\ncx q[1], q[3];\ns q[2];\nh q[2];\ncx q[2], q[1];\ncx q[3], q[1];\ncx q[4], q[2];\ncx q[2], q[4];\ncx q[4], q[2];\ns q[2];\ns q[4];\ncx q[2], q[4];\ns q[3];\nh q[3];\ncx q[3], q[2];\ns q[3];\nh q[4];\ncx q[4], q[3];\nh q[4];\ns q[4];\nh q[0];\nh q[2];\nh q[4];\ns q[0];\ns q[0];\ns q[2];\ns q[2];\ns q[4];\ns q[4];\nh q[0];\nh q[2];\nh q[4];\ns q[1];\ns q[1];\ns q[2];\ns q[2];\nh q[1];\nh q[2];\nh q[3];\nsdg q[4];\nh q[4];\n\nmeasure q[0] -> c[0];\nmeasure q[1] -> c[1];\nmeasure q[2] -> c[2];\nmeasure q[3] -> c[3];\nmeasure q[4] -> c[4];",
+          "metadata": {
+            "kind": "destabilizer",
+            "index": 0
+          }
+        },
+        {
+          "circuit_id": "8_destab_1",
+          "observable": "+IZZYX",
+          "qasm": "OPENQASM 2.0;\n\ninclude \"qelib1.inc\";\n\nqreg q[5];\ncreg c[5];\n\ncx q[4], q[0];\ncx q[0], q[4];\ncx q[4], q[0];\ns q[0];\nh q[0];\ns q[0];\ns q[4];\nh q[2];\ncx q[0], q[1];\ncx q[0], q[2];\ncx q[0], q[3];\ncx q[0], q[4];\nh q[3];\nh q[4];\ncx q[3], q[0];\ncx q[4], q[0];\ns q[1];\nh q[1];\ns q[1];\ncx q[1], q[2];\ncx q[1], q[3];\ns q[2];\nh q[2];\ncx q[2], q[1];\ncx q[3], q[1];\ncx q[4], q[2];\ncx q[2], q[4];\ncx q[4], q[2];\ns q[2];\ns q[4];\ncx q[2], q[4];\ns q[3];\nh q[3];\ncx q[3], q[2];\ns q[3];\nh q[4];\ncx q[4], q[3];\nh q[4];\ns q[4];\nh q[0];\nh q[2];\nh q[4];\ns q[0];\ns q[0];\ns q[2];\ns q[2];\ns q[4];\ns q[4];\nh q[0];\nh q[2];\nh q[4];\ns q[1];\ns q[1];\ns q[2];\ns q[2];\nsdg q[3];\nh q[3];\nh q[4];\n\nmeasure q[0] -> c[0];\nmeasure q[1] -> c[1];\nmeasure q[2] -> c[2];\nmeasure q[3] -> c[3];\nmeasure q[4] -> c[4];",
+          "metadata": {
+            "kind": "destabilizer",
+            "index": 1
+          }
+        },
+        {
+          "circuit_id": "8_destab_2",
+          "observable": "+XZXIZ",
+          "qasm": "OPENQASM 2.0;\n\ninclude \"qelib1.inc\";\n\nqreg q[5];\ncreg c[5];\n\ncx q[4], q[0];\ncx q[0], q[4];\ncx q[4], q[0];\ns q[0];\nh q[0];\ns q[0];\ns q[4];\nh q[2];\ncx q[0], q[1];\ncx q[0], q[2];\ncx q[0], q[3];\ncx q[0], q[4];\nh q[3];\nh q[4];\ncx q[3], q[0];\ncx q[4], q[0];\ns q[1];\nh q[1];\ns q[1];\ncx q[1], q[2];\ncx q[1], q[3];\ns q[2];\nh q[2];\ncx q[2], q[1];\ncx q[3], q[1];\ncx q[4], q[2];\ncx q[2], q[4];\ncx q[4], q[2];\ns q[2];\ns q[4];\ncx q[2], q[4];\ns q[3];\nh q[3];\ncx q[3], q[2];\ns q[3];\nh q[4];\ncx q[4], q[3];\nh q[4];\ns q[4];\nh q[0];\nh q[2];\nh q[4];\ns q[0];\ns q[0];\ns q[2];\ns q[2];\ns q[4];\ns q[4];\nh q[0];\nh q[2];\nh q[4];\ns q[1];\ns q[1];\ns q[2];\ns q[2];\nh q[0];\nh q[2];\n\nmeasure q[0] -> c[0];\nmeasure q[1] -> c[1];\nmeasure q[2] -> c[2];\nmeasure q[3] -> c[3];\nmeasure q[4] -> c[4];",
+          "metadata": {
+            "kind": "destabilizer",
+            "index": 2
+          }
+        },
+        {
+          "circuit_id": "8_destab_3",
+          "observable": "+YZXXX",
+          "qasm": "OPENQASM 2.0;\n\ninclude \"qelib1.inc\";\n\nqreg q[5];\ncreg c[5];\n\ncx q[4], q[0];\ncx q[0], q[4];\ncx q[4], q[0];\ns q[0];\nh q[0];\ns q[0];\ns q[4];\nh q[2];\ncx q[0], q[1];\ncx q[0], q[2];\ncx q[0], q[3];\ncx q[0], q[4];\nh q[3];\nh q[4];\ncx q[3], q[0];\ncx q[4], q[0];\ns q[1];\nh q[1];\ns q[1];\ncx q[1], q[2];\ncx q[1], q[3];\ns q[2];\nh q[2];\ncx q[2], q[1];\ncx q[3], q[1];\ncx q[4], q[2];\ncx q[2], q[4];\ncx q[4], q[2];\ns q[2];\ns q[4];\ncx q[2], q[4];\ns q[3];\nh q[3];\ncx q[3], q[2];\ns q[3];\nh q[4];\ncx q[4], q[3];\nh q[4];\ns q[4];\nh q[0];\nh q[2];\nh q[4];\ns q[0];\ns q[0];\ns q[2];\ns q[2];\ns q[4];\ns q[4];\nh q[0];\nh q[2];\nh q[4];\ns q[1];\ns q[1];\ns q[2];\ns q[2];\nsdg q[0];\nh q[0];\nh q[2];\nh q[3];\nh q[4];\n\nmeasure q[0] -> c[0];\nmeasure q[1] -> c[1];\nmeasure q[2] -> c[2];\nmeasure q[3] -> c[3];\nmeasure q[4] -> c[4];",
+          "metadata": {
+            "kind": "destabilizer",
+            "index": 3
+          }
+        }
+      ]
+    },
+    {
+      "sample_id": 9,
+      "sample_metadata": {
+        "type": "clifford",
+        "number_of_measurements": 4,
+        "clifford_operator": {
+          "stabilizers": [
+            "-YYIZI",
+            "-YXYYX",
+            "-ZZZIY",
+            "+ZIIYY",
+            "-IYZZZ"
+          ],
+          "destabilizers": [
+            "+YXIZY",
+            "+IIZII",
+            "+XZIZY",
+            "+IIZZI",
+            "+IIZIY"
+          ]
+        }
+      },
+      "circuits": [
+        {
+          "circuit_id": "9_stab_0",
+          "observable": "+ZIIYY",
+          "qasm": "OPENQASM 2.0;\n\ninclude \"qelib1.inc\";\n\nqreg q[5];\ncreg c[5];\n\ncx q[2], q[0];\ncx q[0], q[2];\ncx q[2], q[0];\ns q[2];\ncx q[0], q[1];\ncx q[0], q[2];\ncx q[0], q[3];\nh q[1];\nh q[2];\ncx q[1], q[0];\ncx q[2], q[0];\ncx q[2], q[1];\ncx q[1], q[2];\ncx q[2], q[1];\nh q[2];\ncx q[1], q[2];\ncx q[1], q[3];\ncx q[1], q[4];\nh q[2];\nh q[4];\ncx q[2], q[1];\ncx q[4], q[1];\ns q[3];\ns q[4];\ncx q[2], q[3];\ncx q[2], q[4];\ns q[3];\nh q[3];\ns q[3];\nh q[4];\ncx q[3], q[4];\ns q[4];\nh q[1];\nh q[3];\nh q[4];\ns q[1];\ns q[1];\ns q[3];\ns q[3];\ns q[4];\ns q[4];\nh q[1];\nh q[3];\nh q[4];\ns q[0];\ns q[0];\ns q[3];\ns q[3];\ns q[4];\ns q[4];\nsdg q[3];\nh q[3];\nsdg q[4];\nh q[4];\n\nmeasure q[0] -> c[0];\nmeasure q[1] -> c[1];\nmeasure q[2] -> c[2];\nmeasure q[3] -> c[3];\nmeasure q[4] -> c[4];",
+          "metadata": {
+            "kind": "stabilizer",
+            "index": 0
+          }
+        },
+        {
+          "circuit_id": "9_stab_1",
+          "observable": "-YYIZI",
+          "qasm": "OPENQASM 2.0;\n\ninclude \"qelib1.inc\";\n\nqreg q[5];\ncreg c[5];\n\ncx q[2], q[0];\ncx q[0], q[2];\ncx q[2], q[0];\ns q[2];\ncx q[0], q[1];\ncx q[0], q[2];\ncx q[0], q[3];\nh q[1];\nh q[2];\ncx q[1], q[0];\ncx q[2], q[0];\ncx q[2], q[1];\ncx q[1], q[2];\ncx q[2], q[1];\nh q[2];\ncx q[1], q[2];\ncx q[1], q[3];\ncx q[1], q[4];\nh q[2];\nh q[4];\ncx q[2], q[1];\ncx q[4], q[1];\ns q[3];\ns q[4];\ncx q[2], q[3];\ncx q[2], q[4];\ns q[3];\nh q[3];\ns q[3];\nh q[4];\ncx q[3], q[4];\ns q[4];\nh q[1];\nh q[3];\nh q[4];\ns q[1];\ns q[1];\ns q[3];\ns q[3];\ns q[4];\ns q[4];\nh q[1];\nh q[3];\nh q[4];\ns q[0];\ns q[0];\ns q[3];\ns q[3];\ns q[4];\ns q[4];\nsdg q[0];\nh q[0];\nsdg q[1];\nh q[1];\n\nmeasure q[0] -> c[0];\nmeasure q[1] -> c[1];\nmeasure q[2] -> c[2];\nmeasure q[3] -> c[3];\nmeasure q[4] -> c[4];",
+          "metadata": {
+            "kind": "stabilizer",
+            "index": 1
+          }
+        },
+        {
+          "circuit_id": "9_stab_2",
+          "observable": "-IYZZZ",
+          "qasm": "OPENQASM 2.0;\n\ninclude \"qelib1.inc\";\n\nqreg q[5];\ncreg c[5];\n\ncx q[2], q[0];\ncx q[0], q[2];\ncx q[2], q[0];\ns q[2];\ncx q[0], q[1];\ncx q[0], q[2];\ncx q[0], q[3];\nh q[1];\nh q[2];\ncx q[1], q[0];\ncx q[2], q[0];\ncx q[2], q[1];\ncx q[1], q[2];\ncx q[2], q[1];\nh q[2];\ncx q[1], q[2];\ncx q[1], q[3];\ncx q[1], q[4];\nh q[2];\nh q[4];\ncx q[2], q[1];\ncx q[4], q[1];\ns q[3];\ns q[4];\ncx q[2], q[3];\ncx q[2], q[4];\ns q[3];\nh q[3];\ns q[3];\nh q[4];\ncx q[3], q[4];\ns q[4];\nh q[1];\nh q[3];\nh q[4];\ns q[1];\ns q[1];\ns q[3];\ns q[3];\ns q[4];\ns q[4];\nh q[1];\nh q[3];\nh q[4];\ns q[0];\ns q[0];\ns q[3];\ns q[3];\ns q[4];\ns q[4];\nsdg q[1];\nh q[1];\n\nmeasure q[0] -> c[0];\nmeasure q[1] -> c[1];\nmeasure q[2] -> c[2];\nmeasure q[3] -> c[3];\nmeasure q[4] -> c[4];",
+          "metadata": {
+            "kind": "stabilizer",
+            "index": 2
+          }
+        },
+        {
+          "circuit_id": "9_stab_3",
+          "observable": "-YXYYX",
+          "qasm": "OPENQASM 2.0;\n\ninclude \"qelib1.inc\";\n\nqreg q[5];\ncreg c[5];\n\ncx q[2], q[0];\ncx q[0], q[2];\ncx q[2], q[0];\ns q[2];\ncx q[0], q[1];\ncx q[0], q[2];\ncx q[0], q[3];\nh q[1];\nh q[2];\ncx q[1], q[0];\ncx q[2], q[0];\ncx q[2], q[1];\ncx q[1], q[2];\ncx q[2], q[1];\nh q[2];\ncx q[1], q[2];\ncx q[1], q[3];\ncx q[1], q[4];\nh q[2];\nh q[4];\ncx q[2], q[1];\ncx q[4], q[1];\ns q[3];\ns q[4];\ncx q[2], q[3];\ncx q[2], q[4];\ns q[3];\nh q[3];\ns q[3];\nh q[4];\ncx q[3], q[4];\ns q[4];\nh q[1];\nh q[3];\nh q[4];\ns q[1];\ns q[1];\ns q[3];\ns q[3];\ns q[4];\ns q[4];\nh q[1];\nh q[3];\nh q[4];\ns q[0];\ns q[0];\ns q[3];\ns q[3];\ns q[4];\ns q[4];\nsdg q[0];\nh q[0];\nh q[1];\nsdg q[2];\nh q[2];\nsdg q[3];\nh q[3];\nh q[4];\n\nmeasure q[0] -> c[0];\nmeasure q[1] -> c[1];\nmeasure q[2] -> c[2];\nmeasure q[3] -> c[3];\nmeasure q[4] -> c[4];",
+          "metadata": {
+            "kind": "stabilizer",
+            "index": 3
+          }
+        },
+        {
+          "circuit_id": "9_destab_0",
+          "observable": "+IIZII",
+          "qasm": "OPENQASM 2.0;\n\ninclude \"qelib1.inc\";\n\nqreg q[5];\ncreg c[5];\n\ncx q[2], q[0];\ncx q[0], q[2];\ncx q[2], q[0];\ns q[2];\ncx q[0], q[1];\ncx q[0], q[2];\ncx q[0], q[3];\nh q[1];\nh q[2];\ncx q[1], q[0];\ncx q[2], q[0];\ncx q[2], q[1];\ncx q[1], q[2];\ncx q[2], q[1];\nh q[2];\ncx q[1], q[2];\ncx q[1], q[3];\ncx q[1], q[4];\nh q[2];\nh q[4];\ncx q[2], q[1];\ncx q[4], q[1];\ns q[3];\ns q[4];\ncx q[2], q[3];\ncx q[2], q[4];\ns q[3];\nh q[3];\ns q[3];\nh q[4];\ncx q[3], q[4];\ns q[4];\nh q[1];\nh q[3];\nh q[4];\ns q[1];\ns q[1];\ns q[3];\ns q[3];\ns q[4];\ns q[4];\nh q[1];\nh q[3];\nh q[4];\ns q[0];\ns q[0];\ns q[3];\ns q[3];\ns q[4];\ns q[4];\n\nmeasure q[0] -> c[0];\nmeasure q[1] -> c[1];\nmeasure q[2] -> c[2];\nmeasure q[3] -> c[3];\nmeasure q[4] -> c[4];",
+          "metadata": {
+            "kind": "destabilizer",
+            "index": 0
+          }
+        },
+        {
+          "circuit_id": "9_destab_1",
+          "observable": "+YXIZY",
+          "qasm": "OPENQASM 2.0;\n\ninclude \"qelib1.inc\";\n\nqreg q[5];\ncreg c[5];\n\ncx q[2], q[0];\ncx q[0], q[2];\ncx q[2], q[0];\ns q[2];\ncx q[0], q[1];\ncx q[0], q[2];\ncx q[0], q[3];\nh q[1];\nh q[2];\ncx q[1], q[0];\ncx q[2], q[0];\ncx q[2], q[1];\ncx q[1], q[2];\ncx q[2], q[1];\nh q[2];\ncx q[1], q[2];\ncx q[1], q[3];\ncx q[1], q[4];\nh q[2];\nh q[4];\ncx q[2], q[1];\ncx q[4], q[1];\ns q[3];\ns q[4];\ncx q[2], q[3];\ncx q[2], q[4];\ns q[3];\nh q[3];\ns q[3];\nh q[4];\ncx q[3], q[4];\ns q[4];\nh q[1];\nh q[3];\nh q[4];\ns q[1];\ns q[1];\ns q[3];\ns q[3];\ns q[4];\ns q[4];\nh q[1];\nh q[3];\nh q[4];\ns q[0];\ns q[0];\ns q[3];\ns q[3];\ns q[4];\ns q[4];\nsdg q[0];\nh q[0];\nh q[1];\nsdg q[4];\nh q[4];\n\nmeasure q[0] -> c[0];\nmeasure q[1] -> c[1];\nmeasure q[2] -> c[2];\nmeasure q[3] -> c[3];\nmeasure q[4] -> c[4];",
+          "metadata": {
+            "kind": "destabilizer",
+            "index": 1
+          }
+        },
+        {
+          "circuit_id": "9_destab_2",
+          "observable": "+IIZIY",
+          "qasm": "OPENQASM 2.0;\n\ninclude \"qelib1.inc\";\n\nqreg q[5];\ncreg c[5];\n\ncx q[2], q[0];\ncx q[0], q[2];\ncx q[2], q[0];\ns q[2];\ncx q[0], q[1];\ncx q[0], q[2];\ncx q[0], q[3];\nh q[1];\nh q[2];\ncx q[1], q[0];\ncx q[2], q[0];\ncx q[2], q[1];\ncx q[1], q[2];\ncx q[2], q[1];\nh q[2];\ncx q[1], q[2];\ncx q[1], q[3];\ncx q[1], q[4];\nh q[2];\nh q[4];\ncx q[2], q[1];\ncx q[4], q[1];\ns q[3];\ns q[4];\ncx q[2], q[3];\ncx q[2], q[4];\ns q[3];\nh q[3];\ns q[3];\nh q[4];\ncx q[3], q[4];\ns q[4];\nh q[1];\nh q[3];\nh q[4];\ns q[1];\ns q[1];\ns q[3];\ns q[3];\ns q[4];\ns q[4];\nh q[1];\nh q[3];\nh q[4];\ns q[0];\ns q[0];\ns q[3];\ns q[3];\ns q[4];\ns q[4];\nsdg q[4];\nh q[4];\n\nmeasure q[0] -> c[0];\nmeasure q[1] -> c[1];\nmeasure q[2] -> c[2];\nmeasure q[3] -> c[3];\nmeasure q[4] -> c[4];",
+          "metadata": {
+            "kind": "destabilizer",
+            "index": 2
+          }
+        },
+        {
+          "circuit_id": "9_destab_3",
+          "observable": "+XZIZY",
+          "qasm": "OPENQASM 2.0;\n\ninclude \"qelib1.inc\";\n\nqreg q[5];\ncreg c[5];\n\ncx q[2], q[0];\ncx q[0], q[2];\ncx q[2], q[0];\ns q[2];\ncx q[0], q[1];\ncx q[0], q[2];\ncx q[0], q[3];\nh q[1];\nh q[2];\ncx q[1], q[0];\ncx q[2], q[0];\ncx q[2], q[1];\ncx q[1], q[2];\ncx q[2], q[1];\nh q[2];\ncx q[1], q[2];\ncx q[1], q[3];\ncx q[1], q[4];\nh q[2];\nh q[4];\ncx q[2], q[1];\ncx q[4], q[1];\ns q[3];\ns q[4];\ncx q[2], q[3];\ncx q[2], q[4];\ns q[3];\nh q[3];\ns q[3];\nh q[4];\ncx q[3], q[4];\ns q[4];\nh q[1];\nh q[3];\nh q[4];\ns q[1];\ns q[1];\ns q[3];\ns q[3];\ns q[4];\ns q[4];\nh q[1];\nh q[3];\nh q[4];\ns q[0];\ns q[0];\ns q[3];\ns q[3];\ns q[4];\ns q[4];\nh q[0];\nsdg q[4];\nh q[4];\n\nmeasure q[0] -> c[0];\nmeasure q[1] -> c[1];\nmeasure q[2] -> c[2];\nmeasure q[3] -> c[3];\nmeasure q[4] -> c[4];",
+          "metadata": {
+            "kind": "destabilizer",
+            "index": 3
+          }
+        }
+      ]
+    }
+  ],
+  "experimental_results": {
+    "experiment_id": "qiskit_aer_clifford_demo",
+    "platform": "qiskit-aer",
+    "experiment_metadata": {
+      "backend": "AerSimulator"
+    },
+    "results": {
+      "0_stab_0": {
+        "counts": {
+          "01011": 224,
+          "10001": 266,
+          "11111": 262,
+          "11100": 274,
+          "10010": 265,
+          "00110": 227,
+          "01000": 256,
+          "00101": 237,
+          "01001": 2,
+          "11110": 4,
+          "00100": 2,
+          "01111": 3,
+          "11011": 2,
+          "01010": 3,
+          "11101": 2,
+          "00001": 2,
+          "00111": 5,
+          "00010": 3,
+          "00011": 3,
+          "01100": 1,
+          "10101": 2,
+          "01101": 1,
+          "10000": 1,
+          "10011": 1
+        },
+        "expectation_value": 0.9765625,
+        "std_error": 0.004756044858100136
+      },
+      "0_stab_1": {
+        "counts": {
+          "00100": 132,
+          "10000": 133,
+          "01011": 125,
+          "00010": 121,
+          "11111": 148,
+          "11100": 133,
+          "01110": 130,
+          "00111": 128,
+          "00001": 129,
+          "10011": 118,
+          "10101": 129,
+          "11001": 127,
+          "10110": 121,
+          "01000": 134,
+          "11010": 111,
+          "10100": 5,
+          "00110": 3,
+          "01101": 101,
+          "00101": 1,
+          "01111": 2,
+          "10010": 2,
+          "11011": 1,
+          "01010": 1,
+          "11101": 2,
+          "11110": 3,
+          "11000": 3,
+          "10111": 1,
+          "00000": 4
+        },
+        "expectation_value": 0.97265625,
+        "std_error": 0.005132036867572731
+      },
+      "0_stab_2": {
+        "counts": {
+          "00100": 135,
+          "10101": 142,
+          "11100": 127,
+          "01101": 117,
+          "11001": 123,
+          "01000": 138,
+          "00001": 144,
+          "10000": 118,
+          "01110": 130,
+          "11111": 122,
+          "01011": 129,
+          "10110": 128,
+          "11010": 114,
+          "00111": 125,
+          "00010": 117,
+          "10011": 117,
+          "01001": 1,
+          "11011": 3,
+          "10010": 3,
+          "11000": 1,
+          "11101": 2,
+          "10001": 1,
+          "00011": 2,
+          "10100": 2,
+          "10111": 2,
+          "01111": 1,
+          "00110": 1,
+          "00000": 1,
+          "00101": 1,
+          "01010": 1
+        },
+        "expectation_value": 0.978515625,
+        "std_error": 0.004555815503055469
+      },
+      "0_stab_3": {
+        "counts": {
+          "10111": 116,
+          "11000": 122,
+          "11101": 120,
+          "10001": 157,
+          "00010": 131,
+          "01011": 127,
+          "00001": 103,
+          "10010": 139,
+          "11011": 123,
+          "01101": 123,
+          "01110": 122,
+          "01000": 133,
+          "10100": 127,
+          "00111": 134,
+          "00100": 135,
+          "10000": 3,
+          "11110": 107,
+          "00101": 6,
+          "10101": 5,
+          "01010": 1,
+          "10011": 2,
+          "11111": 2,
+          "00011": 2,
+          "01001": 2,
+          "11100": 1,
+          "11001": 2,
+          "01111": 2,
+          "10110": 1
+        },
+        "expectation_value": 0.9716796875,
+        "std_error": 0.005221583479477795
+      },
+      "0_destab_0": {
+        "counts": {
+          "01000": 80,
+          "10000": 65,
+          "11110": 60,
+          "11101": 67,
+          "01111": 60,
+          "11111": 63,
+          "00110": 70,
+          "10111": 69,
+          "00011": 63,
+          "01101": 73,
+          "10101": 80,
+          "10110": 78,
+          "01011": 53,
+          "11001": 58,
+          "10001": 70,
+          "01001": 69,
+          "01010": 72,
+          "01110": 69,
+          "11010": 66,
+          "10011": 56,
+          "00100": 59,
+          "00000": 68,
+          "10010": 65,
+          "00101": 51,
+          "01100": 54,
+          "00001": 45,
+          "00010": 71,
+          "10100": 64,
+          "11011": 50,
+          "00111": 78,
+          "11100": 52,
+          "11000": 50
+        },
+        "expectation_value": 0.0029296875,
+        "std_error": 0.022096992081466975
+      },
+      "0_destab_1": {
+        "counts": {
+          "00100": 67,
+          "00000": 66,
+          "10011": 71,
+          "00001": 62,
+          "11100": 66,
+          "01101": 73,
+          "11111": 69,
+          "01000": 60,
+          "00111": 53,
+          "10101": 66,
+          "11010": 66,
+          "11000": 68,
+          "00110": 63,
+          "11001": 64,
+          "01010": 66,
+          "10110": 56,
+          "01110": 50,
+          "10010": 55,
+          "11101": 60,
+          "00010": 64,
+          "10111": 74,
+          "01011": 72,
+          "00101": 67,
+          "01111": 62,
+          "10100": 75,
+          "11110": 61,
+          "00011": 74,
+          "01001": 63,
+          "10000": 71,
+          "11011": 58,
+          "10001": 53,
+          "01100": 53
+        },
+        "expectation_value": 0.03515625,
+        "std_error": 0.022083427111108663
+      },
+      "0_destab_2": {
+        "counts": {
+          "10100": 68,
+          "10111": 62,
+          "00111": 62,
+          "01000": 57,
+          "01111": 63,
+          "11111": 66,
+          "10010": 77,
+          "01001": 56,
+          "00010": 57,
+          "10011": 62,
+          "11010": 60,
+          "00110": 57,
+          "01101": 68,
+          "10001": 67,
+          "11100": 68,
+          "00001": 67,
+          "10110": 55,
+          "10101": 73,
+          "01011": 65,
+          "00011": 63,
+          "11000": 70,
+          "11001": 62,
+          "11110": 56,
+          "01100": 75,
+          "11101": 64,
+          "11011": 56,
+          "00000": 51,
+          "00101": 81,
+          "10000": 60,
+          "01110": 69,
+          "01010": 70,
+          "00100": 61
+        },
+        "expectation_value": 0.0205078125,
+        "std_error": 0.022092439733363476
+      },
+      "0_destab_3": {
+        "counts": {
+          "01010": 76,
+          "10010": 62,
+          "10111": 59,
+          "01110": 60,
+          "10110": 65,
+          "01111": 67,
+          "11100": 60,
+          "11001": 62,
+          "11110": 62,
+          "10000": 66,
+          "10101": 61,
+          "01100": 63,
+          "01001": 72,
+          "11111": 67,
+          "11011": 66,
+          "01000": 61,
+          "00111": 79,
+          "11010": 51,
+          "10001": 70,
+          "01101": 64,
+          "00100": 59,
+          "00001": 71,
+          "01011": 50,
+          "10011": 63,
+          "10100": 65,
+          "00101": 45,
+          "00000": 63,
+          "00010": 64,
+          "11000": 72,
+          "11101": 61,
+          "00011": 68,
+          "00110": 74
+        },
+        "expectation_value": -0.0205078125,
+        "std_error": 0.022092439733363476
+      },
+      "1_stab_0": {
+        "counts": {
+          "10010": 133,
+          "11110": 132,
+          "10100": 126,
+          "01110": 116,
+          "00010": 104,
+          "01011": 145,
+          "00100": 119,
+          "11011": 143,
+          "01101": 107,
+          "11101": 123,
+          "01000": 129,
+          "10001": 144,
+          "00001": 138,
+          "00111": 126,
+          "11000": 120,
+          "10111": 126,
+          "01010": 3,
+          "01111": 1,
+          "10110": 2,
+          "10101": 1,
+          "11010": 3,
+          "10011": 2,
+          "00110": 1,
+          "01100": 3,
+          "11100": 1
+        },
+        "expectation_value": 0.9833984375,
+        "std_error": 0.004009724088621849
+      },
+      "1_stab_1": {
+        "counts": {
+          "00010": 250,
+          "10011": 262,
+          "10111": 256,
+          "01101": 262,
+          "11100": 262,
+          "00110": 229,
+          "11000": 252,
+          "01001": 254,
+          "10010": 3,
+          "00111": 1,
+          "01010": 2,
+          "00100": 1,
+          "11001": 1,
+          "11110": 1,
+          "01100": 2,
+          "00101": 2,
+          "01111": 2,
+          "00011": 2,
+          "00001": 1,
+          "10110": 1,
+          "11011": 1,
+          "00000": 1
+        },
+        "expectation_value": 0.9892578125,
+        "std_error": 0.003230181490985377
+      },
+      "1_stab_2": {
+        "counts": {
+          "11101": 118,
+          "11110": 151,
+          "11000": 133,
+          "11011": 122,
+          "01111": 123,
+          "10000": 123,
+          "01010": 132,
+          "00010": 134,
+          "00100": 116,
+          "10011": 117,
+          "10110": 127,
+          "01001": 124,
+          "00111": 140,
+          "00001": 105,
+          "01100": 114,
+          "10101": 144,
+          "10111": 1,
+          "01110": 3,
+          "00101": 3,
+          "11100": 2,
+          "11010": 1,
+          "11001": 1,
+          "11111": 1,
+          "10001": 2,
+          "00000": 2,
+          "01101": 1,
+          "01000": 2,
+          "01011": 1,
+          "10010": 1,
+          "10100": 2,
+          "00110": 2
+        },
+        "expectation_value": 0.9755859375,
+        "std_error": 0.004852918668758927
+      },
+      "1_stab_3": {
+        "counts": {
+          "11110": 134,
+          "00110": 119,
+          "01001": 131,
+          "00100": 144,
+          "10011": 128,
+          "00001": 131,
+          "01110": 126,
+          "11001": 113,
+          "10100": 114,
+          "00011": 136,
+          "10110": 128,
+          "10001": 128,
+          "11011": 141,
+          "01100": 126,
+          "01011": 121,
+          "11100": 126,
+          "00111": 1,
+          "11010": 1
+        },
+        "expectation_value": 0.998046875,
+        "std_error": 0.0013803934177122365
+      },
+      "1_destab_0": {
+        "counts": {
+          "01000": 47,
+          "11001": 51,
+          "10100": 75,
+          "01110": 65,
+          "00010": 71,
+          "00001": 54,
+          "01100": 71,
+          "11100": 71,
+          "10111": 54,
+          "00110": 66,
+          "10011": 69,
+          "00000": 59,
+          "00011": 57,
+          "00111": 70,
+          "01010": 60,
+          "11111": 74,
+          "10000": 55,
+          "00100": 69,
+          "11011": 67,
+          "01111": 71,
+          "01001": 60,
+          "11110": 62,
+          "01101": 66,
+          "10010": 53,
+          "11010": 72,
+          "10001": 59,
+          "11101": 69,
+          "00101": 70,
+          "01011": 58,
+          "11000": 73,
+          "10101": 64,
+          "10110": 66
+        },
+        "expectation_value": -0.009765625,
+        "std_error": 0.02209603321574416
+      },
+      "1_destab_1": {
+        "counts": {
+          "00011": 70,
+          "10010": 51,
+          "01010": 83,
+          "01011": 59,
+          "11111": 65,
+          "11101": 66,
+          "01001": 61,
+          "11001": 65,
+          "11000": 70,
+          "11100": 70,
+          "10100": 63,
+          "11110": 68,
+          "00001": 74,
+          "10000": 70,
+          "11010": 50,
+          "00101": 61,
+          "10110": 81,
+          "10101": 57,
+          "00100": 65,
+          "11011": 62,
+          "01100": 75,
+          "00000": 71,
+          "10111": 55,
+          "10011": 65,
+          "01000": 73,
+          "01101": 64,
+          "01110": 71,
+          "00010": 49,
+          "00110": 46,
+          "10001": 55,
+          "00111": 58,
+          "01111": 55
+        },
+        "expectation_value": -0.01171875,
+        "std_error": 0.02209556957343774
+      },
+      "1_destab_2": {
+        "counts": {
+          "11100": 135,
+          "10011": 109,
+          "10001": 127,
+          "01100": 135,
+          "11110": 126,
+          "00100": 150,
+          "11011": 153,
+          "01110": 129,
+          "11001": 120,
+          "01001": 106,
+          "00001": 141,
+          "10110": 117,
+          "00110": 119,
+          "01011": 128,
+          "00011": 125,
+          "10100": 121,
+          "11101": 2,
+          "00010": 1,
+          "00101": 1,
+          "11111": 1,
+          "11010": 1,
+          "00111": 1
+        },
+        "expectation_value": 0.0068359375,
+        "std_error": 0.022096570607153542
+      },
+      "1_destab_3": {
+        "counts": {
+          "00100": 277,
+          "11101": 233,
+          "10111": 248,
+          "01110": 242,
+          "10010": 249,
+          "00001": 258,
+          "01011": 243,
+          "11000": 265,
+          "01000": 1,
+          "01100": 1,
+          "11110": 2,
+          "10000": 4,
+          "11010": 2,
+          "10101": 2,
+          "00000": 1,
+          "00010": 2,
+          "00110": 4,
+          "11111": 2,
+          "11001": 2,
+          "00111": 4,
+          "00011": 3,
+          "01001": 2,
+          "10110": 1
+        },
+        "expectation_value": -0.015625,
+        "std_error": 0.022094389349118684
+      },
+      "2_stab_0": {
+        "counts": {
+          "00010": 228,
+          "01011": 253,
+          "00000": 249,
+          "01001": 270,
+          "01110": 241,
+          "00101": 262,
+          "00111": 265,
+          "01100": 255,
+          "01010": 5,
+          "00001": 1,
+          "10001": 1,
+          "00110": 2,
+          "01000": 5,
+          "00011": 3,
+          "10100": 1,
+          "10111": 1,
+          "00100": 2,
+          "01111": 2,
+          "10011": 1,
+          "01101": 1
+        },
+        "expectation_value": 0.978515625,
+        "std_error": 0.004555815503055469
+      },
+      "2_stab_1": {
+        "counts": {
+          "01001": 995,
+          "01111": 2,
+          "00100": 1020,
+          "00101": 4,
+          "00011": 1,
+          "00001": 2,
+          "00010": 1,
+          "11001": 2,
+          "00000": 2,
+          "01101": 2,
+          "10100": 2,
+          "01110": 2,
+          "01011": 3,
+          "10000": 1,
+          "00110": 3,
+          "01100": 1,
+          "01000": 4,
+          "11000": 1
+        },
+        "expectation_value": 0.9755859375,
+        "std_error": 0.004852918668758927
+      },
+      "2_stab_2": {
+        "counts": {
+          "01101": 468,
+          "01010": 3,
+          "00001": 510,
+          "01000": 545,
+          "00100": 486,
+          "10011": 2,
+          "00101": 6,
+          "01001": 3,
+          "11111": 4,
+          "00010": 2,
+          "00000": 4,
+          "00011": 2,
+          "11101": 2,
+          "01100": 3,
+          "10000": 1,
+          "00111": 1,
+          "01111": 3,
+          "11000": 2,
+          "00110": 1
+        },
+        "expectation_value": 0.9716796875,
+        "std_error": 0.005221583479477795
+      },
+      "2_stab_3": {
+        "counts": {
+          "00011": 253,
+          "00001": 254,
+          "01010": 222,
+          "01000": 257,
+          "00110": 280,
+          "00100": 269,
+          "01111": 263,
+          "01101": 218,
+          "11001": 1,
+          "10001": 2,
+          "00111": 4,
+          "10011": 1,
+          "00010": 3,
+          "10100": 1,
+          "01100": 1,
+          "01011": 4,
+          "01001": 3,
+          "00101": 2,
+          "11000": 2,
+          "01110": 3,
+          "00000": 1,
+          "10110": 1,
+          "11101": 1,
+          "10111": 1,
+          "11010": 1
+        },
+        "expectation_value": 0.9775390625,
+        "std_error": 0.004657056415414995
+      },
+      "2_destab_0": {
+        "counts": {
+          "11111": 121,
+          "01101": 134,
+          "01111": 116,
+          "00100": 132,
+          "11001": 135,
+          "01011": 125,
+          "00010": 119,
+          "01001": 131,
+          "11101": 147,
+          "11011": 123,
+          "10000": 122,
+          "00110": 120,
+          "10100": 130,
+          "10010": 145,
+          "10110": 105,
+          "00000": 124,
+          "01100": 2,
+          "10101": 1,
+          "10111": 1,
+          "10011": 1,
+          "11100": 2,
+          "01000": 3,
+          "00101": 1,
+          "00001": 1,
+          "01010": 2,
+          "10001": 1,
+          "11110": 1,
+          "11000": 1,
+          "01110": 1,
+          "00011": 1
+        },
+        "expectation_value": -0.0009765625,
+        "std_error": 0.022097076375364972
+      },
+      "2_destab_1": {
+        "counts": {
+          "01101": 132,
+          "11111": 4,
+          "10101": 125,
+          "00000": 127,
+          "10001": 118,
+          "10000": 140,
+          "11001": 134,
+          "10100": 136,
+          "01000": 137,
+          "00001": 126,
+          "11101": 136,
+          "11100": 143,
+          "00101": 125,
+          "00100": 105,
+          "11000": 124,
+          "01001": 121,
+          "01100": 107,
+          "10110": 1,
+          "11110": 1,
+          "10010": 2,
+          "11010": 1,
+          "01011": 1,
+          "10011": 1,
+          "11011": 1
+        },
+        "expectation_value": 0.025390625,
+        "std_error": 0.02208996294631976
+      },
+      "2_destab_2": {
+        "counts": {
+          "01110": 75,
+          "10010": 55,
+          "00011": 60,
+          "01010": 70,
+          "10110": 65,
+          "01100": 85,
+          "11000": 75,
+          "11001": 65,
+          "00000": 56,
+          "01011": 52,
+          "00111": 57,
+          "11100": 67,
+          "11101": 63,
+          "00001": 56,
+          "00010": 72,
+          "10101": 63,
+          "01000": 53,
+          "11011": 66,
+          "10000": 67,
+          "00100": 72,
+          "00101": 60,
+          "00110": 60,
+          "10011": 56,
+          "01111": 61,
+          "10001": 67,
+          "11111": 67,
+          "01101": 70,
+          "01001": 63,
+          "10100": 53,
+          "11010": 64,
+          "11110": 66,
+          "10111": 67
+        },
+        "expectation_value": 0.0029296875,
+        "std_error": 0.022096992081466975
+      },
+      "2_destab_3": {
+        "counts": {
+          "00001": 78,
+          "01010": 68,
+          "10111": 55,
+          "01110": 59,
+          "00100": 71,
+          "11010": 56,
+          "01000": 71,
+          "11111": 63,
+          "11101": 70,
+          "11001": 64,
+          "10001": 76,
+          "01101": 79,
+          "00110": 63,
+          "00111": 60,
+          "00010": 65,
+          "10100": 65,
+          "00000": 71,
+          "10110": 67,
+          "11011": 61,
+          "11000": 62,
+          "10011": 47,
+          "01011": 62,
+          "01100": 65,
+          "10000": 64,
+          "01001": 54,
+          "01111": 52,
+          "00101": 53,
+          "10101": 64,
+          "11110": 65,
+          "00011": 67,
+          "11100": 73,
+          "10010": 58
+        },
+        "expectation_value": -0.0283203125,
+        "std_error": 0.022088223759672804
+      },
+      "3_stab_0": {
+        "counts": {
+          "00001": 127,
+          "01010": 141,
+          "01000": 110,
+          "11001": 127,
+          "11100": 124,
+          "00100": 130,
+          "01111": 136,
+          "11011": 122,
+          "11110": 124,
+          "10101": 116,
+          "00011": 120,
+          "00110": 114,
+          "10010": 123,
+          "01101": 157,
+          "10000": 122,
+          "00101": 4,
+          "10111": 122,
+          "00010": 2,
+          "11111": 2,
+          "00000": 4,
+          "11010": 2,
+          "10110": 2,
+          "01011": 3,
+          "11000": 3,
+          "01110": 2,
+          "10011": 2,
+          "11101": 2,
+          "10001": 3,
+          "00111": 1,
+          "01001": 1
+        },
+        "expectation_value": 0.9677734375,
+        "std_error": 0.005564543763825398
+      },
+      "3_stab_1": {
+        "counts": {
+          "00000": 276,
+          "10001": 225,
+          "10100": 247,
+          "00101": 266,
+          "01101": 257,
+          "11100": 254,
+          "01000": 253,
+          "11001": 239,
+          "01011": 2,
+          "10010": 1,
+          "10101": 2,
+          "00010": 1,
+          "00011": 2,
+          "11011": 3,
+          "01010": 1,
+          "01110": 2,
+          "00111": 3,
+          "10110": 1,
+          "11111": 3,
+          "11010": 1,
+          "01001": 1,
+          "10000": 2,
+          "00001": 1,
+          "11110": 1,
+          "00100": 1,
+          "11000": 1,
+          "01111": 1,
+          "11101": 1
+        },
+        "expectation_value": 0.98046875,
+        "std_error": 0.004345943144267065
+      },
+      "3_stab_2": {
+        "counts": {
+          "11000": 137,
+          "01111": 119,
+          "10101": 116,
+          "01101": 121,
+          "10111": 135,
+          "11001": 108,
+          "11010": 138,
+          "10000": 3,
+          "11011": 133,
+          "10110": 137,
+          "00011": 128,
+          "00000": 130,
+          "01100": 119,
+          "00010": 119,
+          "01110": 116,
+          "00001": 131,
+          "10100": 132,
+          "11100": 3,
+          "00110": 1,
+          "01010": 3,
+          "11101": 2,
+          "10001": 3,
+          "11111": 2,
+          "01011": 1,
+          "01001": 2,
+          "10011": 3,
+          "00101": 2,
+          "01000": 2,
+          "11110": 2
+        },
+        "expectation_value": 0.9716796875,
+        "std_error": 0.005221583479477795
+      },
+      "3_stab_3": {
+        "counts": {
+          "01101": 257,
+          "01100": 244,
+          "10000": 258,
+          "10100": 259,
+          "10101": 237,
+          "10001": 253,
+          "01001": 259,
+          "01000": 250,
+          "11011": 2,
+          "00011": 1,
+          "00110": 1,
+          "00010": 4,
+          "01011": 4,
+          "11010": 1,
+          "10011": 1,
+          "11000": 1,
+          "01111": 2,
+          "10110": 1,
+          "11111": 3,
+          "10111": 2,
+          "00000": 2,
+          "01110": 3,
+          "00001": 2,
+          "11001": 1
+        },
+        "expectation_value": 0.9814453125,
+        "std_error": 0.004236945631820245
+      },
+      "3_destab_0": {
+        "counts": {
+          "10100": 61,
+          "10111": 56,
+          "01111": 71,
+          "10101": 63,
+          "00000": 58,
+          "00110": 71,
+          "11001": 61,
+          "01101": 72,
+          "11010": 65,
+          "11011": 64,
+          "00001": 67,
+          "11110": 51,
+          "01110": 68,
+          "00010": 67,
+          "00011": 64,
+          "01011": 65,
+          "00101": 67,
+          "01001": 62,
+          "01010": 58,
+          "10000": 67,
+          "00111": 62,
+          "10010": 70,
+          "10001": 76,
+          "11100": 64,
+          "11000": 56,
+          "10011": 70,
+          "01100": 56,
+          "11101": 64,
+          "10110": 67,
+          "00100": 67,
+          "01000": 60,
+          "11111": 58
+        },
+        "expectation_value": 0.0224609375,
+        "std_error": 0.022091512288184668
+      },
+      "3_destab_1": {
+        "counts": {
+          "01110": 62,
+          "00101": 77,
+          "00110": 50,
+          "00000": 62,
+          "00010": 53,
+          "01101": 67,
+          "11001": 60,
+          "00011": 58,
+          "01100": 72,
+          "10100": 69,
+          "11111": 66,
+          "11100": 65,
+          "01111": 75,
+          "10111": 56,
+          "00001": 71,
+          "11010": 67,
+          "00111": 61,
+          "10000": 72,
+          "10101": 61,
+          "01011": 70,
+          "10011": 67,
+          "11000": 50,
+          "11110": 59,
+          "10001": 83,
+          "11101": 63,
+          "01001": 60,
+          "01000": 66,
+          "00100": 68,
+          "11011": 67,
+          "10010": 62,
+          "10110": 55,
+          "01010": 54
+        },
+        "expectation_value": -0.0107421875,
+        "std_error": 0.022095811933129674
+      },
+      "3_destab_2": {
+        "counts": {
+          "11001": 137,
+          "00111": 117,
+          "10011": 133,
+          "00010": 126,
+          "11110": 114,
+          "11011": 125,
+          "10100": 100,
+          "01111": 126,
+          "01000": 123,
+          "00101": 148,
+          "10001": 126,
+          "00000": 132,
+          "01010": 133,
+          "10110": 120,
+          "01101": 131,
+          "11000": 3,
+          "11100": 129,
+          "01100": 3,
+          "00110": 2,
+          "10000": 3,
+          "11111": 1,
+          "00001": 3,
+          "01110": 1,
+          "10111": 1,
+          "00011": 1,
+          "11010": 2,
+          "00100": 2,
+          "01011": 2,
+          "10010": 1,
+          "11101": 1,
+          "01001": 1,
+          "10101": 1
+        },
+        "expectation_value": -0.0107421875,
+        "std_error": 0.022095811933129674
+      },
+      "3_destab_3": {
+        "counts": {
+          "01110": 76,
+          "10100": 76,
+          "10011": 57,
+          "00000": 67,
+          "00110": 73,
+          "11010": 56,
+          "11100": 56,
+          "10101": 48,
+          "10000": 60,
+          "01011": 64,
+          "00010": 65,
+          "11001": 69,
+          "00100": 67,
+          "11111": 73,
+          "11110": 63,
+          "10010": 74,
+          "10111": 61,
+          "01001": 56,
+          "00011": 70,
+          "11101": 62,
+          "10001": 77,
+          "10110": 64,
+          "01010": 54,
+          "00001": 69,
+          "00101": 66,
+          "01101": 58,
+          "01000": 63,
+          "01100": 60,
+          "11011": 60,
+          "01111": 69,
+          "00111": 66,
+          "11000": 49
+        },
+        "expectation_value": -0.00390625,
+        "std_error": 0.022096918324042453
+      },
+      "4_stab_0": {
+        "counts": {
+          "11010": 255,
+          "11001": 266,
+          "10000": 236,
+          "10111": 283,
+          "10100": 239,
+          "10011": 285,
+          "11110": 239,
+          "11101": 231,
+          "10001": 2,
+          "00110": 1,
+          "00011": 2,
+          "00000": 2,
+          "00010": 1,
+          "01111": 1,
+          "11011": 1,
+          "10110": 2,
+          "10010": 1,
+          "11100": 1
+        },
+        "expectation_value": 0.9892578125,
+        "std_error": 0.003230181490985377
+      },
+      "4_stab_1": {
+        "counts": {
+          "11011": 130,
+          "01001": 123,
+          "01011": 139,
+          "00000": 129,
+          "00100": 127,
+          "01111": 132,
+          "10010": 147,
+          "11111": 128,
+          "10000": 109,
+          "10110": 126,
+          "10100": 119,
+          "11101": 117,
+          "00110": 126,
+          "01101": 123,
+          "11001": 129,
+          "00010": 132,
+          "00111": 1,
+          "01100": 1,
+          "00011": 1,
+          "10111": 1,
+          "10101": 2,
+          "00101": 1,
+          "11000": 2,
+          "11010": 1,
+          "01110": 2
+        },
+        "expectation_value": 0.98828125,
+        "std_error": 0.0033729862987422117
+      },
+      "4_stab_2": {
+        "counts": {
+          "10000": 275,
+          "10111": 224,
+          "10110": 294,
+          "11100": 225,
+          "11011": 277,
+          "11010": 255,
+          "11101": 267,
+          "10001": 214,
+          "10100": 2,
+          "11000": 4,
+          "10011": 1,
+          "11001": 3,
+          "01110": 1,
+          "10101": 1,
+          "10010": 1,
+          "00010": 1,
+          "00000": 1,
+          "01001": 1,
+          "00001": 1
+        },
+        "expectation_value": 0.986328125,
+        "std_error": 0.0036414517458529068
+      },
+      "4_stab_3": {
+        "counts": {
+          "11001": 119,
+          "10000": 146,
+          "00000": 128,
+          "10011": 109,
+          "11101": 129,
+          "10111": 133,
+          "01110": 110,
+          "00100": 138,
+          "01001": 121,
+          "01101": 122,
+          "11110": 139,
+          "00101": 1,
+          "00011": 129,
+          "00111": 123,
+          "01010": 134,
+          "11010": 118,
+          "10100": 137,
+          "10110": 2,
+          "01011": 1,
+          "10101": 1,
+          "00010": 2,
+          "01000": 2,
+          "00001": 1,
+          "11100": 1,
+          "00110": 1,
+          "11111": 1
+        },
+        "expectation_value": 0.9873046875,
+        "std_error": 0.0035098531815057794
+      },
+      "4_destab_0": {
+        "counts": {
+          "11011": 70,
+          "11000": 79,
+          "00100": 68,
+          "01010": 64,
+          "10000": 54,
+          "10111": 66,
+          "10001": 64,
+          "11101": 68,
+          "00010": 55,
+          "10100": 58,
+          "00001": 71,
+          "01000": 71,
+          "01011": 67,
+          "00110": 66,
+          "01101": 57,
+          "11110": 66,
+          "01100": 63,
+          "01110": 59,
+          "01001": 66,
+          "00000": 66,
+          "11001": 56,
+          "10010": 59,
+          "11010": 63,
+          "11111": 60,
+          "01111": 66,
+          "10110": 62,
+          "00101": 61,
+          "11100": 61,
+          "10101": 62,
+          "00111": 77,
+          "00011": 54,
+          "10011": 69
+        },
+        "expectation_value": -0.0166015625,
+        "std_error": 0.02209404159242867
+      },
+      "4_destab_1": {
+        "counts": {
+          "00010": 57,
+          "01011": 74,
+          "11110": 70,
+          "01100": 65,
+          "01110": 58,
+          "11000": 62,
+          "00001": 68,
+          "00011": 49,
+          "11111": 50,
+          "11011": 76,
+          "11001": 73,
+          "11101": 66,
+          "10111": 78,
+          "01101": 63,
+          "10100": 58,
+          "00110": 60,
+          "11100": 71,
+          "00111": 51,
+          "01010": 61,
+          "01001": 55,
+          "10000": 66,
+          "10001": 70,
+          "01111": 70,
+          "10110": 59,
+          "10011": 54,
+          "00000": 74,
+          "10101": 73,
+          "00100": 65,
+          "00101": 84,
+          "10010": 61,
+          "01000": 54,
+          "11010": 53
+        },
+        "expectation_value": -0.0244140625,
+        "std_error": 0.022090500485399435
+      },
+      "4_destab_2": {
+        "counts": {
+          "10100": 76,
+          "10111": 71,
+          "00000": 63,
+          "01011": 61,
+          "00010": 62,
+          "11001": 71,
+          "01001": 71,
+          "01111": 73,
+          "00001": 65,
+          "00100": 66,
+          "00101": 52,
+          "11000": 73,
+          "10101": 57,
+          "01100": 71,
+          "11111": 61,
+          "10010": 68,
+          "00111": 77,
+          "01101": 65,
+          "10000": 54,
+          "01000": 58,
+          "10001": 59,
+          "10011": 60,
+          "01110": 55,
+          "01010": 74,
+          "11100": 63,
+          "10110": 51,
+          "11010": 67,
+          "00110": 48,
+          "00011": 70,
+          "11011": 56,
+          "11101": 70,
+          "11110": 60
+        },
+        "expectation_value": -0.015625,
+        "std_error": 0.022094389349118684
+      },
+      "4_destab_3": {
+        "counts": {
+          "00111": 69,
+          "00010": 82,
+          "10001": 60,
+          "11011": 63,
+          "11000": 68,
+          "10110": 78,
+          "00100": 69,
+          "11101": 64,
+          "01000": 67,
+          "10111": 69,
+          "00000": 64,
+          "01100": 65,
+          "11111": 69,
+          "00110": 54,
+          "11100": 78,
+          "10101": 50,
+          "01011": 48,
+          "01110": 65,
+          "01111": 58,
+          "10011": 62,
+          "01010": 71,
+          "11010": 72,
+          "10100": 67,
+          "10000": 58,
+          "10010": 67,
+          "00101": 46,
+          "00001": 63,
+          "11110": 69,
+          "01001": 64,
+          "01101": 58,
+          "00011": 56,
+          "11001": 55
+        },
+        "expectation_value": 0.01171875,
+        "std_error": 0.02209556957343774
+      },
+      "5_stab_0": {
+        "counts": {
+          "11001": 255,
+          "01011": 247,
+          "10001": 276,
+          "10110": 245,
+          "00100": 220,
+          "11110": 265,
+          "01100": 266,
+          "00011": 244,
+          "11111": 1,
+          "11010": 2,
+          "10111": 2,
+          "00001": 1,
+          "11101": 1,
+          "11011": 3,
+          "10101": 1,
+          "10011": 3,
+          "00000": 2,
+          "11100": 2,
+          "01110": 3,
+          "01001": 3,
+          "01111": 1,
+          "00010": 1,
+          "00110": 3,
+          "10000": 1
+        },
+        "expectation_value": 0.98828125,
+        "std_error": 0.0033729862987422117
+      },
+      "5_stab_1": {
+        "counts": {
+          "00110": 107,
+          "11011": 125,
+          "01001": 126,
+          "01111": 121,
+          "11101": 127,
+          "11110": 140,
+          "10100": 122,
+          "10001": 119,
+          "00101": 139,
+          "10111": 118,
+          "11000": 135,
+          "00000": 140,
+          "10010": 129,
+          "00011": 130,
+          "01010": 113,
+          "01100": 132,
+          "11001": 3,
+          "11100": 6,
+          "11010": 3,
+          "01110": 2,
+          "00111": 3,
+          "10000": 1,
+          "01101": 2,
+          "00100": 3,
+          "11111": 1,
+          "01000": 1
+        },
+        "expectation_value": 0.9755859375,
+        "std_error": 0.004852918668758927
+      },
+      "5_stab_2": {
+        "counts": {
+          "00100": 126,
+          "10110": 119,
+          "10101": 138,
+          "10010": 131,
+          "11010": 131,
+          "01000": 118,
+          "00111": 133,
+          "10001": 126,
+          "11110": 122,
+          "01100": 133,
+          "00000": 129,
+          "11001": 119,
+          "11101": 123,
+          "01011": 108,
+          "00011": 150,
+          "01111": 119,
+          "01110": 4,
+          "01001": 1,
+          "01010": 5,
+          "00101": 1,
+          "10100": 1,
+          "11011": 2,
+          "00001": 2,
+          "10111": 2,
+          "11000": 3,
+          "10000": 1,
+          "01101": 1
+        },
+        "expectation_value": 0.9775390625,
+        "std_error": 0.004657056415414995
+      },
+      "5_stab_3": {
+        "counts": {
+          "01110": 267,
+          "11001": 247,
+          "10110": 256,
+          "00100": 257,
+          "10011": 238,
+          "01011": 281,
+          "00001": 253,
+          "11100": 217,
+          "00011": 2,
+          "00110": 3,
+          "10001": 4,
+          "01010": 4,
+          "01100": 1,
+          "10101": 2,
+          "00111": 1,
+          "01000": 2,
+          "00101": 1,
+          "11111": 1,
+          "11110": 3,
+          "11010": 3,
+          "00010": 1,
+          "10000": 1,
+          "11101": 1,
+          "11000": 1,
+          "10100": 1
+        },
+        "expectation_value": 0.9794921875,
+        "std_error": 0.004452168462314576
+      },
+      "5_destab_0": {
+        "counts": {
+          "01001": 82,
+          "11011": 51,
+          "00111": 73,
+          "00000": 79,
+          "10100": 55,
+          "00101": 56,
+          "01100": 61,
+          "00100": 53,
+          "00011": 66,
+          "01111": 60,
+          "11010": 74,
+          "11001": 64,
+          "00010": 65,
+          "10101": 65,
+          "01110": 65,
+          "11100": 59,
+          "10000": 77,
+          "11000": 54,
+          "10011": 65,
+          "01101": 68,
+          "11111": 63,
+          "00110": 63,
+          "01011": 57,
+          "01010": 76,
+          "00001": 64,
+          "11110": 57,
+          "10111": 64,
+          "01000": 66,
+          "10010": 62,
+          "11101": 66,
+          "10001": 59,
+          "10110": 59
+        },
+        "expectation_value": 0.01171875,
+        "std_error": 0.02209556957343774
+      },
+      "5_destab_1": {
+        "counts": {
+          "10011": 63,
+          "00010": 67,
+          "00000": 59,
+          "01111": 65,
+          "11111": 67,
+          "11000": 62,
+          "11101": 58,
+          "11001": 69,
+          "11100": 75,
+          "10110": 67,
+          "10100": 70,
+          "11110": 63,
+          "11010": 72,
+          "10101": 51,
+          "00101": 55,
+          "01010": 68,
+          "01100": 67,
+          "00111": 53,
+          "00011": 75,
+          "01011": 68,
+          "00100": 63,
+          "10010": 67,
+          "01001": 53,
+          "01000": 64,
+          "00001": 56,
+          "10111": 57,
+          "10001": 80,
+          "11011": 66,
+          "01101": 65,
+          "00110": 72,
+          "01110": 60,
+          "10000": 51
+        },
+        "expectation_value": 0.0126953125,
+        "std_error": 0.022095306135974786
+      },
+      "5_destab_2": {
+        "counts": {
+          "00101": 60,
+          "10011": 62,
+          "01000": 47,
+          "11001": 66,
+          "00100": 60,
+          "10101": 67,
+          "10000": 56,
+          "00001": 57,
+          "01001": 68,
+          "01111": 62,
+          "01110": 67,
+          "11010": 57,
+          "00110": 65,
+          "11101": 63,
+          "00010": 61,
+          "00011": 62,
+          "01011": 81,
+          "10010": 70,
+          "11100": 64,
+          "01101": 72,
+          "00111": 76,
+          "10001": 76,
+          "10100": 62,
+          "11111": 72,
+          "11000": 74,
+          "10111": 50,
+          "01010": 61,
+          "00000": 56,
+          "10110": 69,
+          "11011": 51,
+          "01100": 68,
+          "11110": 66
+        },
+        "expectation_value": 0.0087890625,
+        "std_error": 0.022096233421914427
+      },
+      "5_destab_3": {
+        "counts": {
+          "01110": 126,
+          "10111": 138,
+          "00010": 97,
+          "01011": 146,
+          "10001": 125,
+          "11110": 123,
+          "01000": 123,
+          "01101": 123,
+          "11000": 140,
+          "11011": 131,
+          "10100": 133,
+          "00100": 118,
+          "00001": 132,
+          "10010": 124,
+          "11101": 123,
+          "00111": 127,
+          "00110": 1,
+          "10101": 2,
+          "10000": 1,
+          "00000": 1,
+          "11100": 3,
+          "00101": 2,
+          "01001": 2,
+          "10110": 2,
+          "00011": 1,
+          "11001": 1,
+          "10011": 2,
+          "01010": 1
+        },
+        "expectation_value": -0.0205078125,
+        "std_error": 0.022092439733363476
+      },
+      "6_stab_0": {
+        "counts": {
+          "10101": 230,
+          "10110": 257,
+          "10011": 263,
+          "01011": 271,
+          "01110": 244,
+          "10000": 260,
+          "01000": 251,
+          "01101": 244,
+          "00101": 4,
+          "00110": 2,
+          "10111": 1,
+          "11011": 2,
+          "10001": 1,
+          "11110": 3,
+          "11000": 1,
+          "11101": 3,
+          "00000": 3,
+          "01111": 1,
+          "00011": 2,
+          "01100": 2,
+          "10010": 1,
+          "10100": 1,
+          "01001": 1
+        },
+        "expectation_value": 0.9921875,
+        "std_error": 0.0027567357887295445
+      },
+      "6_stab_1": {
+        "counts": {
+          "00011": 268,
+          "00110": 246,
+          "01001": 266,
+          "11011": 229,
+          "10011": 3,
+          "10001": 240,
+          "11110": 255,
+          "10100": 228,
+          "01100": 279,
+          "00100": 1,
+          "11100": 3,
+          "01101": 2,
+          "11010": 2,
+          "11001": 1,
+          "01011": 4,
+          "10110": 2,
+          "01111": 2,
+          "10101": 2,
+          "00010": 1,
+          "01110": 4,
+          "10000": 3,
+          "10111": 1,
+          "11111": 2,
+          "01000": 2,
+          "00001": 2
+        },
+        "expectation_value": 0.966796875,
+        "std_error": 0.0056468240905561025
+      },
+      "6_stab_2": {
+        "counts": {
+          "01111": 268,
+          "10101": 249,
+          "10110": 264,
+          "01001": 243,
+          "01100": 246,
+          "10011": 257,
+          "01010": 241,
+          "10000": 250,
+          "01011": 1,
+          "10001": 3,
+          "10100": 1,
+          "11001": 2,
+          "00010": 2,
+          "01110": 3,
+          "00011": 1,
+          "11111": 2,
+          "01000": 3,
+          "11100": 4,
+          "01101": 4,
+          "11010": 1,
+          "00111": 1,
+          "11000": 1,
+          "00101": 1
+        },
+        "expectation_value": 0.9814453125,
+        "std_error": 0.004236945631820245
+      },
+      "6_stab_3": {
+        "counts": {
+          "10111": 4,
+          "10100": 498,
+          "01110": 546,
+          "01001": 485,
+          "10011": 487,
+          "11001": 3,
+          "01000": 3,
+          "11110": 2,
+          "10001": 2,
+          "11101": 1,
+          "01101": 2,
+          "00110": 2,
+          "01111": 4,
+          "01010": 1,
+          "11010": 1,
+          "01011": 1,
+          "10000": 1,
+          "11011": 1,
+          "00100": 1,
+          "00011": 2,
+          "00000": 1
+        },
+        "expectation_value": 0.982421875,
+        "std_error": 0.004124956174097465
+      },
+      "6_destab_0": {
+        "counts": {
+          "10010": 67,
+          "10000": 80,
+          "00010": 67,
+          "00000": 67,
+          "10011": 65,
+          "00111": 75,
+          "11100": 76,
+          "10100": 67,
+          "00101": 53,
+          "11011": 69,
+          "01010": 53,
+          "00100": 50,
+          "01001": 65,
+          "01110": 61,
+          "01101": 66,
+          "10101": 60,
+          "11101": 53,
+          "11110": 62,
+          "10110": 58,
+          "01000": 56,
+          "11010": 68,
+          "01011": 51,
+          "01111": 71,
+          "10001": 65,
+          "11000": 66,
+          "11001": 76,
+          "00110": 62,
+          "00011": 64,
+          "11111": 89,
+          "10111": 57,
+          "01100": 56,
+          "00001": 53
+        },
+        "expectation_value": -0.0107421875,
+        "std_error": 0.022095811933129674
+      },
+      "6_destab_1": {
+        "counts": {
+          "01100": 131,
+          "01010": 125,
+          "00011": 131,
+          "10110": 110,
+          "01111": 110,
+          "11010": 146,
+          "11001": 120,
+          "00110": 128,
+          "01001": 124,
+          "10000": 109,
+          "00000": 132,
+          "11111": 148,
+          "10011": 128,
+          "11100": 131,
+          "00101": 139,
+          "10101": 120,
+          "01110": 1,
+          "10111": 2,
+          "01000": 2,
+          "01101": 1,
+          "11101": 3,
+          "10001": 1,
+          "10100": 1,
+          "00001": 2,
+          "01011": 1,
+          "00111": 1,
+          "11011": 1
+        },
+        "expectation_value": -0.05859375,
+        "std_error": 0.022059122134973824
+      },
+      "6_destab_2": {
+        "counts": {
+          "01100": 256,
+          "01110": 248,
+          "10100": 263,
+          "01001": 221,
+          "10001": 278,
+          "10011": 245,
+          "01011": 255,
+          "10110": 255,
+          "00110": 4,
+          "11100": 1,
+          "01000": 2,
+          "11001": 3,
+          "11111": 2,
+          "00011": 1,
+          "01010": 1,
+          "00111": 1,
+          "00100": 1,
+          "11010": 1,
+          "11011": 2,
+          "00001": 2,
+          "10111": 3,
+          "11000": 1,
+          "01111": 2
+        },
+        "expectation_value": -0.0107421875,
+        "std_error": 0.022095811933129674
+      },
+      "6_destab_3": {
+        "counts": {
+          "10110": 63,
+          "10101": 61,
+          "00100": 68,
+          "10010": 73,
+          "11100": 62,
+          "01101": 47,
+          "01000": 66,
+          "10011": 71,
+          "10000": 44,
+          "01111": 79,
+          "10001": 62,
+          "11110": 52,
+          "00111": 76,
+          "00010": 61,
+          "01110": 64,
+          "00101": 68,
+          "11010": 56,
+          "11101": 66,
+          "01011": 62,
+          "00110": 65,
+          "00001": 76,
+          "10111": 59,
+          "00011": 71,
+          "01100": 77,
+          "11011": 61,
+          "00000": 52,
+          "11001": 53,
+          "11000": 52,
+          "01001": 77,
+          "10100": 77,
+          "01010": 69,
+          "11111": 58
+        },
+        "expectation_value": -0.0126953125,
+        "std_error": 0.022095306135974786
+      },
+      "7_stab_0": {
+        "counts": {
+          "01000": 240,
+          "00101": 250,
+          "01110": 249,
+          "10000": 254,
+          "00011": 252,
+          "11011": 265,
+          "11101": 250,
+          "10110": 253,
+          "00110": 1,
+          "10011": 1,
+          "01101": 2,
+          "00001": 3,
+          "00100": 2,
+          "00000": 3,
+          "10010": 1,
+          "11100": 2,
+          "11010": 3,
+          "01100": 3,
+          "01010": 2,
+          "01011": 1,
+          "11000": 1,
+          "11111": 1,
+          "00111": 1,
+          "10100": 1,
+          "11110": 2,
+          "10001": 1,
+          "00010": 2,
+          "10101": 1,
+          "11001": 1
+        },
+        "expectation_value": 0.9755859375,
+        "std_error": 0.004852918668758927
+      },
+      "7_stab_1": {
+        "counts": {
+          "00100": 140,
+          "10101": 122,
+          "01110": 135,
+          "01010": 120,
+          "11011": 121,
+          "01001": 137,
+          "10001": 119,
+          "11100": 129,
+          "10110": 141,
+          "11111": 122,
+          "01101": 127,
+          "11000": 128,
+          "10010": 142,
+          "00111": 110,
+          "00000": 121,
+          "00011": 119,
+          "00110": 3,
+          "00010": 2,
+          "11110": 2,
+          "10000": 1,
+          "01011": 2,
+          "01100": 1,
+          "11001": 1,
+          "01000": 1,
+          "11010": 1,
+          "11101": 1
+        },
+        "expectation_value": 0.9853515625,
+        "std_error": 0.0037683339762353213
+      },
+      "7_stab_2": {
+        "counts": {
+          "00011": 2,
+          "00001": 273,
+          "10010": 240,
+          "11011": 267,
+          "01000": 250,
+          "00111": 254,
+          "11101": 260,
+          "01110": 240,
+          "10100": 227,
+          "10111": 3,
+          "11111": 5,
+          "01111": 4,
+          "01010": 1,
+          "00101": 2,
+          "00100": 3,
+          "10101": 2,
+          "01001": 3,
+          "11100": 2,
+          "01011": 2,
+          "01101": 1,
+          "00000": 1,
+          "01100": 2,
+          "00110": 1,
+          "10110": 2,
+          "11110": 1
+        },
+        "expectation_value": 0.9765625,
+        "std_error": 0.004756044858100136
+      },
+      "7_stab_3": {
+        "counts": {
+          "00001": 129,
+          "10010": 135,
+          "11110": 138,
+          "01111": 122,
+          "11100": 122,
+          "01101": 127,
+          "01000": 141,
+          "11001": 129,
+          "10000": 139,
+          "10101": 97,
+          "11011": 127,
+          "01010": 130,
+          "00100": 135,
+          "00011": 130,
+          "00110": 125,
+          "10111": 103,
+          "01110": 2,
+          "10001": 3,
+          "00010": 2,
+          "01100": 2,
+          "01011": 1,
+          "01001": 1,
+          "11000": 2,
+          "00101": 3,
+          "11010": 1,
+          "00111": 2
+        },
+        "expectation_value": 0.9814453125,
+        "std_error": 0.004236945631820245
+      },
+      "7_destab_0": {
+        "counts": {
+          "01000": 113,
+          "10000": 134,
+          "10010": 130,
+          "01010": 122,
+          "00001": 137,
+          "01110": 132,
+          "00101": 117,
+          "11011": 126,
+          "11001": 138,
+          "11101": 152,
+          "00111": 126,
+          "01100": 124,
+          "10100": 125,
+          "00011": 111,
+          "11111": 121,
+          "10110": 126,
+          "01011": 1,
+          "01111": 2,
+          "00100": 1,
+          "10001": 3,
+          "10101": 1,
+          "11110": 1,
+          "00010": 1,
+          "11010": 2,
+          "01001": 1,
+          "00000": 1
+        },
+        "expectation_value": 0.0087890625,
+        "std_error": 0.022096233421914427
+      },
+      "7_destab_1": {
+        "counts": {
+          "11111": 61,
+          "00100": 56,
+          "01111": 76,
+          "00111": 71,
+          "00010": 67,
+          "10111": 71,
+          "11000": 56,
+          "00001": 58,
+          "10101": 61,
+          "00000": 57,
+          "10000": 66,
+          "11100": 60,
+          "10001": 65,
+          "01000": 66,
+          "01011": 60,
+          "11010": 79,
+          "11011": 77,
+          "11001": 76,
+          "01001": 70,
+          "11101": 64,
+          "10110": 67,
+          "01100": 74,
+          "01101": 63,
+          "11110": 61,
+          "00110": 66,
+          "10100": 44,
+          "01010": 52,
+          "10010": 59,
+          "01110": 65,
+          "10011": 61,
+          "00101": 67,
+          "00011": 52
+        },
+        "expectation_value": 0.03125,
+        "std_error": 0.022086294683395784
+      },
+      "7_destab_2": {
+        "counts": {
+          "00111": 136,
+          "11010": 131,
+          "10101": 123,
+          "10100": 136,
+          "01001": 136,
+          "11111": 113,
+          "11110": 144,
+          "00010": 116,
+          "00011": 124,
+          "10001": 115,
+          "00110": 128,
+          "11011": 129,
+          "10000": 133,
+          "01101": 116,
+          "01100": 117,
+          "01000": 134,
+          "11101": 1,
+          "00100": 2,
+          "01010": 1,
+          "11001": 3,
+          "00000": 4,
+          "01011": 1,
+          "11000": 1,
+          "10011": 1,
+          "00001": 1,
+          "10010": 1,
+          "10111": 1
+        },
+        "expectation_value": -0.0224609375,
+        "std_error": 0.022091512288184668
+      },
+      "7_destab_3": {
+        "counts": {
+          "10100": 61,
+          "00000": 66,
+          "01011": 63,
+          "00110": 64,
+          "11101": 79,
+          "01100": 72,
+          "00011": 59,
+          "00001": 79,
+          "10111": 66,
+          "01101": 51,
+          "10001": 55,
+          "10010": 64,
+          "01000": 51,
+          "01111": 77,
+          "10011": 71,
+          "01010": 70,
+          "00010": 62,
+          "11100": 54,
+          "10101": 67,
+          "01001": 66,
+          "11011": 63,
+          "11000": 63,
+          "00111": 58,
+          "11111": 69,
+          "11010": 63,
+          "11001": 63,
+          "11110": 64,
+          "00101": 63,
+          "01110": 49,
+          "10110": 75,
+          "10000": 54,
+          "00100": 67
+        },
+        "expectation_value": 0.0107421875,
+        "std_error": 0.022095811933129674
+      },
+      "8_stab_0": {
+        "counts": {
+          "11100": 112,
+          "01101": 139,
+          "00110": 139,
+          "11001": 121,
+          "10010": 142,
+          "01010": 117,
+          "00011": 121,
+          "00100": 130,
+          "01000": 123,
+          "10101": 123,
+          "00001": 132,
+          "10000": 112,
+          "01111": 126,
+          "10111": 122,
+          "11011": 136,
+          "11110": 130,
+          "11010": 3,
+          "00101": 2,
+          "10100": 2,
+          "10110": 2,
+          "00010": 1,
+          "11111": 1,
+          "01001": 1,
+          "01011": 3,
+          "11101": 1,
+          "11000": 2,
+          "01110": 1,
+          "00000": 1,
+          "10001": 1,
+          "00111": 2
+        },
+        "expectation_value": 0.9775390625,
+        "std_error": 0.004657056415414995
+      },
+      "8_stab_1": {
+        "counts": {
+          "00100": 264,
+          "01111": 261,
+          "10010": 242,
+          "10000": 253,
+          "01101": 241,
+          "11011": 247,
+          "00110": 257,
+          "11001": 247,
+          "01100": 1,
+          "01011": 5,
+          "11010": 6,
+          "10100": 4,
+          "11100": 1,
+          "11101": 2,
+          "00001": 1,
+          "00010": 1,
+          "10111": 1,
+          "00111": 1,
+          "10101": 1,
+          "01110": 1,
+          "10011": 1,
+          "10110": 2,
+          "01010": 1,
+          "11111": 1,
+          "11000": 1,
+          "01001": 1,
+          "00000": 1,
+          "11110": 1,
+          "01000": 1,
+          "00101": 1
+        },
+        "expectation_value": 0.9814453125,
+        "std_error": 0.004236945631820245
+      },
+      "8_stab_2": {
+        "counts": {
+          "10011": 147,
+          "11100": 151,
+          "11010": 142,
+          "00111": 133,
+          "01000": 136,
+          "10010": 107,
+          "01001": 123,
+          "11101": 117,
+          "01110": 118,
+          "01111": 140,
+          "01100": 2,
+          "00000": 112,
+          "11011": 127,
+          "10101": 118,
+          "00001": 103,
+          "00010": 3,
+          "10100": 125,
+          "00110": 128,
+          "00101": 1,
+          "10000": 2,
+          "00011": 3,
+          "10111": 1,
+          "10110": 1,
+          "10001": 1,
+          "11111": 1,
+          "01101": 2,
+          "11000": 2,
+          "01010": 1,
+          "11110": 1
+        },
+        "expectation_value": 0.9794921875,
+        "std_error": 0.004452168462314576
+      },
+      "8_stab_3": {
+        "counts": {
+          "11011": 139,
+          "01001": 138,
+          "11000": 130,
+          "10010": 115,
+          "00011": 112,
+          "00000": 130,
+          "00101": 120,
+          "11101": 136,
+          "01111": 110,
+          "10111": 136,
+          "10001": 132,
+          "00110": 144,
+          "01010": 121,
+          "01100": 118,
+          "10100": 122,
+          "11110": 121,
+          "00001": 2,
+          "10000": 2,
+          "11010": 4,
+          "10110": 1,
+          "01011": 2,
+          "00111": 2,
+          "10011": 2,
+          "00010": 2,
+          "00100": 3,
+          "01101": 1,
+          "11100": 1,
+          "10101": 1,
+          "01000": 1
+        },
+        "expectation_value": 0.9765625,
+        "std_error": 0.004756044858100136
+      },
+      "8_destab_0": {
+        "counts": {
+          "01111": 116,
+          "01101": 133,
+          "10010": 144,
+          "00010": 114,
+          "01011": 128,
+          "11001": 98,
+          "11101": 142,
+          "00110": 136,
+          "01001": 145,
+          "00100": 97,
+          "10110": 122,
+          "10100": 149,
+          "11011": 130,
+          "11111": 135,
+          "00000": 125,
+          "10000": 124,
+          "10011": 2,
+          "01100": 1,
+          "11010": 2,
+          "00111": 2,
+          "00001": 1,
+          "11000": 1,
+          "11100": 1
+        },
+        "expectation_value": 0.0166015625,
+        "std_error": 0.02209404159242867
+      },
+      "8_destab_1": {
+        "counts": {
+          "11000": 130,
+          "00110": 127,
+          "11001": 137,
+          "00111": 129,
+          "01111": 116,
+          "00100": 142,
+          "00101": 126,
+          "10010": 116,
+          "11011": 117,
+          "11010": 124,
+          "01101": 129,
+          "11110": 4,
+          "10011": 122,
+          "01110": 128,
+          "01100": 115,
+          "10001": 131,
+          "10000": 141,
+          "10111": 3,
+          "00001": 1,
+          "10100": 1,
+          "10101": 1,
+          "11100": 1,
+          "01011": 2,
+          "00011": 3,
+          "01001": 1,
+          "00010": 1
+        },
+        "expectation_value": -0.009765625,
+        "std_error": 0.02209603321574416
+      },
+      "8_destab_2": {
+        "counts": {
+          "01101": 74,
+          "10010": 71,
+          "10000": 64,
+          "01111": 63,
+          "10110": 65,
+          "11101": 51,
+          "11000": 72,
+          "10111": 66,
+          "00101": 73,
+          "00011": 68,
+          "10100": 53,
+          "10001": 67,
+          "10101": 63,
+          "00110": 74,
+          "11111": 62,
+          "01110": 59,
+          "11001": 54,
+          "11100": 72,
+          "00000": 70,
+          "11010": 36,
+          "01001": 77,
+          "00100": 70,
+          "01100": 61,
+          "00001": 58,
+          "01000": 59,
+          "10011": 66,
+          "00010": 69,
+          "11110": 63,
+          "11011": 58,
+          "00111": 61,
+          "01011": 63,
+          "01010": 66
+        },
+        "expectation_value": -0.0185546875,
+        "std_error": 0.022093282831559504
+      },
+      "8_destab_3": {
+        "counts": {
+          "00111": 254,
+          "11010": 236,
+          "01001": 250,
+          "11101": 270,
+          "10100": 279,
+          "01110": 228,
+          "10011": 245,
+          "00000": 253,
+          "10110": 1,
+          "10000": 2,
+          "00010": 1,
+          "00011": 1,
+          "10010": 3,
+          "00100": 6,
+          "10101": 1,
+          "00101": 2,
+          "11100": 2,
+          "00001": 2,
+          "01101": 1,
+          "00110": 2,
+          "10001": 2,
+          "11111": 1,
+          "10111": 2,
+          "01010": 1,
+          "01111": 1,
+          "01011": 1,
+          "11001": 1
+        },
+        "expectation_value": 0.041015625,
+        "std_error": 0.022078492328263477
+      },
+      "9_stab_0": {
+        "counts": {
+          "00100": 263,
+          "10101": 249,
+          "01111": 271,
+          "10010": 248,
+          "00011": 241,
+          "11110": 220,
+          "11001": 253,
+          "01000": 265,
+          "01101": 1,
+          "10111": 1,
+          "00000": 3,
+          "00101": 4,
+          "01010": 2,
+          "01011": 2,
+          "00111": 4,
+          "10011": 2,
+          "11010": 1,
+          "10100": 3,
+          "10001": 2,
+          "01100": 1,
+          "11000": 1,
+          "01110": 2,
+          "10110": 3,
+          "11101": 2,
+          "01001": 1,
+          "00010": 1,
+          "11011": 1,
+          "11111": 1
+        },
+        "expectation_value": 0.98046875,
+        "std_error": 0.004345943144267065
+      },
+      "9_stab_1": {
+        "counts": {
+          "01101": 241,
+          "10001": 230,
+          "00010": 226,
+          "11110": 253,
+          "00111": 266,
+          "01000": 268,
+          "10100": 248,
+          "11011": 282,
+          "01110": 4,
+          "10010": 2,
+          "00011": 1,
+          "00100": 3,
+          "11101": 5,
+          "11000": 4,
+          "11111": 1,
+          "01010": 2,
+          "10111": 1,
+          "00001": 2,
+          "00101": 1,
+          "00110": 1,
+          "01011": 2,
+          "10101": 2,
+          "01001": 1,
+          "01100": 1,
+          "10000": 1
+        },
+        "expectation_value": 0.974609375,
+        "std_error": 0.004947802057110052
+      },
+      "9_stab_2": {
+        "counts": {
+          "11011": 116,
+          "00100": 152,
+          "01110": 103,
+          "10100": 125,
+          "10001": 127,
+          "11110": 137,
+          "00111": 144,
+          "01101": 141,
+          "00001": 110,
+          "11101": 135,
+          "11000": 135,
+          "10111": 115,
+          "11001": 5,
+          "01000": 116,
+          "00010": 146,
+          "10010": 102,
+          "01011": 124,
+          "00000": 1,
+          "11111": 4,
+          "01010": 1,
+          "01100": 1,
+          "10110": 1,
+          "10000": 2,
+          "01111": 1,
+          "11010": 1,
+          "01001": 1,
+          "00101": 1,
+          "10101": 1
+        },
+        "expectation_value": 0.98046875,
+        "std_error": 0.004345943144267065
+      },
+      "9_stab_3": {
+        "counts": {
+          "10011": 143,
+          "00010": 120,
+          "01011": 126,
+          "11111": 121,
+          "01101": 120,
+          "11100": 137,
+          "11010": 112,
+          "10000": 123,
+          "00001": 129,
+          "10101": 127,
+          "00111": 143,
+          "00100": 123,
+          "10110": 130,
+          "01000": 126,
+          "11001": 114,
+          "01110": 134,
+          "11011": 3,
+          "11000": 3,
+          "01111": 1,
+          "00011": 3,
+          "10111": 2,
+          "01001": 2,
+          "11101": 1,
+          "01100": 1,
+          "10100": 1,
+          "10010": 2,
+          "01010": 1
+        },
+        "expectation_value": 0.98046875,
+        "std_error": 0.004345943144267065
+      },
+      "9_destab_0": {
+        "counts": {
+          "01111": 61,
+          "11010": 65,
+          "01000": 64,
+          "00001": 70,
+          "10010": 51,
+          "00110": 67,
+          "00010": 55,
+          "00000": 68,
+          "11100": 68,
+          "01010": 59,
+          "10000": 64,
+          "01011": 61,
+          "10011": 64,
+          "11101": 78,
+          "11110": 64,
+          "11011": 61,
+          "00111": 54,
+          "01001": 76,
+          "10001": 62,
+          "00011": 53,
+          "00101": 61,
+          "11001": 71,
+          "01101": 80,
+          "10110": 64,
+          "01110": 66,
+          "10101": 66,
+          "00100": 78,
+          "10111": 69,
+          "11111": 49,
+          "01100": 59,
+          "10100": 69,
+          "11000": 51
+        },
+        "expectation_value": -0.0283203125,
+        "std_error": 0.022088223759672804
+      },
+      "9_destab_1": {
+        "counts": {
+          "01010": 61,
+          "10010": 58,
+          "00011": 78,
+          "10000": 76,
+          "11100": 50,
+          "10101": 56,
+          "10001": 70,
+          "11001": 77,
+          "10100": 74,
+          "00000": 68,
+          "10110": 67,
+          "00111": 65,
+          "01101": 56,
+          "11101": 55,
+          "10111": 61,
+          "11011": 65,
+          "11010": 54,
+          "11111": 71,
+          "01011": 60,
+          "01110": 63,
+          "01000": 80,
+          "00101": 70,
+          "01111": 60,
+          "10011": 73,
+          "11000": 72,
+          "01001": 63,
+          "00110": 60,
+          "00001": 59,
+          "00010": 60,
+          "01100": 51,
+          "00100": 51,
+          "11110": 64
+        },
+        "expectation_value": -0.009765625,
+        "std_error": 0.02209603321574416
+      },
+      "9_destab_2": {
+        "counts": {
+          "10010": 126,
+          "11100": 124,
+          "01101": 121,
+          "11110": 131,
+          "00110": 140,
+          "10101": 133,
+          "10111": 136,
+          "10011": 3,
+          "01000": 131,
+          "10000": 126,
+          "11011": 123,
+          "00100": 123,
+          "00011": 112,
+          "00001": 123,
+          "11000": 2,
+          "01010": 111,
+          "11001": 125,
+          "01111": 131,
+          "00010": 1,
+          "11111": 4,
+          "10100": 2,
+          "01100": 2,
+          "01001": 4,
+          "00111": 1,
+          "01110": 1,
+          "10110": 2,
+          "11010": 3,
+          "01011": 1,
+          "00101": 3,
+          "11101": 2,
+          "10001": 1
+        },
+        "expectation_value": 0.0068359375,
+        "std_error": 0.022096570607153542
+      },
+      "9_destab_3": {
+        "counts": {
+          "11011": 67,
+          "00110": 68,
+          "11001": 65,
+          "01000": 84,
+          "00001": 53,
+          "01010": 62,
+          "10110": 76,
+          "10011": 61,
+          "01111": 59,
+          "11111": 71,
+          "11010": 77,
+          "01011": 63,
+          "11100": 59,
+          "10111": 65,
+          "00111": 79,
+          "01001": 65,
+          "10001": 55,
+          "01100": 61,
+          "11000": 55,
+          "10101": 55,
+          "00010": 59,
+          "00101": 65,
+          "10010": 62,
+          "00000": 61,
+          "10000": 58,
+          "10100": 77,
+          "11101": 64,
+          "11110": 65,
+          "00011": 70,
+          "00100": 59,
+          "01110": 52,
+          "01101": 56
+        },
+        "expectation_value": -0.01953125,
+        "std_error": 0.02209287182520817
+      }
+    },
+    "evaluation": {
+      "stabilizer_expectation_values": [
+        0.9765625,
+        0.97265625,
+        0.978515625,
+        0.9716796875,
+        0.9833984375,
+        0.9892578125,
+        0.9755859375,
+        0.998046875,
+        0.978515625,
+        0.9755859375,
+        0.9716796875,
+        0.9775390625,
+        0.9677734375,
+        0.98046875,
+        0.9716796875,
+        0.9814453125,
+        0.9892578125,
+        0.98828125,
+        0.986328125,
+        0.9873046875,
+        0.98828125,
+        0.9755859375,
+        0.9775390625,
+        0.9794921875,
+        0.9921875,
+        0.966796875,
+        0.9814453125,
+        0.982421875,
+        0.9755859375,
+        0.9853515625,
+        0.9765625,
+        0.9814453125,
+        0.9775390625,
+        0.9814453125,
+        0.9794921875,
+        0.9765625,
+        0.98046875,
+        0.974609375,
+        0.98046875,
+        0.98046875
+      ],
+      "destabilizer_expectation_values": [
+        0.0029296875,
+        0.03515625,
+        0.0205078125,
+        -0.0205078125,
+        -0.009765625,
+        -0.01171875,
+        0.0068359375,
+        -0.015625,
+        -0.0009765625,
+        0.025390625,
+        0.0029296875,
+        -0.0283203125,
+        0.0224609375,
+        -0.0107421875,
+        -0.0107421875,
+        -0.00390625,
+        -0.0166015625,
+        -0.0244140625,
+        -0.015625,
+        0.01171875,
+        0.01171875,
+        0.0126953125,
+        0.0087890625,
+        -0.0205078125,
+        -0.0107421875,
+        -0.05859375,
+        -0.0107421875,
+        -0.0126953125,
+        0.0087890625,
+        0.03125,
+        -0.0224609375,
+        0.0107421875,
+        0.0166015625,
+        -0.009765625,
+        -0.0185546875,
+        0.041015625,
+        -0.0283203125,
+        -0.009765625,
+        0.0068359375,
+        -0.01953125
+      ],
+      "stabilizer_std_errors": [
+        0.004756044858100136,
+        0.005132036867572731,
+        0.004555815503055469,
+        0.005221583479477795,
+        0.004009724088621849,
+        0.003230181490985377,
+        0.004852918668758927,
+        0.0013803934177122365,
+        0.004555815503055469,
+        0.004852918668758927,
+        0.005221583479477795,
+        0.004657056415414995,
+        0.005564543763825398,
+        0.004345943144267065,
+        0.005221583479477795,
+        0.004236945631820245,
+        0.003230181490985377,
+        0.0033729862987422117,
+        0.0036414517458529068,
+        0.0035098531815057794,
+        0.0033729862987422117,
+        0.004852918668758927,
+        0.004657056415414995,
+        0.004452168462314576,
+        0.0027567357887295445,
+        0.0056468240905561025,
+        0.004236945631820245,
+        0.004124956174097465,
+        0.004852918668758927,
+        0.0037683339762353213,
+        0.004756044858100136,
+        0.004236945631820245,
+        0.004657056415414995,
+        0.004236945631820245,
+        0.004452168462314576,
+        0.004756044858100136,
+        0.004345943144267065,
+        0.004947802057110052,
+        0.004345943144267065,
+        0.004345943144267065
+      ],
+      "destabilizer_std_errors": [
+        0.022096992081466975,
+        0.022083427111108663,
+        0.022092439733363476,
+        0.022092439733363476,
+        0.02209603321574416,
+        0.02209556957343774,
+        0.022096570607153542,
+        0.022094389349118684,
+        0.022097076375364972,
+        0.02208996294631976,
+        0.022096992081466975,
+        0.022088223759672804,
+        0.022091512288184668,
+        0.022095811933129674,
+        0.022095811933129674,
+        0.022096918324042453,
+        0.02209404159242867,
+        0.022090500485399435,
+        0.022094389349118684,
+        0.02209556957343774,
+        0.02209556957343774,
+        0.022095306135974786,
+        0.022096233421914427,
+        0.022092439733363476,
+        0.022095811933129674,
+        0.022059122134973824,
+        0.022095811933129674,
+        0.022095306135974786,
+        0.022096233421914427,
+        0.022086294683395784,
+        0.022091512288184668,
+        0.022095811933129674,
+        0.02209404159242867,
+        0.02209603321574416,
+        0.022093282831559504,
+        0.022078492328263477,
+        0.022088223759672804,
+        0.02209603321574416,
+        0.022096570607153542,
+        0.02209287182520817
+      ],
+      "per_sample": {
+        "0": {
+          "passed": true,
+          "criterion_I": {
+            "passed": true,
+            "stabilizer_passed": true,
+            "destabilizer_passed": true,
+            "min_stab_margin": 0.9612365205410444,
+            "max_dest_margin": 0.07932310422221733
+          },
+          "criterion_II": {
+            "passed": true,
+            "stabilizer_passed": true,
+            "destabilizer_passed": true,
+            "mean_stab": 0.974853515625,
+            "mean_dest": 0.009521484375,
+            "sigma_bar_stab": 0.004923874339212529,
+            "sigma_bar_dest": 0.02209132521355757
+          },
+          "thresholds": {
+            "tau_S": 0.36787944117144233,
+            "tau_D": 0.18393972058572117
+          }
+        },
+        "1": {
+          "passed": true,
+          "criterion_I": {
+            "passed": true,
+            "stabilizer_passed": true,
+            "destabilizer_passed": true,
+            "min_stab_margin": 0.9658801001624822,
+            "max_dest_margin": 0.05981377869823737
+          },
+          "criterion_II": {
+            "passed": true,
+            "stabilizer_passed": true,
+            "destabilizer_passed": true,
+            "mean_stab": 0.986572265625,
+            "mean_dest": -0.007568359375,
+            "sigma_bar_stab": 0.0036044509056453733,
+            "sigma_bar_dest": 0.02209564070101424
+          },
+          "thresholds": {
+            "tau_S": 0.36787944117144233,
+            "tau_D": 0.18393972058572117
+          }
+        },
+        "2": {
+          "passed": true,
+          "criterion_I": {
+            "passed": true,
+            "stabilizer_passed": true,
+            "destabilizer_passed": true,
+            "min_stab_margin": 0.9612365205410444,
+            "max_dest_margin": 0.0724967600193456
+          },
+          "criterion_II": {
+            "passed": true,
+            "stabilizer_passed": true,
+            "destabilizer_passed": true,
+            "mean_stab": 0.975830078125,
+            "mean_dest": -0.000244140625,
+            "sigma_bar_stab": 0.004828544889326982,
+            "sigma_bar_dest": 0.02209306415605518
+          },
+          "thresholds": {
+            "tau_S": 0.36787944117144233,
+            "tau_D": 0.18393972058572117
+          }
+        },
+        "3": {
+          "passed": true,
+          "criterion_I": {
+            "passed": true,
+            "stabilizer_passed": true,
+            "destabilizer_passed": true,
+            "min_stab_margin": 0.9566443499723492,
+            "max_dest_margin": 0.06664396207636933
+          },
+          "criterion_II": {
+            "passed": true,
+            "stabilizer_passed": true,
+            "destabilizer_passed": true,
+            "mean_stab": 0.975341796875,
+            "mean_dest": -0.000732421875,
+            "sigma_bar_stab": 0.004875141316743704,
+            "sigma_bar_dest": 0.022095013716712696
+          },
+          "thresholds": {
+            "tau_S": 0.36787944117144233,
+            "tau_D": 0.18393972058572117
+          }
+        },
+        "4": {
+          "passed": true,
+          "criterion_I": {
+            "passed": true,
+            "stabilizer_passed": true,
+            "destabilizer_passed": true,
+            "min_stab_margin": 0.9790452215082942,
+            "max_dest_margin": 0.06859506347079887
+          },
+          "criterion_II": {
+            "passed": true,
+            "stabilizer_passed": true,
+            "destabilizer_passed": true,
+            "mean_stab": 0.98779296875,
+            "mean_dest": -0.01123046875,
+            "sigma_bar_stab": 0.003442032437721521,
+            "sigma_bar_dest": 0.022093625331011644
+          },
+          "thresholds": {
+            "tau_S": 0.36787944117144233,
+            "tau_D": 0.18393972058572117
+          }
+        },
+        "5": {
+          "passed": true,
+          "criterion_I": {
+            "passed": true,
+            "stabilizer_passed": true,
+            "destabilizer_passed": true,
+            "min_stab_margin": 0.9658801001624822,
+            "max_dest_margin": 0.06469269196672695
+          },
+          "criterion_II": {
+            "passed": true,
+            "stabilizer_passed": true,
+            "destabilizer_passed": true,
+            "mean_stab": 0.980224609375,
+            "mean_dest": 0.003173828125,
+            "sigma_bar_stab": 0.0043714366817522955,
+            "sigma_bar_dest": 0.02209488726394128
+          },
+          "thresholds": {
+            "tau_S": 0.36787944117144233,
+            "tau_D": 0.18393972058572117
+          }
+        },
+        "6": {
+          "passed": true,
+          "criterion_I": {
+            "passed": true,
+            "stabilizer_passed": true,
+            "destabilizer_passed": true,
+            "min_stab_margin": 0.9555032268188878,
+            "max_dest_margin": 0.10271199426994765
+          },
+          "criterion_II": {
+            "passed": true,
+            "stabilizer_passed": true,
+            "destabilizer_passed": true,
+            "mean_stab": 0.980712890625,
+            "mean_dest": -0.023193359375,
+            "sigma_bar_stab": 0.004314312988291777,
+            "sigma_bar_dest": 0.022086518696801272
+          },
+          "thresholds": {
+            "tau_S": 0.36787944117144233,
+            "tau_D": 0.18393972058572117
+          }
+        },
+        "7": {
+          "passed": true,
+          "criterion_I": {
+            "passed": true,
+            "stabilizer_passed": true,
+            "destabilizer_passed": true,
+            "min_stab_margin": 0.9658801001624822,
+            "max_dest_margin": 0.07542258936679157
+          },
+          "criterion_II": {
+            "passed": true,
+            "stabilizer_passed": true,
+            "destabilizer_passed": true,
+            "mean_stab": 0.979736328125,
+            "mean_dest": 0.007080078125,
+            "sigma_bar_stab": 0.00442500936556353,
+            "sigma_bar_dest": 0.02209246344593997
+          },
+          "thresholds": {
+            "tau_S": 0.36787944117144233,
+            "tau_D": 0.18393972058572117
+          }
+        },
+        "8": {
+          "passed": true,
+          "criterion_I": {
+            "passed": true,
+            "stabilizer_passed": true,
+            "destabilizer_passed": true,
+            "min_stab_margin": 0.9670504102837997,
+            "max_dest_margin": 0.08517260965652695
+          },
+          "criterion_II": {
+            "passed": true,
+            "stabilizer_passed": true,
+            "destabilizer_passed": true,
+            "mean_stab": 0.978759765625,
+            "mean_dest": 0.00732421875,
+            "sigma_bar_stab": 0.0045299461766241745,
+            "sigma_bar_dest": 0.022090463595880624
+          },
+          "thresholds": {
+            "tau_S": 0.36787944117144233,
+            "tau_D": 0.18393972058572117
+          }
+        },
+        "9": {
+          "passed": true,
+          "criterion_I": {
+            "passed": true,
+            "stabilizer_passed": true,
+            "destabilizer_passed": true,
+            "min_stab_margin": 0.9647137708857799,
+            "max_dest_margin": 0.0724967600193456
+          },
+          "criterion_II": {
+            "passed": true,
+            "stabilizer_passed": true,
+            "destabilizer_passed": true,
+            "mean_stab": 0.97900390625,
+            "mean_dest": -0.0126953125,
+            "sigma_bar_stab": 0.004503954113774589,
+            "sigma_bar_dest": 0.022093425101207386
+          },
+          "thresholds": {
+            "tau_S": 0.36787944117144233,
+            "tau_D": 0.18393972058572117
+          }
+        }
+      },
+      "thresholds": {
+        "tau_S": 0.36787944117144233,
+        "tau_D": 0.18393972058572117
+      }
+    }
+  }
+}

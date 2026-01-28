@@ -60,6 +60,7 @@ class Benchmark(ABC):
         format: Optional[str] = None,
         target_sdk: Optional[str] = None,
         shots: Optional[int] = 1,
+        benchmark_metadata: Optional[Dict[str, Any]] = None,
         print_defaults: bool = False,
         workdir: Optional[Union[str, Path]] = None,
         benchmark_id: Optional[str] = None,
@@ -94,7 +95,6 @@ class Benchmark(ABC):
         """
         # Internal state / in-memory dataset
         self.samples: Optional[List[Dict[str, Any]]] = None
-        self.benchmark_metadata: Dict[str, Any] = {}
         self.path: Optional[Path] = None
         self.experimental_results: Optional[Dict[str, Any]] = None
 
@@ -105,6 +105,7 @@ class Benchmark(ABC):
         self.number_of_qubits = int(number_of_qubits)
         self.sample_size = int(sample_size)
         self.shots = int(shots) if shots is not None else None
+        self.benchmark_metadata: Dict[str, Any] = benchmark_metadata or {}
 
         # Working directory: instance-level override, or class default
         self.workdir = self.DEFAULT_WORKDIR if workdir is None else Path(workdir)
