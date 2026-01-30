@@ -55,7 +55,8 @@ This package currently includes two implementations of scalable benchmarks intro
 ### Tutorials and demos
 
 * Notebooks, including tutorials and demos, demonstrating the usage of the benchmarks and provided utilities are available in the [`notebooks/`](https://github.com/faulhornlabs/scalable-volumetric-benchmark/tree/main/notebooks) folder. 
-
+* We provide tutorials demonstrating how the implemented 
+benchmarks - Clifford Volume and Free-Fermion Volume - can be used in practice, how the supporting utilities can be applied, and how these benchmarks integrate with SDKs such as Qiskit, tket, and Braket. Additional demonstrations with other frameworks (e.g., Cirq and Bloqade) are planned for future releases, and community contributions are very welcome.
 ---
 ## Requirements
 

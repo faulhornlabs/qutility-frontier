@@ -22,4 +22,4 @@ build/
 
 # .benchmark folders and files
 .benchmark/
-*.json
+
