@@ -16,7 +16,7 @@ The public API is intentionally small:
 * :func:`plot_decomposition` – visualize the layout of rotations.
 * :func:`check_decomposition` – quick numerical sanity check.
 
-All indices in this module are **zero-based**, as is idiomatic in Python.
+All indices in this module are **zero-based**.
 """
 
 from __future__ import annotations
