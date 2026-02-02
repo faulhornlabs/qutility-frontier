@@ -1,6 +1,5 @@
 # *Qutility Frontier*
-
-[![License: Apache-2.0](https://img.shields.io/badge/License-Apache%202.0-blue.svg)](https://www.apache.org/licenses/LICENSE-2.0) ![Python](https://img.shields.io/badge/Python-3.10--3.12-blue) [![arXiv](https://img.shields.io/badge/arXiv-2512.19413-b31b1b.svg)](https://arxiv.org/abs/2512.19413) [![Qutility @ Faulhorn Labs](https://img.shields.io/badge/Qutility-Faulhorn%20Labs-4f7f75?labelColor=6ea39a)](https://qutility.io/)
+![CI](https://github.com/faulhornlabs/scalable-volumetric-benchmark/actions/workflows/ci.yml/badge.svg)[![License: Apache-2.0](https://img.shields.io/badge/License-Apache%202.0-blue.svg)](https://www.apache.org/licenses/LICENSE-2.0) ![Python](https://img.shields.io/badge/Python-3.10--3.12-blue) [![arXiv](https://img.shields.io/badge/arXiv-2512.19413-b31b1b.svg)](https://arxiv.org/abs/2512.19413) [![Qutility @ Faulhorn Labs](https://img.shields.io/badge/Qutility-Faulhorn%20Labs-4f7f75?labelColor=6ea39a)](https://qutility.io/)
 
 
 **Qutility Frontier** is an open-source Python package for implementing scalable and hardware-agnostic quantum benchmarking protocols. The package provides implementations of recently proposed scalable benchmarks and offers tools to generate benchmark instances in a reproducible form. The **Clifford Volume Benchmark** implemented in this package is part of the **EU Quantum Flagship KPIs** for quantum computer benchmarking (see: https://arxiv.org/pdf/2512.19653).
@@ -107,14 +106,15 @@ You can install directly from GitHub using:
 
 # Install the package
 pip install --upgrade pip
-pip install "git+ssh://git@github.com:faulhornlabs/qutility-frontier.git"
+pip install "git+https://github.com/faulhornlabs/qutility-frontier.git"
+
 
 ```
 Note that  installing via `pip install git+...` installs only the package. Tutorial notebooks and other extra files are not kept locally. To get the full repository (including `notebooks/`), clone and install it manually:
 
 #### Option 1: Setup with `venv`
 ```bash
-git clone git@github.com:faulhornlabs/qutility-frontier.git
+git clone https://github.com/faulhornlabs/qutility-frontier.git
 cd qutility-frontier
 
 # Create and activate a virtual environment
@@ -129,7 +129,7 @@ pip install .
 #### Option 2: Setup with `conda`
 
 ```bash
-git clone git@github.com:faulhornlabs/qutility-frontier.git
+git clone https://github.com/faulhornlabs/qutility-frontier.git
 cd qutility-frontier
 
 # Create and activate a conda environment
