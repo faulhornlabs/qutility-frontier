@@ -4,8 +4,7 @@ Unit tests for the local QuantumCircuit class
 
 # tests/test_quantum_circuit.py
 import pytest
-
-from ScalableVolumetricBenchmark import (
+from frontier import (
     QasmEmitter,
     QasmEmitterOptions,
     QuantumCircuit,

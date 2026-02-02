@@ -1,12 +1,11 @@
 # test_benchmarks.py
 from __future__ import annotations
 
-
 import numpy as np
 import pytest
 
 # Adjust these imports to match your package layout
-from ScalableVolumetricBenchmark import CliffordVolumeBenchmark
+from frontier import CliffordVolumeBenchmark
 
 
 def test_clifford_compute_number_of_measurements_rule():

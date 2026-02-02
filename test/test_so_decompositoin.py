@@ -1,10 +1,9 @@
 # test_so_decomposition.py
 import numpy as np
-
-from ScalableVolumetricBenchmark import (
-    so_decomposition,
-    reconstruct,
+from frontier import (
     check_decomposition,
+    reconstruct,
+    so_decomposition,
 )
 
 

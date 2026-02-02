@@ -1,6 +1,6 @@
-﻿ScalableVolumetricBenchmark.cliffordvolumebenchmark
+﻿frontier.cliffordvolumebenchmark
 ===================================================
 
-.. automodule:: ScalableVolumetricBenchmark.cliffordvolumebenchmark
+.. automodule:: frontier.cliffordvolumebenchmark
 
    

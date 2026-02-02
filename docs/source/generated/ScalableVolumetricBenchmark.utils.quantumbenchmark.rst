@@ -1,7 +1,7 @@
-﻿ScalableVolumetricBenchmark.utils.quantumbenchmark
+﻿frontier.utils.quantumbenchmark
 ==================================================
 
-.. automodule:: ScalableVolumetricBenchmark.utils.quantumbenchmark
+.. automodule:: frontier.utils.quantumbenchmark
 
    
    .. rubric:: Classes

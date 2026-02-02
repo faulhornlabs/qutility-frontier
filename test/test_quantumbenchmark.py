@@ -4,11 +4,10 @@ from __future__ import annotations
 from pathlib import Path
 from typing import Any, Dict
 
+import jsonschema
 import numpy as np
 import pytest
-import jsonschema
-
-from ScalableVolumetricBenchmark import Benchmark, BENCHMARK_JSON_SCHEMA, SCHEMA_VERSION
+from frontier import BENCHMARK_JSON_SCHEMA, SCHEMA_VERSION, Benchmark
 
 
 class DummyBenchmark(Benchmark):

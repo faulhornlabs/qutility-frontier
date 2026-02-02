@@ -1,11 +1,9 @@
 # test_freefermion_benchmark.py
 from __future__ import annotations
 
-
 import numpy as np
 import pytest
-
-from ScalableVolumetricBenchmark import FreeFermionVolumeBenchmark
+from frontier import FreeFermionVolumeBenchmark
 
 
 def test_freefermion_compute_number_of_measurements_rule():

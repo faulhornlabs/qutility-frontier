@@ -3,7 +3,7 @@ requires = ["setuptools>=64", "wheel"]
 build-backend = "setuptools.build_meta"
 
 [project]
-name = "Frontier"
+name = "qutility-frontier"
 
 version = "0.1.0"
 #description = "python Pacakge Quantum circuit utilities for  benchmarking."
@@ -30,7 +30,7 @@ authors = [
 
 
 [tool.setuptools.packages.find]
-include = ["ScalableVolumetricBenchmark", "ScalableVolumetricBenchmark.*"]
+include = ["frontier", "frontier.*"]
 
 [project.optional-dependencies]
 dev = [

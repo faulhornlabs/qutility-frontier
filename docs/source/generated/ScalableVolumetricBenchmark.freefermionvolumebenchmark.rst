@@ -1,6 +1,6 @@
-﻿ScalableVolumetricBenchmark.freefermionvolumebenchmark
+﻿frontier.freefermionvolumebenchmark
 ======================================================
 
-.. automodule:: ScalableVolumetricBenchmark.freefermionvolumebenchmark
+.. automodule:: frontier.freefermionvolumebenchmark
 
    

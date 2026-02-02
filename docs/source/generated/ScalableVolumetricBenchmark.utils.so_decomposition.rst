@@ -1,6 +1,6 @@
-﻿ScalableVolumetricBenchmark.utils.so\_decomposition
+﻿frontier.utils.so\_decomposition
 ===================================================
 
-.. currentmodule:: ScalableVolumetricBenchmark.utils
+.. currentmodule:: frontier.utils
 
 .. autofunction:: so_decomposition
