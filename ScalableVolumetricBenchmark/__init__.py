@@ -1,3 +1,7 @@
+# Copyright 2026 Qutility @ Faulhorn Labs
+# Licensed under the Apache License, Version 2.0
+
+
 """
 benchmarks — Top-level package for scalable volumetric benchmark tools.
 """

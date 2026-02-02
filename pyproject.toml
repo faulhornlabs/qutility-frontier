@@ -3,9 +3,17 @@ requires = ["setuptools>=64", "wheel"]
 build-backend = "setuptools.build_meta"
 
 [project]
-name = "scalable_volumetric_benchmark"
+name = "Frontier"
+
 version = "0.1.0"
-description = "Quantum circuit utilities for volumetric benchmarking."
+#description = "python Pacakge Quantum circuit utilities for  benchmarking."
+
+license = { text = "Apache-2.0" }
+
+classifiers = [
+    "License :: OSI Approved :: Apache Software License",
+]
+
 requires-python = ">=3.10,<3.13"
 
 dependencies = [
@@ -17,8 +25,9 @@ dependencies = [
 
 # Optional but recommended:
 authors = [
-    { name = "Your Name", email = "your.email@example.com" }
+    { name = "Portik Attila (Faulhorn Labs)", email = "attila.portik@faulhornlabs.com" }
 ]
+
 
 [tool.setuptools.packages.find]
 include = ["ScalableVolumetricBenchmark", "ScalableVolumetricBenchmark.*"]
@@ -61,3 +70,6 @@ tutorials = [
     "qnexus>=0.39.0",
     "rustworkx>=0.17.1",
 ]
+
+[tool.setuptools]
+license-files = ["LICENSE"]

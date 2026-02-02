@@ -1,5 +1,7 @@
 # ScalableVolumetricBenchmark
 
+[![License: Apache-2.0](https://img.shields.io/badge/License-Apache%202.0-blue.svg)](https://www.apache.org/licenses/LICENSE-2.0)
+
 
 **ScalableVolumetricBenchmark** ($\leftarrow$ replace later) is an open-source Python package for implementing scalable and hardware-agnostic quantum benchmarking protocols. The package provides implementations of recently proposed scalable benchmarks and offers tools to generate benchmark instances in a reproducible form. The **Clifford Volume Benchmark** implemented in this package is part of the **EU Quantum Flagship KPIs** for quantum computer benchmarking (see: https://arxiv.org/pdf/2512.19653).
 
@@ -8,7 +10,6 @@ In contrast to component-level tests, this benchmark suite targets system-level 
 Benchmarking quantum devices at scale is challenging, particularly because many benchmarking protocols rely on full-fledged quantum algorithms. However, evaluating these benchmarks typically requires classical calculations to validate the output of the quantum algorithm. Since this classical verification step does not scale efficiently with system size, validating such quantum algorithms becomes infeasible for large-scale devices.
 
 In addition, the lack of standardization across quantum SDKs and provider workflows creates a significant incompatibility gap: applications and algorithms are often difficult to realize across different platforms and may require multiple independent implementations. This makes cross-platform comparison both difficult and tedious.
-
 This project addresses both issues by:
 
 - providing **scalable, platform-independent** benchmarks, and
