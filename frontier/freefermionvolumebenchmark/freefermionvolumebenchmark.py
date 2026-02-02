@@ -4,9 +4,9 @@ from copy import deepcopy
 from pathlib import Path
 from typing import Any, Dict, List, Optional, Tuple, Union
 
+import matplotlib.pyplot as plt
 import numpy as np
 from scipy.stats import special_ortho_group
-import matplotlib.pyplot as plt
 
 from ..utils.quantumbenchmark import Benchmark
 from ..utils.quantumcircuit import QuantumCircuit
@@ -18,27 +18,28 @@ class FreeFermionVolumeBenchmark(Benchmark):
 
     For each sample:
 
-      * Draw a random O ∈ SO(2N) (N = number_of_qubits).
-      * Decompose it into Givens rotations + diagonal ±1 using `so_decomposition`.
-      * Build a free-fermion circuit from these rotations.
-      * Compute a Pauli correction M from the diagonal ±1 data.
-      * Construct measurement circuits for each Majorana operator.
-      * Export each measurement circuit as QASM + Pauli observable string.
+    * Draw a random O ∈ SO(2N) (N = number_of_qubits).
+    * Decompose it into Givens rotations + diagonal ±1 using
+    ``so_decomposition``.
+    * Build a free-fermion circuit from these rotations.
+    * Compute a Pauli correction M from the diagonal ±1 data.
+    * Construct measurement circuits for each Majorana operator.
+    * Export each measurement circuit as QASM + Pauli observable string.
 
-    The per-sample dictionary matches the generic benchmark schema:
+    The per-sample dictionary matches the generic benchmark schema::
 
         {
-          "sample_id": int,
-          "sample_metadata": {...},
-          "circuits": [
-            {
-              "circuit_id": str,
-              "observable": str,
-              "qasm": str,
-              "metadata": {...},
-            },
-            ...
-          ]
+            "sample_id": int,
+            "sample_metadata": {...},
+            "circuits": [
+                {
+                    "circuit_id": str,
+                    "observable": str,
+                    "qasm": str,
+                    "metadata": {...}
+                },
+                ...
+            ]
         }
     """
 
@@ -333,10 +334,10 @@ class FreeFermionVolumeBenchmark(Benchmark):
         inside `self.experimental_results["results"][circuit_id]`.
 
         Returns:
-          {
-            "parallel_values":   List[float],
-            "orthogonal_values": List[float],
-          }
+            dict[str, list[float]]: Dictionary with keys:
+
+                - ``parallel_values`` — projected signal values
+                - ``orthogonal_values`` — projected null values
         """
 
         # Validation — identical structure to Clifford benchmark

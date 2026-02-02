@@ -8,7 +8,7 @@ PROJECT_ROOT = os.path.abspath(os.path.join(os.path.dirname(__file__), "..", "..
 sys.path.insert(0, PROJECT_ROOT)
 
 project = "qutility-frontier"
-author = "Portik Attila (Faulhorn Labs)"
+author = "Portik Attila (Qutility @ Faulhorn Labs)"
 copyright = f"{datetime.now().year}, {author}"
 release = "0.1.0"
 
@@ -34,4 +34,3 @@ autodoc_default_options = {
 }
 
 html_theme = "sphinx_rtd_theme"
-html_static_path = ["_static"]

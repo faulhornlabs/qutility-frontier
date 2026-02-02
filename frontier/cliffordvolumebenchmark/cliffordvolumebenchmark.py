@@ -4,10 +4,9 @@ from copy import deepcopy
 from pathlib import Path
 from typing import Any, Dict, List, Optional, Tuple, Union
 
+import matplotlib.pyplot as plt
 import numpy as np
 import stim  # type: ignore
-import matplotlib.pyplot as plt
-
 
 from ..utils.quantumbenchmark import Benchmark
 from ..utils.quantumcircuit import QuantumCircuit
@@ -438,15 +437,19 @@ class CliffordVolumeBenchmark(Benchmark):
     ) -> Dict[str, Any]:
         """Evaluate the Clifford benchmark using experimental results.
 
-        Implements the manuscript criteria:
+        Implements the manuscript criteria.
 
-        (I)  Per-observable (worst-case):
-            <S> - 2σ >= τ_S  and  |<D>| + 2σ <= τ_D
+        Per-observable (worst-case):
+            (I) :math:`\\langle S \\rangle - 2\\sigma \\ge \\tau_S`
+            and :math:`|\\langle D \\rangle| + 2\\sigma \\le \\tau_D`
 
-        (II) Per-Clifford-instance averages:
-            mean(<S>) - 5 σ̄ >= τ_S  and  |mean(<D>)| + 5 σ̄ <= τ_D
+        Per-Clifford-instance averages:
+            (II) :math:`\\mathrm{mean}(\\langle S \\rangle) - 5\\bar{\\sigma} \\ge \\tau_S`
+            and :math:`|\\mathrm{mean}(\\langle D \\rangle)| + 5\\bar{\\sigma} \\le \\tau_D`
 
-        Returns a structured dictionary including pass/fail flags.
+        Returns:
+            dict: Structured dictionary containing computed statistics and
+            pass/fail flags.
         """
         if self.experimental_results is None:
             raise ValueError(

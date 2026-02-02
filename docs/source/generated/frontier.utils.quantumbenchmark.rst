@@ -1,5 +1,5 @@
 ﻿frontier.utils.quantumbenchmark
-==================================================
+===============================
 
 .. automodule:: frontier.utils.quantumbenchmark
 

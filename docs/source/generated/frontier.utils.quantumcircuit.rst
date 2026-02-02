@@ -1,5 +1,5 @@
 ﻿frontier.utils.quantumcircuit
-================================================
+=============================
 
 .. automodule:: frontier.utils.quantumcircuit
 

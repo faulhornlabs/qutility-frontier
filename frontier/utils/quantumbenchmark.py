@@ -1,17 +1,16 @@
 from __future__ import annotations
 
+import json
+import uuid
 from abc import ABC, abstractmethod
 from datetime import datetime
 from pathlib import Path
 from typing import Any, ClassVar, Dict, List, Optional, Type, TypeVar, Union
-import json
-import uuid
 
 import jsonschema
 
+from .benchmarkschema import BENCHMARK_JSON_SCHEMA, SCHEMA_VERSION
 from .quantumcircuit import QasmEmitterOptions
-from .benchmarkschema import SCHEMA_VERSION, BENCHMARK_JSON_SCHEMA
-
 
 B = TypeVar("B", bound="Benchmark")
 
@@ -431,42 +430,47 @@ class Benchmark(ABC):
         global_metadata: Optional[Dict[str, Any]] = None,
         indent: int = 2,
     ) -> Path:
-        """Serialise the benchmark to a JSON file on disk.
+        """Serialize the benchmark to a JSON file on disk.
 
         The target path is resolved according to the following rules:
 
-        * If `filepath` is None:
-            The benchmark is stored under `workdir` with an auto-generated
-            filename (see `_default_filename()`).
+        * If ``filepath`` is None:
 
-        * If `filepath` is an existing directory:
-            The benchmark is stored inside that directory with an
-            auto-generated filename, and `workdir` is updated to that
-            directory.
+            The benchmark is stored under ``workdir`` with an auto-generated
+            filename (see ``_default_filename()``).
 
-        * If `filepath` refers to a non-existing path with no suffix
-          (for example, `"results"`) and the path does not yet exist:
-            It is treated as a directory; the directory is created as needed
-            and the benchmark is stored inside it with an auto-generated
-            filename. `workdir` is updated to that directory.
+        * If ``filepath`` is an existing directory:
 
-        * If `filepath` is a bare filename (no directory component):
-            The file is stored under `workdir` with that name.
+            The benchmark is stored inside that directory with an auto-generated
+            filename. ``workdir`` is updated to that directory.
 
-        * If `filepath` contains a directory component (absolute or relative),
-          for example, `"results/foo.json"` or `"/tmp/foo.json"`:
-            The file is stored exactly at that path and `workdir` is updated to
-            its parent directory. Any missing parent directories are created.
+        * If ``filepath`` refers to a non-existing path with no suffix
+        (for example, ``"results"``) and the path does not yet exist:
+
+            It is treated as a directory. The directory is created if needed and
+            the benchmark is stored inside it with an auto-generated filename.
+            ``workdir`` is updated to that directory.
+
+        * If ``filepath`` is a bare filename (no directory component):
+
+            The file is stored under ``workdir`` with that name.
+
+        * If ``filepath`` contains a directory component (absolute or relative),
+        for example ``"results/foo.json"`` or ``"/tmp/foo.json"``:
+
+            The file is stored exactly at that path. ``workdir`` is updated to the
+            parent directory. Any missing parent directories are created.
 
         Args:
-          filepath: Optional target path. See rules above.
-          global_metadata: Optional global metadata to include in the JSON
-            payload. If omitted, `benchmark_metadata` is used.
-          indent: Indentation level passed to `json.dump()`.
+            filepath: Optional target path. See rules above.
+            global_metadata: Optional global metadata to include in the JSON
+                payload. If omitted, ``benchmark_metadata`` is used.
+            indent: Indentation level passed to ``json.dump()``.
 
         Returns:
-          pathlib.Path: The final path where the JSON file was saved.
+            pathlib.Path: The final path where the JSON file was saved.
         """
+
         payload = self.to_json_dict(global_metadata=global_metadata)
 
         if filepath is None:
