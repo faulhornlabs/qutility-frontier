@@ -605,22 +605,22 @@ class QuantumCircuit:
     ) -> None:
         """
         Append measurement(s).
-    
+
         Supports scalar ints, lists/tuples, numpy arrays, and range().
-    
+
         Rules:
           - If both are sequences, they must have equal length (pairwise mapping).
           - If qubit is a sequence and classical_bit is scalar, classical_bit is reused.
           - If qubit is scalar and classical_bit is sequence, classical_bit must be length 1
             (or you can decide to error).
         """
-    
+
         def is_seq(x: object) -> bool:
             return isinstance(x, Sequence) and not isinstance(x, (str, bytes))
-    
+
         qubit_is_seq = is_seq(qubit)
         cbit_is_seq = is_seq(classical_bit)
-    
+
         # Case 1: both are sequences -> zip pairwise
         if qubit_is_seq and cbit_is_seq:
             if len(qubit) != len(classical_bit):
@@ -629,16 +629,15 @@ class QuantumCircuit:
                 )
             for q, c in zip(qubit, classical_bit):
                 self.measurements.append((int(q), int(c)))
-    
+
         # Case 2: qubits is sequence, cbits is scalar -> broadcast classical_bit
         elif qubit_is_seq and not cbit_is_seq:
             for q in qubit:
                 self.measurements.append((int(q), int(classical_bit)))
-    
+
         # Case 3: qubit is scalar
         else:
             self.measurements.append((int(qubit), int(classical_bit)))
-
 
     def add_reset_operation(self, qubit: int) -> None:
         """Append a reset operation for the specified ``qubit``."""
