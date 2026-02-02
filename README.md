@@ -1,9 +1,9 @@
-# ScalableVolumetricBenchmark
+# *Qutility Frontier*
 
 [![License: Apache-2.0](https://img.shields.io/badge/License-Apache%202.0-blue.svg)](https://www.apache.org/licenses/LICENSE-2.0) ![Python](https://img.shields.io/badge/Python-3.10--3.12-blue) [![arXiv](https://img.shields.io/badge/arXiv-2512.19413-b31b1b.svg)](https://arxiv.org/abs/2512.19413) [![Qutility @ Faulhorn Labs](https://img.shields.io/badge/Qutility-Faulhorn%20Labs-4f7f75?labelColor=6ea39a)](https://qutility.io/)
 
 
-**ScalableVolumetricBenchmark** ($\leftarrow$ replace later) is an open-source Python package for implementing scalable and hardware-agnostic quantum benchmarking protocols. The package provides implementations of recently proposed scalable benchmarks and offers tools to generate benchmark instances in a reproducible form. The **Clifford Volume Benchmark** implemented in this package is part of the **EU Quantum Flagship KPIs** for quantum computer benchmarking (see: https://arxiv.org/pdf/2512.19653).
+**Qutility Frontier** is an open-source Python package for implementing scalable and hardware-agnostic quantum benchmarking protocols. The package provides implementations of recently proposed scalable benchmarks and offers tools to generate benchmark instances in a reproducible form. The **Clifford Volume Benchmark** implemented in this package is part of the **EU Quantum Flagship KPIs** for quantum computer benchmarking (see: https://arxiv.org/pdf/2512.19653).
 
 In contrast to component-level tests, this benchmark suite targets system-level characterization, aiming to capture the computational performance of the full quantum processor. It focuses on protocols designed to map the performance of the entire quantum processor (end-to-end), rather than benchmarking isolated components. 
 
@@ -55,7 +55,7 @@ This package currently includes two implementations of scalable benchmarks intro
 
 ### Tutorials and demos
 
-* Notebooks, including tutorials and demos, demonstrating the usage of the benchmarks and provided utilities are available in the [`notebooks/`](https://github.com/faulhornlabs/scalable-volumetric-benchmark/tree/main/notebooks) folder. 
+* Notebooks, including tutorials and demos, demonstrating the usage of the benchmarks and provided utilities are available in the [`notebooks/`](https://github.com/faulhornlabs/qutility-frontier/tree/main/notebooks) folder. 
 * We provide tutorials demonstrating how the implemented 
 benchmarks - Clifford Volume and Free-Fermion Volume - can be used in practice, how the supporting utilities can be applied, and how these benchmarks integrate with SDKs such as Qiskit, tket, and Braket. Additional demonstrations with other frameworks (e.g., Cirq and Bloqade) are planned for future releases, and community contributions are very welcome.
 ---
@@ -107,15 +107,15 @@ You can install directly from GitHub using:
 
 # Install the package
 pip install --upgrade pip
-pip install "git+ssh://git@github.com/faulhornlabs/scalable-volumetric-benchmark.git"
+pip install "git+ssh://git@github.com:faulhornlabs/qutility-frontier.git"
 
 ```
 Note that  installing via `pip install git+...` installs only the package. Tutorial notebooks and other extra files are not kept locally. To get the full repository (including `notebooks/`), clone and install it manually:
 
 #### Option 1: Setup with `venv`
 ```bash
-git clone git@github.com:faulhornlabs/scalable-volumetric-benchmark.git
-cd ScalableVolumetricBenchmark
+git clone git@github.com:faulhornlabs/qutility-frontier.git
+cd qutility-frontier
 
 # Create and activate a virtual environment
 python -m venv .venv
@@ -129,12 +129,12 @@ pip install .
 #### Option 2: Setup with `conda`
 
 ```bash
-git clone git@github.com:faulhornlabs/scalable-volumetric-benchmark.git
-cd ScalableVolumetricBenchmark
+git clone git@github.com:faulhornlabs/qutility-frontier.git
+cd qutility-frontier
 
 # Create and activate a conda environment
-conda create -n scalablevolumetricbenchmark python=3.11
-conda activate scalablevolumetricbenchmark
+conda create -n qutility-frontier python=3.11
+conda activate qutility-frontier
 
 # Install the package
 pip install --upgrade pip
@@ -170,8 +170,8 @@ pip install ".[tutorials]"
 Example: Clifford Volume Benchmark.
 
 ```python
-from ScalableVolumetricBenchmark import CliffordVolumeBenchmark
-from ScalableVolumetricBenchmark import QasmEmitterOptions
+from frontier import CliffordVolumeBenchmark
+from frontier import QasmEmitterOptions
 
 emitter = QasmEmitterOptions(format="qasm3", target_sdk="qiskit")  # or "braket", "tket", or None
 benchmark = CliffordVolumeBenchmark(
@@ -248,13 +248,13 @@ Some benchmarks also provide built-in plotting helpers, for details see the docu
 
 The Clifford Volume Benchmark samples random **n-qubit Clifford unitaries**, then probes the output state using a set of measured **stabilizers** (ideal expectation value 1) and **destabilizers** (ideal expectation value 0). The benchmark passes for width *n* when stabilizers stay above a threshold and destabilizers stay below a threshold in magnitude.
 
-See: [`readme_Clifford_benchmark.md`](http://github.com/faulhornlabs/scalable-volumetric-benchmark/blob/main/ScalableVolumetricBenchmark/cliffordvolumebenchmark/readme_Clifford_benchmark.md) for the full protocol and interpretation.
+See: [`readme_Clifford_benchmark.md`](https://github.com/faulhornlabs/qutility-frontier/blob/main/frontier/cliffordvolumebenchmark/readme_Clifford_benchmark.md) for the full protocol and interpretation.
 
 ### Free-Fermion Volume Benchmark
 
 The Free-Fermion Volume (FFV) Benchmark samples random **SO(2n)** transformations (Gaussian/free-fermionic unitaries), constructs circuits from a decomposition into elementary rotations, and evaluates the device by measuring Majorana-mode observables (mapped to Pauli strings). It checks “parallel” and “orthogonal” projection values against recommended thresholds.
 
-See: [`readme_FreeFermion_becnhmark.md`](https://github.com/faulhornlabs/scalable-volumetric-benchmark/blob/main/ScalableVolumetricBenchmark/freefermionvolumebenchmark/readme_FreeFermion_becnhmark.md) for the full protocol and interpretation.
+See: [`readme_FreeFermion_becnhmark.md`](https://github.com/faulhornlabs/qutility-frontier/blob/main/frontier/freefermionvolumebenchmark/readme_FreeFermion_becnhmark.md) for the full protocol and interpretation.
 
 ---
 
@@ -274,12 +274,17 @@ This enables reproducible generation, execution, and scoring while remaining pla
 ## Suggested workflow
 
 1. Generate a benchmark instance and export circuits (OpenQASM).
-2. Execute circuits using the provider’s preferred workflow. (For examples see the tutorials in the [`notebooks/`](https://github.com/faulhornlabs/scalable-volumetric-benchmark/tree/main/notebooks) folder.) 
+2. Execute circuits using the provider’s preferred workflow. (For examples see the tutorials in the [`notebooks/`](https://github.com/faulhornlabs/qutility-frontier/tree/main/notebooks) folder.) 
 3. Attach counts back to the benchmark instance.
 4. Evaluate and store results (score + derived metrics).
 
 ---
 
+## Documentation
+
+See the  package documentation [here](https://github.com/faulhornlabs/qutility-frontier/tree/main/notebooks).
+
+---
 ## Acknowledgements
 
 One of the benchmarks implemented in this package (the **Clifford Volume Benchmark**) is included in the set of **Key Performance Indicators (KPIs)** defined within the **EU Quantum Flagship** initiative for quantum computer benchmarking. The implementation provided here has also been collected as part of this initiative.
