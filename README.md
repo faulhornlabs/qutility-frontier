@@ -282,7 +282,7 @@ This enables reproducible generation, execution, and scoring while remaining pla
 
 ## Documentation
 
-See the  package documentation [here](https://github.com/faulhornlabs/qutility-frontier/tree/main/notebooks).
+See the  package documentation [here](https://qutility.io/frontier).
 
 ---
 ## Acknowledgements
