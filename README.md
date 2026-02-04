@@ -21,36 +21,27 @@ This package is **not** intended to serve as a tool for executing circuits direc
 ---
 
 ## Key features
-
 ### Framework utilities
 
 * Open-source Python package designed to simplify the implementation of **platform-independent quantum benchmark protocols**.
-* A **benchmark *base* class** with a well-defined workflow, including customizable methods for:
-  * benchmark instance creation,
-  * circuit generation,
-  * serialization / saving,
-  * loading and re-evaluation.
-* A lightweight **Python-based representation of quantum circuits**, enabling intuitive and flexible implementation of benchmark logic while remaining independent of any specific SDK.
-* **Hardware-agnostic circuit export** via **OpenQASM** (QASM 2 / QASM 3), with optional SDK-specific adaptations (e.g., gate aliasing).
-* A **JSON schema** to store complete benchmark instances, including:
-  * benchmark metadata and generated circuits,
-  * experimental results (shot counts),
-  * evaluation results (scores, pass/fail conditions, and derived metrics),
-  together with utilities for saving and reloading benchmark instances reproducibly.
 
+* A **benchmark *base* class** with a well-defined workflow for benchmark instance creation, circuit generation, serialization and saving, loading, and re-evaluation, with customizable methods for each step.
+
+* A lightweight **Python-based representation of quantum circuits**, enabling intuitive and flexible implementation of benchmark logic while remaining independent of any specific SDK.
+
+* **Hardware-agnostic circuit export** via **OpenQASM** (QASM 2 / QASM 3), with optional SDK-specific adaptations (e.g., gate aliasing).
+
+* A **JSON schema** to store complete benchmark instances, including benchmark metadata and generated circuits, experimental results (shot counts), and evaluation results (scores, pass/fail conditions, and derived metrics), together with utilities for saving and reloading benchmark instances reproducibly.
+ 
 ### Implemented scalable benchmarks
 
 This package currently includes two implementations of scalable benchmarks introduced in the accompanying paper: https://arxiv.org/abs/2512.19413 :
 
-* **Clifford Volume Benchmark**
+* **Clifford Volume Benchmark** - efficiently verifiable using stabilizer techniques and measuring stabilizer and destabilizer observables to quantify device performance.
 
-  * efficiently verifiable using stabilizer techniques
-  * measures stabilizer and destabilizer observables to quantify device performance
 
-* **Free-Fermion Volume Benchmark**
+* **Free-Fermion Volume Benchmark** - based on Gaussian / free-fermionic circuits and evaluating device performance through Majorana-mode based observables.
 
-  * based on Gaussian / free-fermionic circuits (SO(2n) transformations)
-  * evaluates device performance through Majorana-mode based observables
 
 ### Tutorials and demos
 
