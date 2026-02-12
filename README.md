@@ -276,6 +276,12 @@ This enables reproducible generation, execution, and scoring while remaining pla
 See the  package documentation [here](https://qutility.io/frontier).
 
 ---
+
+## Contributing
+
+Contributions, feature proposals, and benchmark extensions are very welcome. Please see the [Contributing Guide](https://github.com/faulhornlabs/qutility-frontier/blob/develop/CONTRIBUTING.md) for details on how to get started.
+
+---
 ## Acknowledgements
 
 One of the benchmarks implemented in this package (the **Clifford Volume Benchmark**) is included in the set of **Key Performance Indicators (KPIs)** defined within the **EU Quantum Flagship** initiative for quantum computer benchmarking. The implementation provided here has also been collected as part of this initiative.
