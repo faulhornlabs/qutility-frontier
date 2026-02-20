@@ -21,6 +21,7 @@ dependencies = [
     "scipy>=1.8",
     "matplotlib>=3.5",
     "stim>=1.12",
+    "jsonschema>=4.25.1",
 ]
 
 # Optional but recommended:
