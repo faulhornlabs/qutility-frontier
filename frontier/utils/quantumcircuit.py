@@ -9,9 +9,7 @@ import numpy as np
 logger = logging.getLogger(__name__)
 
 
-# =============================================================
 # QASM Emitter Options
-# =============================================================
 
 
 @dataclass(frozen=True)
@@ -25,7 +23,7 @@ class QasmEmitterOptions:
             ``"qasm2"`` and ``"qasm3"``.
         target_sdk: Optional SDK dialect for gate aliases. If provided,
             it adjusts emitted gate names to match that SDK. Supported
-            values: ``"qiskit"``, ``"braket"``, ``"tket"``, or ``"custom"``.
+            values: ``"qiskit"``, ``"braket"``, ``"tket"``, ``"bloqade"``, ``"cirq"``  or ``"custom"``.
             ``None`` means use the format's default aliasing.
         includes: Optional include file(s). May be a single string path or a
             sequence of paths. If ``target_sdk`` is one of the known SDKs,
@@ -48,7 +46,7 @@ class QasmEmitterOptions:
     # Resolved mapping (computed in __post_init__)
     map: Dict[str, str] = field(init=False)
 
-    _TARGET_SDK: ClassVar[List[str]] = ["qiskit", "braket", "tket"]
+    _TARGET_SDK: ClassVar[List[str]] = ["qiskit", "braket", "tket", "bloqade", "cirq"]
     _GATE_NAME_MAP_TEMPLATES: ClassVar[Dict[str, Dict[str, Dict[str, str]]]] = {
         "qasm2": {
             "default": {
@@ -96,6 +94,42 @@ class QasmEmitterOptions:
                 "sdg": "sdg",
                 "t": "t",
                 "p": "p",
+                "u": "u3",
+                "cx": "cx",
+                "cy": "cy",
+                "cz": "cz",
+                "swap": "swap",
+                "rx": "rx",
+                "ry": "ry",
+                "rz": "rz",
+                "measure": "measure",
+            },
+            "bloqade": {
+                "x": "x",
+                "y": "y",
+                "z": "z",
+                "h": "h",
+                "s": "s",
+                "sdg": "sdg",
+                "t": "t",
+                "u": "u3",
+                "cx": "cx",
+                "cy": "cy",
+                "cz": "cz",
+                "swap": "swap",
+                "rx": "rx",
+                "ry": "ry",
+                "rz": "rz",
+                "measure": "measure",
+            },
+            "cirq": {
+                "x": "x",
+                "y": "y",
+                "z": "z",
+                "h": "h",
+                "s": "s",
+                "sdg": "sdg",
+                "t": "t",
                 "u": "u3",
                 "cx": "cx",
                 "cy": "cy",
@@ -175,6 +209,8 @@ class QasmEmitterOptions:
             "default": ["qelib1.inc"],
             "qiskit": ["qelib1.inc"],
             "tket": ["qelib1.inc"],
+            "bloqade": ["qelib1.inc"],
+            "cirq": ["qelib1.inc"],
         },
         "qasm3": {
             "default": ["stdgates.inc"],
@@ -281,9 +317,7 @@ class QasmEmitterOptions:
         return self.map.get(internal_name, internal_name)
 
 
-# =============================================================
 # Gate Data Structures
-# =============================================================
 
 
 @dataclass(slots=True)
@@ -388,9 +422,7 @@ class TwoQubitQuantumGate(QuantumGate):
         return True
 
 
-# =============================================================
 # Circuit API
-# =============================================================
 
 
 class QuantumCircuit:
@@ -1063,9 +1095,7 @@ class QuantumCircuit:
         return state
 
 
-# =============================================================
 # QASM Emitter
-# =============================================================
 
 
 class QasmEmitter:
