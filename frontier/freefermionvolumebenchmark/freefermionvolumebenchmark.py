@@ -94,7 +94,8 @@ class FreeFermionVolumeBenchmark(Benchmark):
 
         # 5) Apply Pauli corrections
         corrected_qc = self._apply_pauli_corrections(base_qc, pauli_M)
-
+        self.corrected_qc = corrected_qc
+        
         # 6) Measurement circuits for each chosen Majorana operator
         observables, circuits = self._generate_majorana_measurement_circuits(
             corrected_qc, orthogonal_matrix, state_index

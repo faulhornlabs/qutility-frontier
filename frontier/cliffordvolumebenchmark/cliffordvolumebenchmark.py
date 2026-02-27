@@ -962,7 +962,7 @@ class CliffordVolumeBenchmark(Benchmark):
             linestyle="--",
             linewidth=2,
             color="tab:red",
-            label="Destabilizer threshold = 1/(4e)",
+            label="Destabilizer threshold = 1/(2e)",
         )
 
         plt.xlabel("Circuit index", fontsize=14)
