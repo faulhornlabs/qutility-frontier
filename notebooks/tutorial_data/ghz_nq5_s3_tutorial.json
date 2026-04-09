@@ -1,0 +1,100 @@
+{
+  "schema_version": "0.1.1",
+  "benchmark_name": "ghz",
+  "benchmark_id": "ghz_nq5_s3_20260409T135443_e9d5b419",
+  "number_of_qubits": 5,
+  "sample_size": 3,
+  "format": "qasm2",
+  "target_sdk": "default",
+  "shots": 2048,
+  "global_metadata": {},
+  "samples": [
+    {
+      "sample_id": 0,
+      "sample_metadata": {
+        "type": "ghz",
+        "preparation_method": "star",
+        "measurement_scheme": "witness",
+        "number_of_measurements": 2
+      },
+      "circuits": [
+        {
+          "circuit_id": "0_witness_x",
+          "observable": null,
+          "qasm": "OPENQASM 2.0;\n\n\nqreg q[5];\ncreg c[5];\n\nh q[0];\ncx q[0], q[1];\ncx q[0], q[2];\ncx q[0], q[3];\ncx q[0], q[4];\nh q[0];\nh q[1];\nh q[2];\nh q[3];\nh q[4];\n\nmeasure q[0] -> c[0];\nmeasure q[1] -> c[1];\nmeasure q[2] -> c[2];\nmeasure q[3] -> c[3];\nmeasure q[4] -> c[4];",
+          "metadata": {
+            "measurement_scheme": "witness",
+            "basis": "x"
+          }
+        },
+        {
+          "circuit_id": "0_witness_z",
+          "observable": null,
+          "qasm": "OPENQASM 2.0;\n\n\nqreg q[5];\ncreg c[5];\n\nh q[0];\ncx q[0], q[1];\ncx q[0], q[2];\ncx q[0], q[3];\ncx q[0], q[4];\n\nmeasure q[0] -> c[0];\nmeasure q[1] -> c[1];\nmeasure q[2] -> c[2];\nmeasure q[3] -> c[3];\nmeasure q[4] -> c[4];",
+          "metadata": {
+            "measurement_scheme": "witness",
+            "basis": "z"
+          }
+        }
+      ]
+    },
+    {
+      "sample_id": 1,
+      "sample_metadata": {
+        "type": "ghz",
+        "preparation_method": "star",
+        "measurement_scheme": "witness",
+        "number_of_measurements": 2
+      },
+      "circuits": [
+        {
+          "circuit_id": "1_witness_x",
+          "observable": null,
+          "qasm": "OPENQASM 2.0;\n\n\nqreg q[5];\ncreg c[5];\n\nh q[0];\ncx q[0], q[1];\ncx q[0], q[2];\ncx q[0], q[3];\ncx q[0], q[4];\nh q[0];\nh q[1];\nh q[2];\nh q[3];\nh q[4];\n\nmeasure q[0] -> c[0];\nmeasure q[1] -> c[1];\nmeasure q[2] -> c[2];\nmeasure q[3] -> c[3];\nmeasure q[4] -> c[4];",
+          "metadata": {
+            "measurement_scheme": "witness",
+            "basis": "x"
+          }
+        },
+        {
+          "circuit_id": "1_witness_z",
+          "observable": null,
+          "qasm": "OPENQASM 2.0;\n\n\nqreg q[5];\ncreg c[5];\n\nh q[0];\ncx q[0], q[1];\ncx q[0], q[2];\ncx q[0], q[3];\ncx q[0], q[4];\n\nmeasure q[0] -> c[0];\nmeasure q[1] -> c[1];\nmeasure q[2] -> c[2];\nmeasure q[3] -> c[3];\nmeasure q[4] -> c[4];",
+          "metadata": {
+            "measurement_scheme": "witness",
+            "basis": "z"
+          }
+        }
+      ]
+    },
+    {
+      "sample_id": 2,
+      "sample_metadata": {
+        "type": "ghz",
+        "preparation_method": "star",
+        "measurement_scheme": "witness",
+        "number_of_measurements": 2
+      },
+      "circuits": [
+        {
+          "circuit_id": "2_witness_x",
+          "observable": null,
+          "qasm": "OPENQASM 2.0;\n\n\nqreg q[5];\ncreg c[5];\n\nh q[0];\ncx q[0], q[1];\ncx q[0], q[2];\ncx q[0], q[3];\ncx q[0], q[4];\nh q[0];\nh q[1];\nh q[2];\nh q[3];\nh q[4];\n\nmeasure q[0] -> c[0];\nmeasure q[1] -> c[1];\nmeasure q[2] -> c[2];\nmeasure q[3] -> c[3];\nmeasure q[4] -> c[4];",
+          "metadata": {
+            "measurement_scheme": "witness",
+            "basis": "x"
+          }
+        },
+        {
+          "circuit_id": "2_witness_z",
+          "observable": null,
+          "qasm": "OPENQASM 2.0;\n\n\nqreg q[5];\ncreg c[5];\n\nh q[0];\ncx q[0], q[1];\ncx q[0], q[2];\ncx q[0], q[3];\ncx q[0], q[4];\n\nmeasure q[0] -> c[0];\nmeasure q[1] -> c[1];\nmeasure q[2] -> c[2];\nmeasure q[3] -> c[3];\nmeasure q[4] -> c[4];",
+          "metadata": {
+            "measurement_scheme": "witness",
+            "basis": "z"
+          }
+        }
+      ]
+    }
+  ]
+}

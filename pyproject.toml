@@ -74,3 +74,8 @@ tutorials = [
 
 [tool.setuptools]
 license-files = ["LICENSE"]
+
+[tool.pytest.ini_options]
+testpaths = [
+    "test",
+]

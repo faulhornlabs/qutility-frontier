@@ -27,9 +27,16 @@ from .utils import (
 # Export available benchmark implementations
 from .cliffordvolumebenchmark import CliffordVolumeBenchmark
 from .freefermionvolumebenchmark import FreeFermionVolumeBenchmark
+from .ghzbenchmark import (
+    GHZBenchmark,
+    evaluate_fidelity,
+    certify_fidelity_gt_half,
+    evaluate_shadow_overlap,
+)
 
 CliffordVolumeBenchmark.__module__ = __name__
 FreeFermionVolumeBenchmark.__module__ = __name__
+GHZBenchmark.__module__ = __name__
 
 __all__ = [
     "Benchmark",
@@ -50,4 +57,9 @@ __all__ = [
     # Implementations
     "CliffordVolumeBenchmark",
     "FreeFermionVolumeBenchmark",
+    "GHZBenchmark",
+    # GHZ helpers
+    "evaluate_fidelity",
+    "certify_fidelity_gt_half",
+    "evaluate_shadow_overlap",
 ]
