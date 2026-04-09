@@ -7,4 +7,7 @@ Welcome to the documentation for the frontier package.
    :maxdepth: 2
    :caption: Contents:
 
+   clifford_benchmark
+   freefermion_benchmark
+   ghz_benchmark
    api

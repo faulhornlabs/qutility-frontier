@@ -13,7 +13,7 @@ from ..utils.quantumcircuit import QuantumCircuit
 
 
 class GHZBenchmark(Benchmark):
-    """Multipartite GHZ-state volumetric benchmark.
+    """Multipartite GHZ-state benchmark.
 
     Two measurement protocols are supported:
 
