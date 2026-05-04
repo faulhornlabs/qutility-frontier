@@ -19,7 +19,7 @@ This package is **not** intended to serve as a tool for executing circuits direc
 
 > \*Development status:\* This project is under active development.
 
-\---
+---
 
 ## Key features
 
@@ -49,7 +49,7 @@ This package currently includes two implementations of scalable benchmarks intro
 * We provide tutorials demonstrating how the implemented
 benchmarks - Clifford Volume and Free-Fermion Volume - can be used in practice, how the supporting utilities can be applied, and how these benchmarks integrate with SDKs such as Qiskit, tket, and Braket. Additional demonstrations with other frameworks (e.g., Cirq and Bloqade) are planned for future releases, and community contributions are very welcome.
 
-\---
+---
 
 ## Requirements
 
@@ -95,7 +95,7 @@ Useful if you're contributing or developing locally:
 * `ipython >= 8.0`
 * `jsonschema >= 4.25.1`
 
-\---
+---
 
 ## Installation
 
@@ -164,7 +164,7 @@ pip install ".\[tutorials]"
 
 > Note: This package has been tested on Windows using Conda, with Python 3.10 and 3.12.
 
-\---
+---
 
 ## Quickstart
 
@@ -243,7 +243,7 @@ print(evaluation)
 
 Some benchmarks also provide built-in plotting helpers, for details see the documentation of the benchmarks.
 
-\---
+---
 
 ## Benchmarks
 
@@ -265,7 +265,7 @@ The GHZ Benchmark prepares n-qubit GHZ states using hardware-aware circuit layou
 
 See: [`readme\_ghz\_benchmark.md`](https://github.com/faulhornlabs/qutility-frontier/blob/main/frontier/ghzbenchmark/readme_GHZ_benchmark.md) for the full protocol and interpretation.
 
-\---
+---
 
 ## Benchmark JSON schema
 
@@ -278,7 +278,7 @@ A benchmark instance is stored as a single JSON document containing:
 
 This enables reproducible generation, execution, and scoring while remaining platform-agnostic.
 
-\---
+---
 
 ## Suggested workflow
 
@@ -287,19 +287,33 @@ This enables reproducible generation, execution, and scoring while remaining pla
 3. Attach counts back to the benchmark instance.
 4. Evaluate and store results (score + derived metrics).
 
-\---
+---
+
+## Backend Validation
+
+| SDK | CV | FFV | GHZ | Status |
+|-----|----|-----|-----|--------|
+| Qiskit | ◐ | ◐ | ◐ | Tested on IBM Fez, IBM Marrakesh, AQT Ibex |
+| TKET | ✓ | ◐ | ◐ | Evaluated on Quantinuum H2-1; tested on AQT Ibex |
+| Braket | ◐ | ◐ | ◐ | Tested on IonQ Forte Enterprise, IQM Garnet, AQT Ibex |
+| Cirq | ◐ | ◐ | ◐ | Tested on simulators |
+| Bloqade | ◐ | ◐ | ○ | Tested on simulators |
+
+**Legend:** ∅  planned; ○ implemented;  ◐ tested; ✓ evaluated;
+
+---
 
 ## Documentation
 
 See the  package documentation [here](https://qutility.io/frontier).
 
-\---
+---
 
 ## Contributing
 
 Contributions, feature proposals, and benchmark extensions are very welcome. Please see the [Contributing Guide](https://github.com/faulhornlabs/qutility-frontier/blob/develop/CONTRIBUTING.md) for details on how to get started.
 
-\---
+---
 
 ## Acknowledgements
 
@@ -307,5 +321,5 @@ One of the benchmarks implemented in this package (the **Clifford Volume Benchma
 
 For details, see: https://arxiv.org/pdf/2512.19653
 
-\---
+---
 
