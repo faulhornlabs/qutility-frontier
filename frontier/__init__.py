@@ -33,10 +33,12 @@ from .ghzbenchmark import (
     certify_fidelity_gt_half,
     evaluate_shadow_overlap,
 )
+from .shorbenchmark import ShorPeriodFindingBenchmark
 
 CliffordVolumeBenchmark.__module__ = __name__
 FreeFermionVolumeBenchmark.__module__ = __name__
 GHZBenchmark.__module__ = __name__
+ShorPeriodFindingBenchmark.__module__ = __name__
 
 __all__ = [
     "Benchmark",
@@ -58,6 +60,7 @@ __all__ = [
     "CliffordVolumeBenchmark",
     "FreeFermionVolumeBenchmark",
     "GHZBenchmark",
+    "ShorPeriodFindingBenchmark",
     # GHZ helpers
     "evaluate_fidelity",
     "certify_fidelity_gt_half",
