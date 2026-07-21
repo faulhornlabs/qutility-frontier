@@ -1,6 +1,7 @@
 from __future__ import annotations
 
 import random
+import warnings
 from dataclasses import dataclass
 from fractions import Fraction
 from math import log2, pi
@@ -453,10 +454,10 @@ class ShorPeriodFindingBenchmark(Benchmark):
 			shots=shots,
 			**kwargs,
 		)
-		if control_register_offset < 1:
-			raise ValueError("control_register_offset must be at least 1.")
 		self.control_register_offset = int(control_register_offset)
 		self.control_register_size = 2 * self.number_of_qubits + self.control_register_offset
+		if self.control_register_size < 1:
+			raise ValueError("control_register_size must be at least 1.")
 		self.number_of_measurements = 1
 
 	def _build_period_finding_circuit(
@@ -469,9 +470,10 @@ class ShorPeriodFindingBenchmark(Benchmark):
 		n_control = self.control_register_size
 		total_qubits = n_control + n_target
 
+		# Only the control register is measured, so the classical register is sized to match it.
 		circuit = QuantumCircuit(
 			number_of_qubits=total_qubits,
-			number_of_classical_bits=total_qubits,
+			number_of_classical_bits=n_control,
 		)
 
 		control_qubits = list(range(n_control))
@@ -495,8 +497,8 @@ class ShorPeriodFindingBenchmark(Benchmark):
 
 		_inverse_qft(circuit, control_qubits)
 
-		# Only the control register is measured; the measured phase estimate is
-		# what drives the continued-fractions post-processing step.
+		# Only the control register is measured
+		# the measured phase estimate is the input of the continued-fractions post-processing step.
 		for classical_bit, qubit in enumerate(control_qubits):
 			circuit.add_measurement(qubit, classical_bit)
 
@@ -572,6 +574,8 @@ class ShorPeriodFindingBenchmark(Benchmark):
 			"results": {},
 		}
 
+		total_malformed_shots = 0
+
 		for sample in self.samples:
 			sample_id = sample["sample_id"]
 			sample_key = str(sample_id)
@@ -581,13 +585,21 @@ class ShorPeriodFindingBenchmark(Benchmark):
 
 			successful_shots = 0
 			total_shots = 0
+			malformed_shots = 0
 			for bitstring, count in sample_counts.items():
-				total_shots += int(count)
-				if self._is_successful_bitstring(str(bitstring)):
-					successful_shots += int(count)
+				shot_count = int(count)
+				total_shots += shot_count
+				# A bitstring whose width does not match the control register is
+				# malformed (wrong register size, padding, or bit ordering) rather
+				# than a genuine unsuccessful shot; track it separately so it is
+				# surfaced instead of silently lowering the success probability.
+				if len(str(bitstring).replace(" ", "")) != self.control_register_size:
+					malformed_shots += shot_count
+				elif self._is_successful_bitstring(str(bitstring)):
+					successful_shots += shot_count
 
 			success_probability = (
-				successful_shots / total_shots if total_shots else 0.0
+				successful_shots / total_shots if total_shots > 0 else 0.0
 			)
 
 			evaluation["results"][sample_key] = {
@@ -599,6 +611,16 @@ class ShorPeriodFindingBenchmark(Benchmark):
 
 			results[circuit_id]["successful_shots"] = successful_shots
 			results[circuit_id]["success_probability"] = success_probability
+
+			total_malformed_shots += malformed_shots
+
+		if total_malformed_shots > 0:
+			warnings.warn(
+				f"{total_malformed_shots} measurement result(s) did not match the "
+				f"control register size ({self.control_register_size}) and were "
+				f"scored as failures.",
+				stacklevel=2,
+			)
 
 		self.experimental_results["evaluation"] = evaluation
 
@@ -620,7 +642,9 @@ class ShorPeriodFindingBenchmark(Benchmark):
 			return False
 
 		measured_value = int(stripped, 2)
-		phase_fraction = Fraction(measured_value, 1 << self.control_register_size)
-		candidate = phase_fraction.limit_denominator((1 << self.number_of_qubits) - 1)
-		return candidate.denominator == (1 << self.number_of_qubits) - 1
+		phase_fraction = Fraction(measured_value, 1 << self.control_register_size) # measured_value / 2**control_register_size
+		candidate = phase_fraction.limit_denominator((1 << self.number_of_qubits))
 
+		# is the denominator equal to 2**number_of_qubits - 1, 
+		# which is the expected period for a maximum-cycle linear permutation
+		return candidate.denominator == (1 << self.number_of_qubits) - 1

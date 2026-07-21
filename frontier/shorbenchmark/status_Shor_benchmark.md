@@ -1,6 +1,6 @@
 # Shor Period-Finding Benchmark — Implementation Status
 
-*Last updated: 2026-07-09*
+*Last updated: 2026-07-21*
 
 This document tracks the review/verification status of the
 `ShorPeriodFindingBenchmark` implementation in
@@ -15,9 +15,9 @@ being built up section by section as components are reviewed.
 | Mersenne factor table (`_mersenne_factors.py`) | done | yes — notebook + pytest |
 | Primitive polynomial generation | done | yes — notebook + pytest |
 | CNOT synthesis (Patel–Markov–Hayes) | done | yes — notebook (no pytest coverage yet) |
-| Circuit assembly (`_build_period_finding_circuit`) | done | **not yet** |
-| Sample creation (`_create_single_sample`) | done | **not yet** |
-| Evaluation (`evaluate_benchmark`, `_is_successful_bitstring`) | done | **not yet** |
+| Circuit assembly (`_build_period_finding_circuit`) | done (bug fixed, see below) | yes — notebook (Aer) |
+| Sample creation (`_create_single_sample`) | done | yes — notebook |
+| Evaluation (`evaluate_benchmark`, `_is_successful_bitstring`) | done | yes — notebook (Aer) |
 
 ### Primitive polynomial generation — reviewed
 
@@ -65,7 +65,7 @@ Verification (notebook section 2):
   notebook's comparison cell, which is currently its only record (the package
   predates version control coverage — see open items).
 
-### Circuit assembly / sample creation / evaluation — code-complete, unverified
+### Circuit assembly / sample creation / evaluation — reviewed end-to-end (2026-07-21)
 
 Standard QPE structure: Hadamards on a control register of `2n + offset`
 qubits, target register seeded with `|0...01>`, controlled `M**(2**k)` per
@@ -77,33 +77,57 @@ denominator exactly `2**n - 1`.
 **Intended behavior (confirmed 2026-07-09):** shots whose phase `s/r` has
 `gcd(s, r) > 1` reduce to a smaller denominator and count as *failures*, even
 though the phase estimate itself is correct. This is the deliberate success
-rule; it caps the ideal success probability at roughly `phi(r)/r`.
+rule; it caps the ideal success probability at exactly `phi(r)/r` (QPE samples
+each `s in {0..r-1}` equally on a single length-`r` orbit).
 
-Not yet verified end-to-end (planned as the notebook's next section):
+**Bug found and fixed (2026-07-21):** `_build_period_finding_circuit`
+originally sized the classical register to `total_qubits` (control + target)
+while measuring only the `control_register_size` control qubits. Simulators then
+returned full-width bitstrings (the unmeasured target bits as leading zeros), and
+`_is_successful_bitstring`'s exact-width check (`len != control_register_size`)
+rejected *every* shot — the benchmark scored 0.0 at all `n` under perfect gates.
+Fixed by sizing the classical register to `control_register_size`. The physics
+(QPE, iQFT convention, power ordering, bit order) was already correct; only the
+register width was wrong.
 
-- Ideal simulation of a small instance (e.g. n = 3 target qubits, 10 total) to
-  confirm the measured phases concentrate on multiples of `1/(2**n - 1)` and
-  that the success probability matches the `phi(r)/r`-level prediction.
-- Bit-order consistency between the QASM emitter's bitstrings, the
-  measurement mapping (control qubit `i` → classical bit `i`), the inverse
-  QFT's swap convention, and `int(bitstring, 2)` in the evaluator — a silent
-  failure mode only an end-to-end run can catch.
+Verified in the notebook (sections 3–6, ideal `qiskit_aer.AerSimulator`):
+
+- Structural checks on `_build_period_finding_circuit` / `_create_single_sample`
+  (register sizes, single `X` seed, control-only measurement mapping, JSON
+  sample shape, determinism per `(n, sample_id)`).
+- Unitary-level isolation checks via Qiskit `Operator`: every controlled
+  `M**(2**k)` equals the controlled permutation up to a single global phase
+  (guards the Toffoli synthesis of the controlled map), and `_inverse_qft`
+  matches the analytic inverse DFT. (Compared at `atol=1e-5` because the emitter
+  rounds rotation angles to 6 decimals.)
+- End-to-end: measured phases concentrate on the grid `s/(2**n - 1)`, and the
+  benchmark's own `evaluate_benchmark` returns success probabilities tracking
+  `phi(2**n - 1)/(2**n - 1)` for n = 3, 4, 5 (e.g. n=3: 0.82 vs 0.857 ideal).
+  The small shortfall is finite control-register resolution and shrinks as
+  `control_register_offset` grows. This also confirms bit-order consistency
+  between the emitted QASM, the measurement mapping, the iQFT swaps, and
+  `int(bitstring, 2)` in the evaluator.
+
+**Round-trip note:** loading the emitted QASM into Qiskit needs
+`target_sdk="qiskit"` (the default emitter omits `include "qelib1.inc"`, leaving
+`h` etc. undefined) and `qasm2.loads(..., custom_instructions=LEGACY_CUSTOM_INSTRUCTIONS)`
+(Qiskit's strict QASM2 parser does not define `swap` otherwise).
 
 ## Open items
 
 1. **Run the pytest suite** (`test/test_shorbenchmark.py`) — not run since the
    synthesis rewrite (deferred by request; existing tests only cover the
    polynomial/Mersenne helpers, so no failures are expected).
-2. **Add pytest coverage for the synthesis** — promote the notebook's
-   `apply_schedule` replay check into the test suite.
-3. **End-to-end simulation section** in the tutorial notebook (see above).
-4. **Commit the module** — `frontier/shorbenchmark/`, the tests, and the
-   tutorial notebook are still untracked in git; until committed, the notebook
-   is the only record of the pre-PMH baseline.
+2. **Add pytest coverage for the synthesis and the end-to-end run** — promote the
+   notebook's `apply_schedule` replay check and the `phi(r)/r` success check into
+   the test suite (the latter would have caught the classical-register bug).
+3. ~~End-to-end simulation section~~ — done (notebook sections 3–6, 2026-07-21).
+4. ~~Commit the module~~ — done (committed in `04aa40d`).
 
 ## Environment notes
 
-- Qiskit 2.5.0 was installed ad hoc into the project venv for the synthesis
-  comparison (`pip install qiskit`). It is **not** a package dependency and
-  nothing in `frontier/` imports it; only the notebook's comparison cells use
-  it. Remove with `pip uninstall qiskit` if undesired.
+- Qiskit 2.5.0 and qiskit-aer 0.17.2 were installed ad hoc into the project venv
+  (`pip install qiskit qiskit-aer`) for the synthesis comparison and the
+  end-to-end simulation. They are **not** package dependencies and nothing in
+  `frontier/` imports them; only the notebook's comparison/simulation cells use
+  them. Remove with `pip uninstall qiskit qiskit-aer` if undesired.
