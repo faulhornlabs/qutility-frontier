@@ -24,7 +24,7 @@ from pathlib import Path
 
 from sympy import factorint
 
-DEFAULT_MAX_DEGREE = 200
+DEFAULT_MAX_DEGREE = 250
 DEFAULT_OUT_PATH = (
     Path(__file__).resolve().parent.parent
     / "frontier"

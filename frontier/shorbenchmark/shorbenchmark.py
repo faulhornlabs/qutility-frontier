@@ -443,11 +443,30 @@ class ShorPeriodFindingBenchmark(Benchmark):
 		number_of_qubits: int,
 		sample_size: int = 1,
 		*,
+		sample_ids: Optional[Sequence[int]] = None,
 		control_register_offset: int = 1,
 		shots: int = 10_000,
 		**kwargs: Any,
 	) -> None:
-		"""Initialize the Shor period-finding benchmark configuration."""
+		"""Initialize the Shor period-finding benchmark configuration.
+
+		Each sample's primitive polynomial is selected deterministically from
+		its ``sample_id`` (see ``_primitive_polynomial_for_degree``), so an id
+		reproducibly identifies one instance. By default the generated ids are
+		the contiguous range ``0 .. sample_size - 1``. Pass ``sample_ids`` to
+		generate a specific set of ids instead; ``sample_size`` is then derived
+		from its length and the ``sample_size`` argument is ignored.
+		"""
+		if sample_ids is not None:
+			sample_ids = tuple(int(s) for s in sample_ids)
+			if not sample_ids:
+				raise ValueError("sample_ids must be non-empty when provided.")
+			if any(s < 0 for s in sample_ids):
+				raise ValueError("sample_ids must be non-negative.")
+			if len(set(sample_ids)) != len(sample_ids):
+				raise ValueError("sample_ids must not contain duplicates.")
+			sample_size = len(sample_ids)
+		self.sample_ids: Optional[Tuple[int, ...]] = sample_ids
 		super().__init__(
 			number_of_qubits=number_of_qubits,
 			sample_size=sample_size,
@@ -504,12 +523,29 @@ class ShorPeriodFindingBenchmark(Benchmark):
 
 		return circuit
 
-	def _create_single_sample(self, sample_id: int) -> Dict[str, Any]:
+	def _create_single_sample(self, sample_index: int) -> Dict[str, Any]:
 		"""
 		Create one benchmark sample with circuit and metadata payloads.
-		For the Shor period finding benchmark, the benchmark sample contains only a single circuit 
+		For the Shor period finding benchmark, the benchmark sample contains only a single circuit
 		that implements the period finding algorithm for randomly chosen maximum-cycle linear permutation.
+
+		``create_benchmark`` drives this with the positional sample index
+		(``0 .. sample_size - 1``). When ``sample_ids`` was supplied to the
+		constructor, that position is remapped to the requested id; otherwise
+		the position is used directly as the id.
 		"""
+		if self.sample_ids is not None:
+			try:
+				sample_id = self.sample_ids[sample_index]
+			except IndexError as exc:
+				raise ValueError(
+					f"sample_index {sample_index} is out of range for the "
+					f"{len(self.sample_ids)} configured sample_ids. Do not pass a "
+					"sample_size override to create_benchmark() when sample_ids is set."
+				) from exc
+		else:
+			sample_id = sample_index
+
 		degree = self.number_of_qubits
 		primitive_polynomial = _primitive_polynomial_for_degree(degree, sample_id)
 		companion_matrix = _companion_matrix_from_polynomial(
